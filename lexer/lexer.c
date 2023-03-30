@@ -6,30 +6,13 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 14:22:40 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:28:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 //extern t_context	g_all;
-
-t_list	*new_lexer(void)
-{
-	t_list	*lexer;
-
-	lexer = (t_list *)malloc(sizeof(t_list));
-	if (!lexer)
-	{
-		perror("Minishell: malloc()");
-		return (NULL);
-	}
-	lexer->prev = NULL;
-	lexer->token = NULL;
-	lexer->id = WORD;
-	lexer->next = NULL;
-	return (lexer);
-}
 
 void	lexer(char *input)
 {
@@ -48,30 +31,6 @@ void	lexer(char *input)
 	}
 	printf("Nb cmd = %d\n", g_all.nb_cmd);//***
 	parser(-1);
-}
-
-int	token_redir_or_pipe(char *input, int *index)
-{
-	int		i;
-	t_list	*buf;
-
-	i = 0;
-	while (input[*index + i] && (is_redir_or_pipe(input[*index + i]) || \
-			input[*index + i] == ' '))
-		i++;
-	buf = new_lexer();
-	if (!buf)
-		return (FAILURE);
-	buf->id = 1;
-	buf->token = ft_strtrim(ft_substr(input, index, i + 1), " ");
-	if (!buf->token)
-	{	
-		free(buf);
-		return (FAILURE);
-	}
-	ft_lstadd_back(&g_all.lexer, buf);
-	*index += i;
-	return (SUCCESS);
 }
 
 int	init_token_id(char *input)
@@ -101,78 +60,23 @@ int	init_token_id(char *input)
 	return (SUCCESS);
 }
 
-void	init_token_id_nope(char **argv)
+int	formate_token_id(void)
 {
-	char	*temp;
-	int		i;
-	int		j;
-	int 	x = 0;
-	int 	k = 0;
+	t_list	*tmp;
 
-	j = 0;
-	i = 0;
-	while (argv[i])
+	tmp = g_all.lexer;
+	while (tmp)
 	{
-		while (argv[i][j])
+		if (tmp->id == 0)
+			is_token_a_file(tmp);
+		else if (tmp->id == 1)
 		{
-			if (ft_isalpip(argv[i][j]))
-			{
-				while (ft_isalpip(argv[i][j]))
-				{
-					x++;
-					j++;
-				}
-				printf("%d\n", x);
-				temp = malloc(sizeof(char) * x);
-				while (x)
-				{
-					temp[k] = argv[i][j - x];
-					x--;
-					k++;
-				}
-				ft_lstadd_back(&g_all.lexer, add_token(temp, 1));
-				free(temp);
-			}
-			else if (ft_isavar(argv[i][j]))
-			{
-				while (ft_isavar(argv[i][j]))
-				{
-					x++;
-					j++;
-				}
-				temp = malloc(sizeof(char) * x);
-				while (x)
-				{
-					temp[k] = argv[i][j - x];
-					x--;
-					k++;
-				}
-				ft_lstadd_back(&g_all.lexer, add_var_env(temp));
-				free(temp);
-			}
-			else if (ft_isanum(argv[i][j]))
-			{
-				while (ft_isanum(argv[i][j]))
-				{
-					x++;
-					j++;
-				}
-				temp = malloc(sizeof(char) * x);
-				while (x)
-				{
-					temp[k] = argv[i][j - x];
-					x--;
-					k++;
-				}
-				ft_lstadd_back(&g_all.lexer, add_token(temp, 0));
-				free(temp);
-			}
-			else
-				j++;
-			x = 0;
-			k = 0;
+			if (formate_redir_or_pipe(tmp) == FAILURE)
+				return (FAILURE);
 		}
-	j = 0;
-	i++;
+		// else if (tmp->id == 3)
+		// 	replace_var(tmp);
+		tmp = tmp->next;
 	}
+	return (SUCCESS);
 }

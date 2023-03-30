@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   token2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:43:22 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 13:40:04 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:31:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	token_is_double(t_list *lst)
 	return (SUCCESS);
 }
 
-int	token_pipe_or_redir(t_list *lst)
+int	formate_redir_or_pipe(t_list *lst)
 {
 	int	len;
 
@@ -87,27 +87,6 @@ int	token_pipe_or_redir(t_list *lst)
 	{
 		error_token(lst, len);
 		return (FAILURE);
-	}
-	return (SUCCESS);
-}
-
-int	formate_token_id(void)
-{
-	t_list	*tmp;
-
-	tmp = g_all.lexer;
-	while (tmp)
-	{
-		if (tmp->id == 0)
-			is_token_a_file(tmp);
-		else if (tmp->id == 1)
-		{
-			if (token_pipe_or_redir(tmp) == FAILURE)
-				return (FAILURE);
-		}
-		// else if (tmp->id == 3)
-		// 	replace_var(tmp);
-		tmp = tmp->next;
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 14:19:12 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:26:36 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		init_token_id(char *input);
 void	is_token_a_file(t_list *lst);
 void	token_is_unique(t_list *lst);
 int		token_is_double(t_list *lst);
-int		token_pipe_or_redir(t_list *lst);
+int		formate_redir_or_pipe(t_list *lst);
 int		formate_token_id(void);
 
 //=========== LIBFT ============

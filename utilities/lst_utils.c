@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:17:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 10:04:35 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:28:39 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,19 @@ t_list	*ft_lstlast(t_list *lst)
 	return (ptr);
 }
 
-// void	ft_lstadd_back(t_list **lst, t_list *new) //MAUVAIS ?
-// {
-// 	t_list	*tmp;
+t_list	*new_lexer(void)
+{
+	t_list	*lexer;
 
-// 	tmp = 0;
-// 	if (!(*lst))
-// 		*lst = new;
-// 	else
-// 	{
-// 		tmp = *lst;
-// 		while (tmp)
-// 		{
-// 			if (!tmp->next)
-// 			{
-// 				tmp->next = new;
-// 				new->prev = tmp; // ok ca ? a tester
-// 				break ;
-// 			}
-// 			tmp = tmp->next;
-// 		}
-// 	}
-// }
+	lexer = (t_list *)malloc(sizeof(t_list));
+	if (!lexer)
+	{
+		perror("Minishell: malloc()");
+		return (NULL);
+	}
+	lexer->prev = NULL;
+	lexer->token = NULL;
+	lexer->id = WORD;
+	lexer->next = NULL;
+	return (lexer);
+}
