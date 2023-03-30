@@ -6,29 +6,35 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 09:40:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:28:01 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-size_t	ft_isanum(char c)
+int	isnt_specific(char c)
 {
-	if (c >= 33 && c <= 126 && (!ft_isalpip(c)
-			&& !ft_isavar(c)))
+	if (c >= 33 && c <= 126 && !is_redir_or_pie(c) && !is_var(c) \
+		&& !is_quote(c))
+		return (SUCCESS);
+	return (FAILURE);
+}
+
+int	is_redir_or_pipe(char c)
+{
+	if ((c == '<') || (c == '>' || c == '|'))
 		return (1);
 	return (0);
 }
 
-int	ft_isalpip(char c)
+int is_quote(char c)
 {
-	if ((c == '<')
-		|| (c == '>' || c == '|'))
+	if (c == 34 || c == 39)
 		return (1);
 	return (0);
 }
 
-int	ft_isavar(char c)
+int	is_var(char c)
 {
 	if (c == '$')
 		return (1);

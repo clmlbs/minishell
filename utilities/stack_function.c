@@ -6,13 +6,13 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:29:39 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 10:04:41 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:36:51 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//extern t_context	g_ctx;
+//extern t_context	g_all;
 
 t_list	*add_path_and_name_env(char *path, char *name)
 {
@@ -61,7 +61,7 @@ t_list	*ft_lst(void)
 {
 	t_list	*tmp;
 
-	tmp = g_ctx.lexer;
+	tmp = g_all.lexer;
 	while (tmp->next)
 			tmp = tmp->next;
 	return (tmp);

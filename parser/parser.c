@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 13:11:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 10:47:34 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:36:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	parser(int i)
 	t_cmd	cmd;
 	t_list	*tmp;
 
-	tmp = g_ctx.lexer;
-	while (tmp && ++i < g_ctx.nb_cmd)
+	tmp = g_all.lexer;
+	while (tmp && ++i < g_all.nb_cmd)
 	{
 		if (init_t_cmd(&cmd) == FAILURE)
 			return ;
@@ -44,7 +44,7 @@ int	update_wd(t_cmd *cmd, t_list *lst)
 	index = tab_strlen(cmd->wd);
 	new = (char **)malloc(sizeof(char *) * (index + 2));
 	if (!new)
-		return (ft_perror("Minishell: malloc()", FAILURE));
+		return (ft_perror("Minishell: malloc()"));
 	if (copy_tab_of_strs(cmd->wd, new) == FAILURE)
 		return (FAILURE);
 	new[index] = ft_strdup(lst->token);

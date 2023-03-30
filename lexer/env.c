@@ -6,13 +6,13 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 23:15:47 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 10:02:36 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:36:51 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//extern t_context	g_ctx;
+//extern t_context	g_all;
 
 void	env_check(char **env)
 {
@@ -22,13 +22,13 @@ void	env_check(char **env)
 	if (!env[0])
 	{
 		pwd = getcwd(pwd, 0);
-		ft_lstadd_back(&g_ctx.env, add_path_and_name_env(pwd, "PWD"));
+		ft_lstadd_back(&g_all.env, add_path_and_name_env(pwd, "PWD"));
 		free (pwd);
 	}
 	else
 		env_to_lst(env);
 	// ------------------remove just print -----------------//
-	// t_list *tmp = g_ctx.env;
+	// t_list *tmp = g_all.env;
 	// while (tmp)
 	// {
 	// 	printf("NAME :%s\n", tmp->name_env);
@@ -45,7 +45,7 @@ void	env_to_lst(char **env)
 	i = 0;
 	while (env[i])
 	{
-		ft_lstadd_back(&g_ctx.env, lst_new_env(env[i]));
+		ft_lstadd_back(&g_all.env, lst_new_env(env[i]));
 		i++;
 	}
 }
@@ -86,7 +86,7 @@ void	env_pwd_update(void)
 
 	i = -1;
 	pwd = NULL;
-	temp = g_ctx.env;
+	temp = g_all.env;
 	pwd = getcwd(pwd, 0);
 	while (!ft_strcmp(temp->name_env, "PWD"))
 	{

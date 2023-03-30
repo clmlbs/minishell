@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/03/30 10:03:16 by cleblais         ###   ########.fr        #
+#    Updated: 2023/03/30 14:19:38 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,12 @@ SRCS		=	main.c \
 				libft/ft_strdup.c \
 				libft/ft_strlcpy.c \
 				libft/ft_strlen.c \
+				libft/ft_split.c \
+				libft/ft_substr.c \
+				libft/ft_strtrim.c \
 				parser/parser.c \
 				utilities/stack_function.c \
 				utilities/utilities.c \
-				utilities/ft_split.c \
 				utilities/utilities_second.c \
 				utilities/lst_utils.c \
 				builtin/built_env.c \
@@ -51,7 +53,7 @@ $(NAME)		:		$(OBJS)
 					$(CC) $(CFLAGS) $(OBJS) $(HEADERS) $(LIB_PATH) -o $(NAME)
 
 clean		:
-					$(RM) $(OBJS) $(OBJS_BONUS)
+					$(RM) $(OBJS)
 
 fclean		:		clean
 					$(RM) $(NAME)

@@ -6,13 +6,13 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 09:34:09 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:36:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//t_context	g_ctx;
+//t_context	g_all;
 
 void	sign_ctrl_c(int sign)
 {
@@ -57,9 +57,9 @@ int	main(int arc, char **arv, char **env)
 			break ;
 		if (check_line(input) != EMPTY)
 		{
-			g_ctx.nb_cmd = 1;
+			g_all.nb_cmd = 1;
 			lexer(input);
-			ms_lstclear(&(g_ctx.lexer));
+			ms_lstclear(&(g_all.lexer));
 		}
 		free(input);
 	}

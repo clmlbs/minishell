@@ -6,13 +6,13 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:06:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 10:46:27 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:36:51 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//extern t_context	g_ctx;
+//extern t_context	g_all;
 
 void	write_error(char *begin, char *middle, char *end)
 {

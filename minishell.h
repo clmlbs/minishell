@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 10:55:11 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:19:12 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,23 @@ typedef struct s_list
 
 	char			*name_env;
 	char			*path_env;
-	
-	struct s_list	*next;
-}	t_list;
 
-typedef struct s_context
+	struct s_list	*next;
+}	t_list; // changer en t_lexer et pas t_list
+
+typedef struct s_all
 {
-	t_list	*argument;
 	t_list	*lexer;
 	t_list	*env;
-	t_list	*other;
 
 	t_cmd	*cmd;
 	char	**all_path;
 //	char	**env;
 	int		end[2];
 	int		nb_cmd;
-}	t_context;
+}	t_all;
 
-t_context	g_ctx;
+t_all	g_all;
 
 //=========== ERRORS ============
 //errors.c
@@ -101,6 +99,11 @@ void	free_t_cmd(t_cmd *cmd);
 int		init_t_cmd(t_cmd *cmd);
 
 //=========== LEXER ============
+//lexer.c
+t_list	*new_lexer(void);
+void	lexer(char *input);
+int		init_token_id(char *input);
+
 //token.c
 void	is_token_a_file(t_list *lst);
 void	token_is_unique(t_list *lst);
@@ -112,6 +115,9 @@ int		formate_token_id(void);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
+char	**ft_split(char const *s, char c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strtrim(char const *s1, char const *set);
 
 //=========== UTILITIES ============
 //lst_utils.c
@@ -121,9 +127,10 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
 
 //utilities.c
-size_t	ft_isanum(char c);
-int		ft_isalpip(char c);
-int		ft_isavar(char c);
+int		isnt_specific(char c);
+int		is_var(char c);
+int		is_redir_or_pipe(char c);
+int 	is_quote(char c);
 
 void	printf_strs(char **strs);
 int		copy_tab_of_strs(char **old, char **new);
@@ -131,9 +138,7 @@ int		tab_strlen(char **tab_of_str);
 
 void	env_check(char **env);
 void	ft_lstadd_back(t_list **lst, t_list *new);
-void	init_token_id(char **argv);
 void	env_to_lst(char **env);
-void	lexer(char *input);
 void	env_pwd_update(void);
 void	built_env(void);
 // void    parser(char *input);
@@ -145,12 +150,7 @@ t_list	*lst_new_env(char *str);
 t_list	*ft_lst(void);
 t_list	*add_var_env(char *token);
 
-size_t	ft_strlen(const char *s);
-size_t	ft_isanum(char c);
 int		ft_strcmp(const char *s1, const char *s2);
-int		ft_isalpip(char c);
-int		ft_isavar(char c);
-int		ft_quote(char c);
 
 char	**ft_split(const char *s, char c);
 

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:43:22 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 09:16:29 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:40:04 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	token_is_unique(t_list *lst)
 	if (lst->token[0] == '|')
 	{
 		lst->id = PIPE;
-		g_ctx.nb_cmd++;
+		g_all.nb_cmd++;
 	}
 	else if (lst->token[0] == '<')
 		lst->id = SIMPLE_REDIR_IN;
@@ -95,8 +95,7 @@ int	formate_token_id(void)
 {
 	t_list	*tmp;
 
-	g_ctx.lexer->prev = NULL;
-	tmp = g_ctx.lexer;
+	tmp = g_all.lexer;
 	while (tmp)
 	{
 		if (tmp->id == 0)
