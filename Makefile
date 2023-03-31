@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/03/31 11:46:15 by cleblais         ###   ########.fr        #
+#    Updated: 2023/03/31 14:12:29 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS		=	main.c \
 				libft/ft_strzero.c \
 				libft/ft_substr.c \
 				parser/parser.c \
+				parser/quotes.c \
 				utilities/stack_function.c \
 				utilities/utilities.c \
 				utilities/utilities_second.c \

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 14:02:53 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:14:27 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,10 +189,12 @@ char	**ft_split(const char *s, char c);
 
 //=========== PARSER ============
 // parser.c
-int	parser(void);
+int		parser(void);
 
-
-
+//quotes.c
+int		check_quotes_even(t_lexer *lst);
+int		remove_quotes(t_lexer *lst);
+int		are_quotes_even(void);
 
 //parsermauvais.c
 int		update_wd(t_cmd *cmd, t_lexer *lst);
