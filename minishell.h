@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 11:27:48 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:38:41 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,25 @@
 
 //=========== TOKENS ============
 # define WORD 0
-# define WHITESPACE 1
 # define BACKSLASH_N 2
-# define VAR 3
-# define PIPE 4
+# define WHITESPACE 32
 
-# define REDIR_IN 10
-# define SIMPLE_REDIR_IN 11
-# define DOUBLE_REDIR_IN 12
-
-# define REDIR_OUT 20
-# define SIMPLE_REDIR_OUT 21
-# define DOUBLE_REDIR_OUT 22
-
-# define SIMPLE_QUOTE 31
-# define DOUBLE_QUOTE 32
+# define DOUBLE_QUOTE 34
+# define SIMPLE_QUOTE 39
 
 # define FILE_NAME 40
 # define KEY_WORD_HERE_DOC 41
+
+# define VAR 36
+# define PIPE 124
+
+# define SIMPLE_REDIR_IN 58
+# define DOUBLE_REDIR_IN 59
+# define REDIR_IN 60
+
+# define REDIR_OUT 62
+# define SIMPLE_REDIR_OUT 63
+# define DOUBLE_REDIR_OUT 64
 
 //============ COLORS ==============
 # define WATERMELON "\x1b[38;2;254;127;156m"
@@ -113,13 +114,17 @@ int		init_t_cmd(t_cmd *cmd);
 //=========== LEXER ============
 //lexer.c
 void	lexer(char *input);
-int		tokenize_until_same(int id);
-int		tokenize_words(int id_target, int id_compare);
+int		tokenize_all_steps(void);
+
+//t_lexer_utils.c
 int		add_next_to_current(t_lexer *current);
 int		add_char_to_str(t_lexer *str_dest, t_lexer *char_src);
-int		init_tokenize(char c);
-int		tokenize_char(char c, int id);
-t_lexer	*lex_lstnew(void);
+
+//token.c
+int		init_id(char c);
+int		assign_id_to_char(char c, int id);
+int		tokenize_words(int id_target, int id_compare);
+int		tokenize_until_same(int id, int even);
 
 //token1.c
 int		token_redir_or_pipe(char *input, int *index);
@@ -152,6 +157,7 @@ void	ms_lstdelone(t_lexer *lst);
 void	lex_lstadd_back(t_lexer **lst, t_lexer *new);
 t_lexer	*ft_lstlast(t_lexer *lst);
 void	print_t_lexer(void);
+t_lexer	*lex_lstnew(void);
 
 //utilities.c
 int		isnt_specific(char c);
@@ -182,9 +188,19 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	**ft_split(const char *s, char c);
 
 //=========== PARSER ============
-//parser.c
-void	parser(int i);
+// parser.c
+int	parser(void);
+
+
+
+
+//parsermauvais.c
 int		update_wd(t_cmd *cmd, t_lexer *lst);
 int		fill_cmd(t_cmd *cmd, t_lexer *lst);
 
+//=========== MAIN =============
+
+int		check_line(char *input);
+void	minishell(char *input);
+int		main(int arc, char **arv, char **env);
 #endif

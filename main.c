@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 16:42:28 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:55:19 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,16 @@ int	check_line(char *input)
 		return (EMPTY);
 }
 
+
+void	minishell(char *input)
+{
+	lexer(input);
+	print_t_lexer();//********
+	parser();
+	print_t_lexer();//********
+}
+
+
 int	main(int arc, char **arv, char **env)
 {
 	char		*input;
@@ -44,7 +54,7 @@ int	main(int arc, char **arv, char **env)
 	//env_check(env);
 	if (arc != 1)
 	{
-		write_error("Error: ", "you cannot add arguments",\
+		write_error("Error: ", "you cannot add arguments", \
 		" after \"minishell\"\n");
 		return (FAILURE);
 	}
@@ -52,13 +62,13 @@ int	main(int arc, char **arv, char **env)
 	{
 		signal(SIGINT, sign_ctrl_c);
 		//env_pwd_update(); // faut pas mettre ca apres l'exec ?
-		input = readline(WATERMELON "prompt " WHITE);
+		input = readline(WATERMELON "Minishell " WHITE);
 		if (check_line(input) == FAILURE)
 			break ;
 		if (check_line(input) != EMPTY)
 		{
 			g_all.nb_cmd = 1;
-			lexer(input);
+			minishell(input);
 			ms_lstclear(&(g_all.lexer));
 		}
 		free(input);

@@ -5,66 +5,77 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 13:11:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 17:06:03 by cleblais         ###   ########.fr       */
+/*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
+/*   Updated: 2023/03/31 13:52:46 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	parser(int i)
+int	check_quotes_even(t_lexer *lst)
 {
-	t_cmd	cmd;
-	t_lexer	*tmp;
+	int		nb_quotes;
+	int		i;
 
-	tmp = g_all.lexer;
-	while (tmp && ++i < g_all.nb_cmd)
+	i = 0;
+	nb_quotes = 0;
+	while (lst->token[i])
 	{
-		if (init_t_cmd(&cmd) == FAILURE)
-			return ;
-		while (tmp != NULL && tmp->id != PIPE)
-		{
-			if (fill_cmd(&cmd, tmp) == FAILURE)
-				return ;
-			tmp = tmp->next;
-		}
-		printf_strs(cmd.wd);//********
-		//execute_cmd(&cmd);
-		free_t_cmd(&cmd);
-		if (tmp && tmp->id == PIPE)
-			tmp = tmp->next;
+		if (lst->token[i] == lst->id)
+			nb_quotes++;
+		i++;
+	}
+	if (nb_quotes % 2 == 0)
+		return (SUCCESS);
+	else
+	{
+		printf("quotes = %d\n", nb_quotes);//****
+		if (lst->id == SIMPLE_QUOTE)
+			write_error("Minishell: ", "error: quotes `'' ", "are not even\n");
+		else
+			write_error("Minishell: ", "quotes `\"' ", "are not even\n");
+		return (FAILURE);
 	}
 }
 
-int	update_wd(t_cmd *cmd, t_lexer *lst)
+int	remove_quotes(t_lexer *lst)
 {
-	char	**new;
-	int		index;
+	int		len;
+	char	*new;
 
-	index = tab_strlen(cmd->wd);
-	new = (char **)malloc(sizeof(char *) * (index + 2));
+	len = ft_strlen(lst->token);
+	new = ft_substr(lst->token, 1, len - 2);
 	if (!new)
-		return (ft_perror("Minishell: malloc()"));
-	if (copy_tab_of_strs(cmd->wd, new) == FAILURE)
 		return (FAILURE);
-	new[index] = ft_strdup(lst->token);
-	if (!new[index])
-	{
-		free_tab_strs(new);
-		return (FAILURE);
-	}
-	new[index + 1] = NULL;
-	free_tab_strs(cmd->wd);
-	cmd->wd = new;
+	free(lst->token);
+	lst->token = new;
 	return (SUCCESS);
 }
 
-int	fill_cmd(t_cmd *cmd, t_lexer *lst)
+
+int	are_quotes_even(void)
 {
-	if (lst->id == WORD || lst->id == VAR)
+	t_lexer	*buf;
+
+	buf = g_all.lexer;
+	while (buf)
 	{
-		if (update_wd(cmd, lst) == FAILURE)
-			return (FAILURE);
+		if (buf->id == SIMPLE_QUOTE || buf->id == DOUBLE_QUOTE)
+		{
+			if (check_quotes_even(buf) == FAILURE)
+				return (FAILURE);
+			if (remove_quotes(buf) == FAILURE)
+				return (FAILURE);
+		}
+		buf = buf->next;
 	}
+	return (SUCCESS);
+}
+
+
+int	parser(void)
+{
+	if (are_quotes_even() == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/03/31 11:43:02 by cleblais         ###   ########.fr        #
+#    Updated: 2023/03/31 11:46:15 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,9 @@ SRCS		=	main.c \
 				free/free.c \
 				init/init.c \
 				lexer/env.c \
-				lexer/t_lexer_utils.c \
 				lexer/lexer.c \
+				lexer/t_lexer_utils.c \
+				lexer/token.c \
 				lexer/token1.c \
 				lexer/token2.c \
 				libft/ft_split.c \
