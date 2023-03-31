@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:33 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 13:57:41 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:02:29 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,16 @@ int	tokenize_words(int id_target, int id_compare)
 	return (SUCCESS);
 }
 
-int	tokenize_until_same(int id, int even)
+int	tokenize_quotes(int even, int id)
 {
 	t_lexer	*buf;
 
 	buf = g_all.lexer;
 	while (buf)
 	{
-		if (buf->id == id)
+		if (buf->id == SIMPLE_QUOTE || buf->id == DOUBLE_QUOTE)
 		{
+			id = buf->id;
 			if (buf->token == NULL)
 			{
 				if (add_char_to_str(buf, buf) == FAILURE)

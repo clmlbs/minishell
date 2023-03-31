@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 13:48:03 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:02:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	lexer(char *input)
 
 int	tokenize_all_steps(void)
 {
-	if (tokenize_until_same(SIMPLE_QUOTE, NO) == FAILURE)
+	if (tokenize_quotes(NO, 0) == FAILURE)
 		return (FAILURE);
-	if (tokenize_until_same(DOUBLE_QUOTE, NO) == FAILURE)
-		return (FAILURE);
+	// if (tokenize_quotes(DOUBLE_QUOTE, NO) == FAILURE)
+	// 	return (FAILURE);
 	if (tokenize_words(VAR, WORD) == FAILURE)
 		return (FAILURE);
 	if (tokenize_words(PIPE, PIPE) == FAILURE)

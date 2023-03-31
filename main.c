@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 13:55:19 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:03:24 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_line(char *input)
 void	minishell(char *input)
 {
 	lexer(input);
-	print_t_lexer();//********
+	//print_t_lexer();//********
 	parser();
 	print_t_lexer();//********
 }

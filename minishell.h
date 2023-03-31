@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 13:38:41 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:02:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int		add_char_to_str(t_lexer *str_dest, t_lexer *char_src);
 int		init_id(char c);
 int		assign_id_to_char(char c, int id);
 int		tokenize_words(int id_target, int id_compare);
-int		tokenize_until_same(int id, int even);
+int		tokenize_quotes(int even, int id);
 
 //token1.c
 int		token_redir_or_pipe(char *input, int *index);

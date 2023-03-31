@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 13:52:46 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:05:00 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	remove_quotes(t_lexer *lst)
 		return (FAILURE);
 	free(lst->token);
 	lst->token = new;
+	lst->id = WORD;
 	return (SUCCESS);
 }
 
