@@ -6,13 +6,13 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:43:04 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 11:44:28 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:41:44 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	add_next_to_current(t_lexer *current)
+int	add_next_char_to_current(t_lexer *current)
 {
 	t_lexer	*buf_to_suppr;
 
@@ -43,4 +43,30 @@ int	add_char_to_str(t_lexer *str_dest, t_lexer *char_src)
 	free(str_dest->token);
 	str_dest->token = str_buf;
 	return (SUCCESS);
+}
+
+void	remove_token(t_lexer *lst)
+{
+	t_lexer	*buf;
+
+	if (!lst->prev && !lst->next)
+		free_t_lexer(lst);
+	else if (!lst->next)
+	{
+		lst->prev->next = NULL;
+		free_t_lexer(lst);
+	}
+	else if (!lst->prev)
+	{
+		buf = lst->next;
+		free_t_lexer(lst);
+		lst = buf;
+	}
+	else
+	{
+		buf = lst->prev;
+		buf->next = lst->next;
+		buf->next->prev = buf;
+		free_t_lexer(lst);
+	}
 }

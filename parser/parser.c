@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 14:22:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:55:10 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	check_pipes(void)
 		{
 			if (ft_strlen(buf->token) != 1)
 			{
-				write_error("Minishell: ", \
-				"error: more than one pipe `|' are not taken in charge" ,\
-				" in this Minishell\n");
+				error_token(buf, ft_strlen(buf->token));
 				return (FAILURE);
 			}
 		}
@@ -34,6 +32,33 @@ int	check_pipes(void)
 	return (SUCCESS);
 }
 
+int	check_redir(void)
+{
+	t_lexer	*buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == REDIR_IN || buf->id == REDIR_OUT)
+		{
+			if (ft_strlen(buf->token) < 1 || ft_strlen(buf->token) > 2)
+			{
+				error_token(buf, ft_strlen(buf->token));
+				return (FAILURE);
+			}
+			if (buf->id == REDIR_IN && ft_strlen(buf->token) == 1)
+				buf->id = SIMPLE_REDIR_IN;
+			else if (buf->id == REDIR_IN && ft_strlen(buf->token) == 2)
+				buf->id = DOUBLE_REDIR_IN;
+			else if (buf->id == REDIR_OUT && ft_strlen(buf->token) == 1)
+				buf->id = SIMPLE_REDIR_OUT;
+			else
+				buf->id = DOUBLE_REDIR_OUT;
+		}
+		buf = buf->next;
+	}
+	return (SUCCESS);
+}
 
 int	parser(void)
 {
@@ -41,6 +66,8 @@ int	parser(void)
 		return (FAILURE);
 	// replace_var
 	if (check_pipes() == FAILURE)
+		return (FAILURE);
+	if (check_redir() == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }

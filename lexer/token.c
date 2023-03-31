@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:33 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 14:33:53 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:40:25 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	tokenize_words(int id_target, int id_compare)
 			}
 			while (buf->next && (buf->next->id == id_compare))
 			{
-				if (add_next_to_current(buf) == FAILURE)
+				if (add_next_char_to_current(buf) == FAILURE)
 					return (FAILURE);
 			}
 		}
@@ -103,7 +103,7 @@ int	tokenize_quotes(int even, int id)
 			{
 				if (buf->next->id == id)
 					even = YES;
-				if (add_next_to_current(buf) == FAILURE)
+				if (add_next_char_to_current(buf) == FAILURE)
 					return (FAILURE);
 			}
 			even = NO;
@@ -111,4 +111,17 @@ int	tokenize_quotes(int even, int id)
 		buf = buf->next;
 	}
 	return (SUCCESS);
+}
+
+void	remove_spaces(void)
+{
+	t_lexer	*buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == WHITESPACE || buf->id == BACKSLASH_N)
+			remove_token(buf);
+		buf = buf->next;
+	}
 }

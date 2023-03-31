@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:06:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 16:44:31 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:55:05 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ void	write_error(char *begin, char *middle, char *end)
 
 void	error_token(t_lexer *lst, int len)
 {
-	if (len == 3 || lst->token[3] != lst->token[4])
+	printf("str:%s\n", lst->token);///******
+	if (len == 2 || len == 3) //|| lst->token[3] != lst->token[4])
 	{
 		write_error("Minishell:", " syntax error near unexpected", " token `");
-		write(2, &(lst->token[2]), 1);
+		write(2, &(lst->token[len - 1]), 1);
 		write(2, "'\n", 2);
 	}
-	else
+	else if (len > 3)
 	{
 		write_error("Minishell:", " syntax error near unexpected", " token `");
 		write(2, &(lst->token[2]), 1);

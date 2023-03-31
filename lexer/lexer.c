@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 14:44:40 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:43:26 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	tokenize_all_steps(void)
 		return (FAILURE);
 	// if (tokenize_quotes(DOUBLE_QUOTE, NO) == FAILURE)
 	// 	return (FAILURE);
+	remove_spaces();
 	if (tokenize_words(VAR, WORD) == FAILURE)
 		return (FAILURE);
 	if (tokenize_words(PIPE, PIPE) == FAILURE)

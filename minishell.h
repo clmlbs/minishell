@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 14:14:27 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:41:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,16 @@ void	lexer(char *input);
 int		tokenize_all_steps(void);
 
 //t_lexer_utils.c
-int		add_next_to_current(t_lexer *current);
+int		add_next_char_to_current(t_lexer *current);
 int		add_char_to_str(t_lexer *str_dest, t_lexer *char_src);
+void	remove_token(t_lexer *lst);
 
 //token.c
 int		init_id(char c);
 int		assign_id_to_char(char c, int id);
 int		tokenize_words(int id_target, int id_compare);
 int		tokenize_quotes(int even, int id);
+void	remove_spaces(void);
 
 //token1.c
 int		token_redir_or_pipe(char *input, int *index);
