@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:33 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 14:02:29 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:33:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	init_id(char c)
 	int	result;
 
 	result = SUCCESS;
-	if (c == ' ')
+	if (c == ' ' || c == 9 || c == 11)
 		result = assign_id_to_char(c, WHITESPACE);
 	else if (c == '\n')
 		result = assign_id_to_char(c, BACKSLASH_N);

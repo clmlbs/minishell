@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 14:02:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:44:40 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	lexer(char *input)
 	while (input[i])
 	{
 		if (init_id(input[i]) == FAILURE)
-			return ;
+			return (write_error("Minishell: ", "syntax error", "\n"));
 		i++;
 	}
 	if (tokenize_all_steps() == FAILURE)
