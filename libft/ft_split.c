@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:16:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 10:35:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:04:22 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static t_count	*ft_count_init(void)
 
 	nbr = (t_count *)malloc(sizeof(t_count));
 	if (!nbr)
+	{
+		perror("Minishell: malloc()");
 		return (NULL);
+	}
 	nbr->count = 0;
 	nbr->j = 0;
 	nbr->start = 0;
@@ -74,17 +77,17 @@ char	**ft_split(char const *s, char c)
 	n = ft_count_init();
 	if (!n)
 		return (NULL);
-	i = 0;
-	while (s[i])
+	i = -1;
+	while (s[++i])
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 			n->count++;
-		i++;
 	}
 	strs = (char **)malloc(sizeof(strs) * (n->count + 1));
 	if (!strs)
 	{
 		free(n);
+		perror("Minishell: malloc()");
 		return (NULL);
 	}
 	ft_fillstrs(s, c, strs, n);

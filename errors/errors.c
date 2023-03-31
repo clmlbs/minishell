@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:06:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 13:36:51 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:44:31 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	write_error(char *begin, char *middle, char *end)
 	write(2, end, ft_strlen(end));
 }
 
-void	error_token(t_list *lst, int len)
+void	error_token(t_lexer *lst, int len)
 {
 	if (len == 3 || lst->token[3] != lst->token[4])
 	{

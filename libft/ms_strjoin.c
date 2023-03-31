@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ms_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 10:03:15 by cleblais         ###   ########.fr       */
+/*   Created: 2022/11/07 13:17:27 by cleblais          #+#    #+#             */
+/*   Updated: 2023/03/31 10:45:18 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	init_t_cmd(t_cmd *cmd)
-{
-	// cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	// if (!cmd)
-	// 	return(ft_perror("Minishell: malloc()"));
-	// g_all.cmd = cmd;
-	cmd->wd = NULL;
-	cmd->infile_name = NULL;
-	cmd->outfile_name = NULL;
-	cmd->good_path = NULL;
-	return (SUCCESS);
-}
 
+char	*ms_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	int		len;
+	char	buf[1];
+
+	if (!s1)
+	{
+		buf[0] = '\0';
+		s1 = buf;
+	}
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	str = (char *)malloc(sizeof(*str) * len);
+	if (!str)
+	{
+		perror("Minishell: malloc()");
+		return (NULL);
+	}
+	ft_strlcpy(str, s1, ft_strlen(s1) + 1);
+	ft_strlcat(str, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	return (str);
+}

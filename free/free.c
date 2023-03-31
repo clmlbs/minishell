@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 10:14:05 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:56:37 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,14 @@ void	free_t_cmd(t_cmd *cmd)
 		free(cmd->outfile_name);
 	if (cmd->good_path)
 		free(cmd->good_path);
-	//free(cmd);
+	free(cmd); // ok ca ? 
+}
+
+void	free_t_lexer(t_lexer *lst)
+{
+	if (!lst)
+		return ;
+	if (lst->token)
+		free(lst->token);
+	free(lst);
 }

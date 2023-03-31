@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 13:11:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 13:36:50 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:06:03 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parser(int i)
 {
 	t_cmd	cmd;
-	t_list	*tmp;
+	t_lexer	*tmp;
 
 	tmp = g_all.lexer;
 	while (tmp && ++i < g_all.nb_cmd)
@@ -36,7 +36,7 @@ void	parser(int i)
 	}
 }
 
-int	update_wd(t_cmd *cmd, t_list *lst)
+int	update_wd(t_cmd *cmd, t_lexer *lst)
 {
 	char	**new;
 	int		index;
@@ -51,7 +51,7 @@ int	update_wd(t_cmd *cmd, t_list *lst)
 	if (!new[index])
 	{
 		free_tab_strs(new);
-		return (ft_perror("Minishell: ft_strdup()"));
+		return (FAILURE);
 	}
 	new[index + 1] = NULL;
 	free_tab_strs(cmd->wd);
@@ -59,7 +59,7 @@ int	update_wd(t_cmd *cmd, t_list *lst)
 	return (SUCCESS);
 }
 
-int	fill_cmd(t_cmd *cmd, t_list *lst)
+int	fill_cmd(t_cmd *cmd, t_lexer *lst)
 {
 	if (lst->id == WORD || lst->id == VAR)
 	{

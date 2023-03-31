@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 13:36:50 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:42:28 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int arc, char **arv, char **env)
 
 	(void) arv;
 	(void) arc;
-	env_check(env);
+	//env_check(env);
 	if (arc != 1)
 	{
 		write_error("Error: ", "you cannot add arguments",\
@@ -51,7 +51,7 @@ int	main(int arc, char **arv, char **env)
 	while (1)
 	{
 		signal(SIGINT, sign_ctrl_c);
-		env_pwd_update(); // faut pas mettre ca apres l'exec ?
+		//env_pwd_update(); // faut pas mettre ca apres l'exec ?
 		input = readline(WATERMELON "prompt " WHITE);
 		if (check_line(input) == FAILURE)
 			break ;

@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strzero.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 10:03:15 by cleblais         ###   ########.fr       */
+/*   Created: 2022/11/07 13:11:41 by cleblais          #+#    #+#             */
+/*   Updated: 2023/03/30 17:02:47 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	init_t_cmd(t_cmd *cmd)
+char	*ft_strzero(char *s, size_t n)
 {
-	// cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	// if (!cmd)
-	// 	return(ft_perror("Minishell: malloc()"));
-	// g_all.cmd = cmd;
-	cmd->wd = NULL;
-	cmd->infile_name = NULL;
-	cmd->outfile_name = NULL;
-	cmd->good_path = NULL;
-	return (SUCCESS);
-}
+	size_t		i;
+	char		*ptr;
 
+	i = 0;
+	if (!s)
+		return (NULL);
+	ptr = s;
+	while (i < n)
+	{
+		ptr[i] = '\0';
+		i++;
+	}
+	return (s);
+}

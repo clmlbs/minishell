@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 13:28:01 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:23:01 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	isnt_specific(char c)
 {
-	if (c >= 33 && c <= 126 && !is_redir_or_pie(c) && !is_var(c) \
+	if (c >= 33 && c <= 126 && !is_redir_or_pipe(c) && !is_var(c) \
 		&& !is_quote(c))
 		return (SUCCESS);
 	return (FAILURE);
@@ -65,7 +65,6 @@ int	copy_tab_of_strs(char **old, char **new)
 		new[i] = ft_strdup(old[i]);
 		if (!new[i])
 		{
-			perror("Minishell: ft_strdup()");
 			free_tab_strs(new);
 			return (FAILURE);
 		}

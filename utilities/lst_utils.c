@@ -6,15 +6,15 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:17:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 14:28:39 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:15:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ms_lstclear(t_list **lst)
+void	ms_lstclear(t_lexer **lst)
 {
-	t_list	*buf;
+	t_lexer	*buf;
 
 	if (lst)
 	{
@@ -27,24 +27,18 @@ void	ms_lstclear(t_list **lst)
 	}
 }
 
-void	ms_lstdelone(t_list *lst)
+void	ms_lstdelone(t_lexer *lst)
 {
 	if (!lst)
 		return ;
-	// if (lst->wd)
-	// 	free_tab_strs(lst->wd);
 	if (lst->token)
 		free(lst->token);
-	// if (lst->name_env)
-	// 	free(lst->name_env);
-	// if (lst->path_env)
-	// 	free(lst->path_env);
 	free(lst);
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	lex_lstadd_back(t_lexer **lst, t_lexer *new)
 {
-	t_list	*ptr;
+	t_lexer	*ptr;
 
 	if (!new)
 		return ;
@@ -58,9 +52,9 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	new->prev = ptr;
 }
 
-t_list	*ft_lstlast(t_list *lst)
+t_lexer	*ft_lstlast(t_lexer *lst)
 {
-	t_list	*ptr;
+	t_lexer	*ptr;
 
 	if (!lst)
 		return (NULL);
@@ -70,19 +64,32 @@ t_list	*ft_lstlast(t_list *lst)
 	return (ptr);
 }
 
-t_list	*new_lexer(void)
+t_lexer	*lex_lstnew(void)
 {
-	t_list	*lexer;
+	t_lexer	*lexer;
 
-	lexer = (t_list *)malloc(sizeof(t_list));
+	lexer = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!lexer)
 	{
 		perror("Minishell: malloc()");
 		return (NULL);
 	}
 	lexer->prev = NULL;
+	lexer->c = 0;
 	lexer->token = NULL;
 	lexer->id = WORD;
 	lexer->next = NULL;
 	return (lexer);
+}
+
+void	print_t_lexer(void)
+{
+	t_lexer	*buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		printf("id:%d	%c	%s\n", buf->id, buf->c, buf->token);
+		buf = buf->next;
+	}
 }
