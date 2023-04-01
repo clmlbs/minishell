@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:45:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 16:55:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:01:03 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,59 +24,69 @@ int	add_word(t_lexer *lexer, t_cmd *cmd)
 int	add_key_word_here_doc(t_lexer *lexer)
 {
 	char	*input;
+	t_doc	*doc;
 
-	input = here_doc(lexer->token);
+	doc = (t_doc *)malloc(sizeof(t_doc));
+	if (!doc)
+		ft_perror("Minishell: malloc()");
+	doc->input = NULL;
+	doc->line = NULL;
+	doc->buf_line = NULL;
+	doc->line_len = 0;
+	doc->input_len = 0;
+	input = here_doc(lexer->token, doc);
 	if (!input)
+	{
+		free (doc);
 		return (FAILURE);
+	}
 	lexer->id = WORD;
 	free(lexer->token);
 	lexer->token = input;
+	free(doc);//normalement pas besoin de free chaque truc car deja fait 
 	return (SUCCESS);
 }
 
-char *here_doc(char *keyword)
+char	*here_doc(char *keyword, t_doc *doc)
 {
-	char	*input;
-	char	*line;
-	char	*buf_line;
-	int		line_len;
-	int		input_len;
-
-	input = NULL;
-	line = NULL;
-	line_len = 0;
 	while (1)
 	{
-		input = readline("> ");
-		if (input == NULL || !ft_strncmp(input, keyword, ft_strlen(keyword)))
+		doc->input = readline("> ");
+		if (doc->input == NULL || !ft_strncmp(doc->input, keyword, \
+			ft_strlen(keyword)))
 		{
-			free(input);
+			free(doc->input);
 			break ;
 		}
 	//	add_history(input); // Je l'ai enlever pour pas fausser l'historique 
-		input_len = ft_strlen(input) + 1;
-		buf_line = (char *)malloc(sizeof(char) * (line_len + input_len + 1));
-		buf_line[0] = '\0';
-		if (!buf_line)
+		doc->input_len = ft_strlen(doc->input) + 1;
+		doc->buf_line = (char *)malloc(sizeof(char) * (doc->line_len + doc->input_len + 1));
+		if (!(doc->buf_line))
 		{
 			perror("Minishell: malloc()");
 			return (NULL);
 		}
-		if (line)
-			ft_strlcat(buf_line, line, line_len + 1);
-		ft_strlcat(buf_line, input, line_len + input_len + 1);
-		line_len += input_len;
-		buf_line[line_len - 1] = '\n';
-		buf_line[line_len] = '\0';
-		free(line);
-		line = buf_line;
-		free(input);
+		create_here_doc_line(doc);
 	}
-	if (line)
+	if (doc->line)
 	{
-		line[line_len - 1] = '\0';
-		line[line_len] = '\0';
-		return (line);
+		doc->line[doc->line_len - 1] = '\0';
+		doc->line[doc->line_len] = '\0';
+		return (doc->line);
 	}
 	return (NULL);
+}
+
+void	create_here_doc_line(t_doc *doc)
+{
+	(doc->buf_line)[0] = '\0';
+	if (doc->line)
+		ft_strlcat(doc->buf_line, doc->line, doc->line_len + 1);
+	ft_strlcat(doc->buf_line, doc->input, doc->line_len + doc->input_len + 1);
+	doc->line_len += doc->input_len;
+	doc->buf_line[doc->line_len - 1] = '\n';
+	doc->buf_line[doc->line_len] = '\0';
+	free(doc->line);
+	doc->line = doc->buf_line;
+	free(doc->input);
 }

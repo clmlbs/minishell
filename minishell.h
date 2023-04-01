@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 16:35:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 17:56:33 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,16 @@ typedef struct s_all
 	int		nb_cmd;
 }	t_all;
 
+typedef struct s_doc
+{
+	char	*input;
+	char	*line;
+	char	*buf_line;
+	int		line_len;
+	int		input_len;
+}	t_doc;
+
+
 t_all	g_all;
 
 //=========== COMMANDS ============
@@ -118,7 +128,8 @@ int		update_wd(char *str, t_cmd *cmd);
 //add_cmds.c
 int		add_word(t_lexer *lexer, t_cmd *cmd);
 int		add_key_word_here_doc(t_lexer *lexer);
-char	*here_doc(char *keyword);
+char	*here_doc(char *keyword, t_doc *doc);
+void	create_here_doc_line(t_doc *doc);
 
 //=========== ERRORS ============
 //errors.c
