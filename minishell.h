@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 16:41:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:22:02 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@
 # define DOUBLE_QUOTE 34
 # define SIMPLE_QUOTE 39
 
-# define FILE_NAME 40
-# define KEY_WORD_HERE_DOC 41
+# define KEY_WORD_HERE_DOC 40
+# define INFILE_NAME 41
+# define OUTFILE_NAME 42
 
 # define VAR 36
 # define PIPE 124
@@ -119,7 +120,6 @@ int		tokenize_all_steps(void);
 //t_lexer_utils.c
 int		add_next_char_to_current(t_lexer *current);
 int		add_char_to_str(t_lexer *str_dest, t_lexer *char_src);
-void	remove_token(t_lexer *lst);
 
 //token.c
 int		init_id(char c);
@@ -182,7 +182,6 @@ t_lexer	*add_path_and_name_env(char *path, char *name);
 t_lexer	*add_token(char *token, int id);
 t_lexer	*add_other(char *oth);
 t_lexer	*lst_new_env(char *str);
-t_lexer	*ft_lst(void);
 t_lexer	*add_var_env(char *token);
 
 int		ft_strcmp(const char *s1, const char *s2);
@@ -197,6 +196,9 @@ int		parser(void);
 int		check_quotes_even(t_lexer *lst);
 int		remove_quotes(t_lexer *lst);
 int		are_quotes_even(void);
+
+//parser_utils.c
+void	remove_token(t_lexer *lst);
 
 //parsermauvais.c
 int		update_wd(t_cmd *cmd, t_lexer *lst);

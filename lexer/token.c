@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:33 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 10:32:26 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 10:47:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,17 +111,4 @@ int	tokenize_quotes(int even, int id)
 		buf = buf->next;
 	}
 	return (SUCCESS);
-}
-
-void	remove_spaces(void)
-{
-	t_lexer	*buf;
-
-	buf = g_all.lexer;
-	while (buf)
-	{
-		if (buf->id == WHITESPACE || buf->id == BACKSLASH_N)
-			remove_token(buf);
-		buf = buf->next;
-	}
 }

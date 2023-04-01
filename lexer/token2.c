@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:43:22 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 09:21:53 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:24:13 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	is_token_a_file(t_lexer *lst)
 		if (lst->prev->id == SIMPLE_REDIR_IN || \
 			lst->prev->id == SIMPLE_REDIR_OUT || \
 			lst->prev->id == DOUBLE_REDIR_OUT)
-			lst->id = FILE_NAME;
+			lst->id = INFILE_NAME; // a changer
 		if (lst->prev->id == DOUBLE_REDIR_IN)
 			lst->id = KEY_WORD_HERE_DOC;
 	}
