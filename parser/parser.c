@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 11:24:48 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:28:01 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,21 +109,18 @@ int	parse_token_after_redir(void)
 	buf = g_all.lexer;
 	while (buf)
 	{
-		if (buf->id >= SIMPLE_REDIR_IN && buf->id <= DOUBLE_REDIR_OUT)
+		if (buf->id == SIMPLE_REDIR_IN && buf->next && buf->next->id == WORD)
+			buf->next->id = INFILE_NAME;
+		else if (buf->id == DOUBLE_REDIR_IN && buf->next && \
+			buf->next->id == WORD)
+			buf->next->id = KEY_WORD_HERE_DOC;
+		else if ((buf->id == SIMPLE_REDIR_OUT || buf->id == DOUBLE_REDIR_OUT) \
+			&& buf->next && buf->next->id == WORD)
+			buf->next->id = OUTFILE_NAME;
+		else if (buf->id >= SIMPLE_REDIR_IN && buf->id <= DOUBLE_REDIR_OUT)
 		{
-			if (buf->id == SIMPLE_REDIR_IN && buf->next && buf->next->id == WORD)
-				buf->next->id = INFILE_NAME;
-			else if (buf->id == DOUBLE_REDIR_IN && buf->next && \
-				buf->next->id == WORD)
-				buf->next->id = KEY_WORD_HERE_DOC;
-			else if ((buf->id == SIMPLE_REDIR_OUT || buf->id == DOUBLE_REDIR_OUT) \
-				&& buf->next && buf->next->id == WORD)
-				buf->next->id = OUTFILE_NAME;
-			else
-			{
-				write_error("Minishell: ", "syntax error", "\n");
-				return (FAILURE);
-			}
+			write_error("Minishell: ", "syntax error", "\n");
+			return (FAILURE);
 		}
 		buf = buf->next;
 	}
