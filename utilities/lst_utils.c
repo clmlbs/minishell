@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:17:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 10:15:55 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:07:11 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	lex_lstadd_back(t_lexer **lst, t_lexer *new)
 		*lst = new;
 		return ;
 	}
-	ptr = ft_lstlast(*lst);
+	ptr = lex_lstlast(*lst);
 	ptr->next = new;
 	new->prev = ptr;
 }
 
-t_lexer	*ft_lstlast(t_lexer *lst)
+t_lexer	*lex_lstlast(t_lexer *lst)
 {
 	t_lexer	*ptr;
 

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 14:03:24 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:12:16 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_line(char *input)
 	if (input[0] != '\0')
 	{
 		add_history(input);
-		return(SUCCESS);
+		return (SUCCESS);
 	}
 	else
 		return (EMPTY);
@@ -38,21 +38,42 @@ int	check_line(char *input)
 
 void	minishell(char *input)
 {
-	lexer(input);
-	//print_t_lexer();//********
-	parser();
+	// t_lexer	*buf;
+	
+	if (lexer(input) == FAILURE)
+		return (FAILURE);
+	if (parser() == FAILURE)
+		return (FAILURE);
 	print_t_lexer();//********
+	if (fill_t_cmd() == FAILURE)
+		return (FAILURE);
+	// buf = g_all.lexer;
+	// while (buf)
+	// {
+
+	// 	buf = buf->next;
+	// }
+}
+
+void	init_global(char **av)
+{
+	(void)av;
+	g_all.lexer = NULL;
+	g_all.cmd = cmd_lstnew();
+	if (!g_all.cmd)
+		exit(1);// bon status de sortie ? 
+	g_all.all_path = NULL;
+	g_all.nb_cmd = 0;
 }
 
 
-int	main(int arc, char **arv, char **env)
+int	main(int ac, char **av, char **env)
 {
 	char		*input;
 
-	(void) arv;
-	(void) arc;
+	init_global(av);
 	//env_check(env);
-	if (arc != 1)
+	if (ac != 1)
 	{
 		write_error("Error: ", "you cannot add arguments", \
 		" after \"minishell\"\n");

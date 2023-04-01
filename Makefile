@@ -6,13 +6,15 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/01 10:48:27 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/01 12:08:53 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=		minishell
 
 SRCS		=	main.c \
+				commands/commands.c \
+				commands/t_cmd_utils.c \
 				errors/errors.c \
 				free/free.c \
 				init/init.c \

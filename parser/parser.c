@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 11:28:01 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:43:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,49 +31,6 @@ int	check_pipes(void)
 	}
 	return (SUCCESS);
 }
-
-int	add_next_str_to_current(t_lexer *current)
-{
-	char	*new;
-
-	new = ms_strjoin(current->token, current->next->token);
-	if (!new)
-		return (FAILURE);
-	free(current->token);
-	current->token = new;
-	remove_token(current->next);
-	return (SUCCESS);
-}
-
-int	parse_same_id(int id_target)
-{
-	t_lexer *buf;
-
-	buf = g_all.lexer;
-	while (buf)
-	{
-		if (buf->id == id_target && buf->next && buf->next->id == id_target)
-		{
-			if (add_next_str_to_current(buf) == FAILURE)
-				return (FAILURE);
-		}
-		buf = buf->next;
-	}
-	return (SUCCESS);
-}
-
-void	change_id_redir(t_lexer *lst)
-{
-	if (lst->id == REDIR_IN && ft_strlen(lst->token) == 1)
-		lst->id = SIMPLE_REDIR_IN;
-	else if (lst->id == REDIR_IN && ft_strlen(lst->token) == 2)
-		lst->id = DOUBLE_REDIR_IN;
-	else if (lst->id == REDIR_OUT && ft_strlen(lst->token) == 1)
-		lst->id = SIMPLE_REDIR_OUT;
-	else
-		lst->id = DOUBLE_REDIR_OUT;
-}
-
 
 int	check_redir(void)
 {
@@ -135,7 +92,8 @@ int	parser(void)
 	// chiffre sinon ce n'est pas une var d'env 
 	if (are_quotes_even() == FAILURE)
 		return (FAILURE);
-	parse_same_id(WORD);
+	if (parse_same_id(WORD) == FAILURE);
+		return (FAILURE);
 	remove_spaces(); 
 	if (parse_same_id(PIPE) == FAILURE || check_pipes() == FAILURE)
 		return (FAILURE);

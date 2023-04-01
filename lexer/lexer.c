@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 09:59:06 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:41:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 //extern t_context	g_all;
 
-void	lexer(char *input)
+int	lexer(char *input)
 {
 	int	i;
 
 	i = 0;
 	g_all.lexer = lex_lstnew();
 	if (!g_all.lexer)
-		return ;
+		return (FAILURE);
 	printf("input:%s\n", input);//***
 	while (input[i])
 	{
 		if (init_id(input[i]) == FAILURE)
-			return (write_error("Minishell: ", "syntax error", "\n"));
+		{
+			write_error("Minishell: ", "syntax error", "\n");
+			return (FAILURE);
+		}
 		i++;
 	}
 	if (tokenize_all_steps() == FAILURE)
-		return ;
-	return ;
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 int	tokenize_all_steps(void)

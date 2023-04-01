@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 11:22:02 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:10:48 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@
 # define SIMPLE_REDIR_OUT 63
 # define DOUBLE_REDIR_OUT 64
 
+//============ COMMANDS ==============
+
+# define CLASSIC 0
+
+
+
 //============ COLORS ==============
 # define WATERMELON "\x1b[38;2;254;127;156m"
 # define ORANGE "\x1b[38;2;255;165;0m"
@@ -64,8 +70,8 @@
 
 typedef struct s_cmd
 {
+	struct s_cmd	*prev;
 	char			**wd;
-	int				*is_str;
 	int				fd_infile;
 	char			*infile_name;
 	int				infile_mode;
@@ -74,6 +80,7 @@ typedef struct s_cmd
 	int				outfile_mode;
 	char			*good_path;
 	int				position;
+	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_lexer
@@ -88,7 +95,6 @@ typedef struct s_lexer
 typedef struct s_all
 {
 	t_lexer	*lexer;
-
 	t_cmd	*cmd;
 	char	**all_path;
 //	char	**env;
@@ -97,6 +103,14 @@ typedef struct s_all
 }	t_all;
 
 t_all	g_all;
+
+//=========== COMMANDS ============
+//commands.c
+
+//t_cmd_utils.c
+t_cmd	*cmd_lstlast(t_cmd *lst);
+void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
+t_cmd	*cmd_lstnew(void);
 
 //=========== ERRORS ============
 //errors.c
@@ -114,7 +128,7 @@ int		init_t_cmd(t_cmd *cmd);
 
 //=========== LEXER ============
 //lexer.c
-void	lexer(char *input);
+int		lexer(char *input);
 int		tokenize_all_steps(void);
 
 //t_lexer_utils.c
@@ -127,18 +141,6 @@ int		assign_id_to_char(char c, int id);
 int		tokenize_words(int id_target, int id_compare);
 int		tokenize_quotes(int even, int id);
 void	remove_spaces(void);
-
-//token1.c
-int		token_redir_or_pipe(char *input, int *index);
-int		add_lst_for_quotes(char *input, int begin, int length, int id);
-int		token_simple_quote(char *input, int *index, int i, int id);
-int		token_double_quote(char *input, int *index, int i, int id);
-
-//token2.c
-void	is_token_a_file(t_lexer *lst);
-void	token_is_unique(t_lexer *lst);
-int		token_is_double(t_lexer *lst);
-int		formate_redir_or_pipe(t_lexer *lst);
 
 //=========== LIBFT ============
 char	**ft_split(char const *s, char c);
@@ -157,7 +159,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	ms_lstclear(t_lexer **lst);
 void	ms_lstdelone(t_lexer *lst);
 void	lex_lstadd_back(t_lexer **lst, t_lexer *new);
-t_lexer	*ft_lstlast(t_lexer *lst);
+t_lexer	*lex_lstlast(t_lexer *lst);
 void	print_t_lexer(void);
 t_lexer	*lex_lstnew(void);
 
@@ -190,6 +192,9 @@ char	**ft_split(const char *s, char c);
 
 //=========== PARSER ============
 // parser.c
+int		check_pipes(void);
+int		check_redir(void);
+int		parse_token_after_redir(void);
 int		parser(void);
 
 //quotes.c
@@ -199,6 +204,9 @@ int		are_quotes_even(void);
 
 //parser_utils.c
 void	remove_token(t_lexer *lst);
+int		add_next_str_to_current(t_lexer *current);
+int		parse_same_id(int id_target);
+void	change_id_redir(t_lexer *lst);
 
 //parsermauvais.c
 int		update_wd(t_cmd *cmd, t_lexer *lst);
