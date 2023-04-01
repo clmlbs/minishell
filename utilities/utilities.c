@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 16:44:50 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:28:42 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ void	printf_strs(char **strs)
 	int	i;
 
 	i = 0;
-	while (strs[i])
+	if (strs)
 	{
-		printf("%d] %s\n", i, strs[i]);
-		i++;
+		while (strs[i])
+		{
+			printf("%d] %s\n", i, strs[i]);
+			i++;
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 18:57:47 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:16:20 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	create_here_doc_line(t_doc *doc);
 //add_cmds.c
 int		add_word(t_lexer *lexer, t_cmd *cmd);
 int		add_infile_name(t_lexer *lexer, t_cmd *cmd);
+int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 
 //=========== ERRORS ============
 //errors.c

@@ -6,12 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:47:38 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 18:05:24 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:30:33 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	add_token_to_cmd(t_lexer *lexer, t_cmd *cmd)
 {
@@ -24,18 +23,8 @@ int	add_token_to_cmd(t_lexer *lexer, t_cmd *cmd)
 		result = add_word(lexer, cmd);
 	else if (lexer->id == INFILE_NAME)
 		result = add_infile_name(lexer, cmd);
-	// else if (lexer->id == OUTFILE_NAME)
-	// 	result = add_outile_name(lexer, cmd);
-	// else if (lexer->id == SIMPLE_REDIR_IN)
-	// 	result = add_simple_redir_in(lexer, cmd);
-	// else if (lexer->id == DOUBLE_REDIR_IN)
-	// 	result = add_double_redir_in(lexer, cmd);
-	// else if (lexer->id == SIMPLE_REDIR_OUT)
-	// 	result = add_simple_redir_out(lexer, cmd);
-	// else if (lexer->id == DOUBLE_REDIR_OUT)
-	// 	result = add_double_redir_out(lexer, cmd);
-	// else
-	// 	return (FAILURE);
+	else if (lexer->id == OUTFILE_NAME)
+		result = add_outfile_name(lexer, cmd);
 	return (result);
 }
 
@@ -43,7 +32,7 @@ int	fill_t_cmd(void)
 {
 	t_lexer	*lexer;
 	t_cmd	*cmd;
-	
+
 	lexer = g_all.lexer;
 	cmd = g_all.cmd;
 	while (lexer)
