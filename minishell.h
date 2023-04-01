@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 15:21:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 16:35:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,12 @@ int		fill_t_cmd(void);
 t_cmd	*cmd_lstlast(t_cmd *lst);
 void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*cmd_lstnew(void);
+int		update_wd(char *str, t_cmd *cmd);
 
 //add_cmds.c
-int		update_wd(t_lexer *lst, t_cmd *cmd);
 int		add_word(t_lexer *lexer, t_cmd *cmd);
+int		add_key_word_here_doc(t_lexer *lexer);
+char	*here_doc(char *keyword);
 
 //=========== ERRORS ============
 //errors.c
@@ -128,6 +130,8 @@ int		ft_perror(char *str);
 void	free_tab_strs(char **str);
 void	free_t_cmd(t_cmd *cmd);
 void	free_t_lexer(t_lexer *lst);
+void	free_all_lexer(void);
+void	free_all_cmd(void);
 
 //=========== INIT ============
 int		init_t_cmd(t_cmd *cmd);
@@ -155,6 +159,7 @@ char	*ms_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strzero(char *s, size_t n);
@@ -162,8 +167,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 //=========== UTILITIES ============
 //lst_utils.c
-void	ms_lstclear(t_lexer **lst);
-void	ms_lstdelone(t_lexer *lst);
 void	lex_lstadd_back(t_lexer **lst, t_lexer *new);
 t_lexer	*lex_lstlast(t_lexer *lst);
 void	print_t_lexer(void);
@@ -173,7 +176,7 @@ t_lexer	*lex_lstnew(void);
 int		isnt_specific(char c);
 int		is_var(char c);
 int		is_redir_or_pipe(char c);
-int 	is_quote(char c);
+int		is_quote(char c);
 
 void	printf_strs(char **strs);
 void	print_t_cmd(void);

@@ -6,35 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:17:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 12:07:11 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 16:20:07 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ms_lstclear(t_lexer **lst)
-{
-	t_lexer	*buf;
-
-	if (lst)
-	{
-		while (*lst)
-		{
-			buf = (*lst)->next;
-			ms_lstdelone((*lst));
-			*lst = buf;
-		}
-	}
-}
-
-void	ms_lstdelone(t_lexer *lst)
-{
-	if (!lst)
-		return ;
-	if (lst->token)
-		free(lst->token);
-	free(lst);
-}
 
 void	lex_lstadd_back(t_lexer **lst, t_lexer *new)
 {

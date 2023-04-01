@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 15:52:46 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 16:39:03 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,48 @@ void	free_t_lexer(t_lexer *lst)
 		free(lst->token);
 	free(lst);
 	lst = NULL;//mettre ou pas ca ? 
+}
+
+void	free_all_lexer(void)
+{
+	t_lexer	*buf;
+	t_lexer	*lx;
+
+	lx = g_all.lexer;
+	if (lx)
+	{
+		while (lx)
+		{
+			buf = lx->next;
+			if (lx->token)
+				free(lx->token);
+			free(lx);
+			lx = buf;
+		}
+	}
+}
+
+void	free_all_cmd(void)
+{
+	t_cmd	*buf;
+	t_cmd	*cmd;
+
+	cmd = g_all.cmd;
+	if (cmd)
+	{
+		while (cmd)
+		{
+			buf = cmd->next;
+			if (cmd->wd)
+				free_tab_strs(cmd->wd);
+			if (cmd->infile_name)
+				free(cmd->infile_name);
+			if (cmd->outfile_name)
+				free(cmd->outfile_name);
+			if (cmd->good_path)
+				free(cmd->good_path);
+			free(cmd);
+			cmd = buf;
+		}
+	}
 }

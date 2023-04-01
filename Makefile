@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/01 15:22:16 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/01 16:31:46 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS		=	main.c \
 				libft/ft_strlcat.c \
 				libft/ft_strlcpy.c \
 				libft/ft_strlen.c \
+				libft/ft_strncmp.c \
 				libft/ft_strtrim.c \
 				libft/ft_strzero.c \
 				libft/ft_substr.c \
@@ -50,7 +51,7 @@ OBJS		= 		$(SRCS:.c=.o)
 
 CC			=		gcc
 
-CFLAGS		=		-Wall -Wextra -Werror -g -lreadline
+CFLAGS		=		-Wall -Wextra -Werror -g -lreadline -fsanitize=address
 
 RM			= 		rm -f
 

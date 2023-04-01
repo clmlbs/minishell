@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 15:27:07 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 16:44:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	copy_tab_of_strs(char **old, char **new)
 	int tab_len;
 	int	i;
 
+	if (!old)
+		return (SUCCESS); //ok bien protege ca ? 
 	tab_len = tab_strlen(old);
 	i = 0;
 	while (i < tab_len)

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:08:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 15:21:56 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:51:56 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,30 @@ t_cmd	*cmd_lstnew(void)
 	cmd->position = 1;
 	cmd->next = NULL;
 	return (cmd);
+}
+
+int	update_wd(char *str, t_cmd *cmd)
+{
+	char	**new;
+	int		index;
+
+	index = tab_strlen(cmd->wd);
+	new = (char **)malloc(sizeof(char *) * (index + 2));
+	if (!new)
+		return (ft_perror("Minishell: malloc()"));
+	if (copy_tab_of_strs(cmd->wd, new) == FAILURE)
+	{
+		free(new);
+		return (FAILURE);
+	}
+	new[index] = ft_strdup(str);
+	if (!new[index])
+	{
+		free_tab_strs(new);
+		return (FAILURE);
+	}
+	new[index + 1] = NULL;
+	free_tab_strs(cmd->wd);
+	cmd->wd = new;
+	return (SUCCESS);
 }
