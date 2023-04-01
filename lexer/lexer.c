@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 11:41:50 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:28:22 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	lexer(char *input)
 	g_all.lexer = lex_lstnew();
 	if (!g_all.lexer)
 		return (FAILURE);
-	printf("input:%s\n", input);//***
+	//printf("input:%s\n", input);//*****
 	while (input[i])
 	{
 		if (init_id(input[i]) == FAILURE)

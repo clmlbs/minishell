@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 09:23:01 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:27:07 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,32 @@ int	is_var(char c)
 void	printf_strs(char **strs)
 {
 	int	i;
-	
+
 	i = 0;
 	while (strs[i])
 	{
 		printf("%d] %s\n", i, strs[i]);
 		i++;
+	}
+}
+
+void	print_t_cmd(void)
+{
+	t_cmd	*buf;
+
+	buf = g_all.cmd;
+	while (buf)
+	{
+		printf_strs(buf->wd);
+		printf("fd_infile	%d\n", buf->fd_infile);
+		printf("fd_outfile	%d\n",  buf->fd_outfile);
+		printf("I_mode:		%d\n", buf->infile_mode);
+		printf("O_mode:		%d\n", buf->outfile_mode);
+		printf("I_name:		%s\n", buf->infile_name);
+		printf("O_name: 	%s\n", buf->outfile_name);
+		printf("good_path:	%s\n", buf->good_path);
+		printf("position:	%d\n\n", buf->position);
+		buf = buf->next;
 	}
 }
 

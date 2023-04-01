@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 12:10:48 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:21:30 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,17 @@ t_all	g_all;
 
 //=========== COMMANDS ============
 //commands.c
+int		add_token_to_cmd(t_lexer *lexer, t_cmd *cmd);
+int		fill_t_cmd(void);
 
 //t_cmd_utils.c
 t_cmd	*cmd_lstlast(t_cmd *lst);
 void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*cmd_lstnew(void);
+
+//add_cmds.c
+int		update_wd(t_lexer *lst, t_cmd *cmd);
+int		add_word(t_lexer *lexer, t_cmd *cmd);
 
 //=========== ERRORS ============
 //errors.c
@@ -170,6 +176,7 @@ int		is_redir_or_pipe(char c);
 int 	is_quote(char c);
 
 void	printf_strs(char **strs);
+void	print_t_cmd(void);
 int		copy_tab_of_strs(char **old, char **new);
 int		tab_strlen(char **tab_of_str);
 
@@ -209,7 +216,6 @@ int		parse_same_id(int id_target);
 void	change_id_redir(t_lexer *lst);
 
 //parsermauvais.c
-int		update_wd(t_cmd *cmd, t_lexer *lst);
 int		fill_cmd(t_cmd *cmd, t_lexer *lst);
 
 //=========== MAIN =============

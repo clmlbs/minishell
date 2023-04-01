@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/01 12:08:53 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/01 15:22:16 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME		=		minishell
 SRCS		=	main.c \
 				commands/commands.c \
 				commands/t_cmd_utils.c \
+				commands/add_cmds.c \
 				errors/errors.c \
 				free/free.c \
 				init/init.c \
@@ -22,8 +23,6 @@ SRCS		=	main.c \
 				lexer/lexer.c \
 				lexer/t_lexer_utils.c \
 				lexer/token.c \
-				lexer/token1.c \
-				lexer/token2.c \
 				libft/ft_split.c \
 				libft/ft_strdup.c \
 				libft/ms_strjoin.c \

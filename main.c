@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 13:12:16 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:29:54 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_line(char *input)
 {
 	if (!input)
 	{
-		printf("exit\n"); //fr en sorte qu'il n'affiche pas ^D
+		printf("exit\n"); //fr en sorte qu'il l'affiche sur la mm ligne 
 		return (FAILURE);
 	}
 	if (input[0] != '\0')
@@ -41,12 +41,13 @@ void	minishell(char *input)
 	// t_lexer	*buf;
 	
 	if (lexer(input) == FAILURE)
-		return (FAILURE);
+		return ;
 	if (parser() == FAILURE)
-		return (FAILURE);
-	print_t_lexer();//********
+		return ;
+	//print_t_lexer();//********
 	if (fill_t_cmd() == FAILURE)
-		return (FAILURE);
+		return ;
+	print_t_cmd();
 	// buf = g_all.lexer;
 	// while (buf)
 	// {

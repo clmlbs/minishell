@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:08:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 12:11:01 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:21:56 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ t_cmd	*cmd_lstnew(void)
 	cmd->good_path = NULL;
 	cmd->position = 1;
 	cmd->next = NULL;
-	return (lexer);
+	return (cmd);
 }

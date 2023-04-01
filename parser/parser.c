@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 11:43:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:22:43 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	parser(void)
 	// chiffre sinon ce n'est pas une var d'env 
 	if (are_quotes_even() == FAILURE)
 		return (FAILURE);
-	if (parse_same_id(WORD) == FAILURE);
+	if (parse_same_id(WORD) == FAILURE)
 		return (FAILURE);
 	remove_spaces(); 
 	if (parse_same_id(PIPE) == FAILURE || check_pipes() == FAILURE)
