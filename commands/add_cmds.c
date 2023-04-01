@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:45:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 15:58:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 16:55:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char *here_doc(char *keyword)
 			free(input);
 			break ;
 		}
-		add_history(input); // Attention pb d'history ?
+	//	add_history(input); // Je l'ai enlever pour pas fausser l'historique 
 		input_len = ft_strlen(input) + 1;
 		buf_line = (char *)malloc(sizeof(char) * (line_len + input_len + 1));
 		buf_line[0] = '\0';
