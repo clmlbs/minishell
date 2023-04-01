@@ -6,20 +6,21 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 17:56:33 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:57:47 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <string.h>
-# include <readline/readline.h> 
-# include <readline/history.h>
-# include <sys/types.h>
-# include <signal.h>
-# include <sys/wait.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <string.h>
+#include <readline/readline.h> 
+#include <readline/history.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include <dirent.h>
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -60,8 +61,9 @@
 //============ COMMANDS ==============
 
 # define CLASSIC 0
-
-
+# define READ 1
+# define REPLACE 2
+# define APPEND 3
 
 //============ COLORS ==============
 # define WATERMELON "\x1b[38;2;254;127;156m"
@@ -125,11 +127,14 @@ void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*cmd_lstnew(void);
 int		update_wd(char *str, t_cmd *cmd);
 
-//add_cmds.c
-int		add_word(t_lexer *lexer, t_cmd *cmd);
+//here_doc.c
 int		add_key_word_here_doc(t_lexer *lexer);
 char	*here_doc(char *keyword, t_doc *doc);
 void	create_here_doc_line(t_doc *doc);
+
+//add_cmds.c
+int		add_word(t_lexer *lexer, t_cmd *cmd);
+int		add_infile_name(t_lexer *lexer, t_cmd *cmd);
 
 //=========== ERRORS ============
 //errors.c
