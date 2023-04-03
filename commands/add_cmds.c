@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:45:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 19:24:22 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:32:59 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	add_infile_name(t_lexer *lexer, t_cmd *cmd)
 
 int	add_outfile_name(t_lexer *lexer, t_cmd *cmd)
 {
-	printf("ici\n");//******
 	cmd->outfile_name = ft_strdup(lexer->token);
 	if (!cmd->outfile_name)
 		return (ft_perror("Minishell: malloc()"));

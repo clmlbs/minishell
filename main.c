@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 16:50:50 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:35:01 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_line(char *input)
 
 void	minishell(char *input)
 {
-	// t_lexer	*buf;
+	t_cmd	*buf;
 	
 	if (lexer(input) == FAILURE)
 		return ;
@@ -48,12 +48,14 @@ void	minishell(char *input)
 	if (fill_t_cmd() == FAILURE)
 		return ;
 	print_t_cmd();
-	// buf = g_all.lexer;
-	// while (buf)
-	// {
-
-	// 	buf = buf->next;
-	// }
+	
+	buf = g_all.cmd;
+	while (buf)
+	{
+		if (execute(buf) == FAILURE)
+			return (FAILURE);
+		buf = buf->next;
+	}
 }
 
 void	init_global(char **av)

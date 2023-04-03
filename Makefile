@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/01 18:03:54 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/03 11:00:24 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ NAME		=	minishell
 SRCS		=	main.c \
 				commands/commands.c \
 				commands/here_doc.c \
-				commands/t_cmd_utils.c \
 				commands/add_cmds.c \
 				errors/errors.c \
 				free/free.c \
@@ -37,6 +36,8 @@ SRCS		=	main.c \
 				parser/parser_utils.c \
 				parser/parser.c \
 				parser/quotes.c \
+				t_cmd/t_cmd_1.c \
+				t_cmd/t_cmd_2.c \
 				utilities/stack_function.c \
 				utilities/utilities.c \
 				utilities/utilities_second.c \

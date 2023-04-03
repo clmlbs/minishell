@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 19:16:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:00:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 
 # define YES 1
 # define NO 0
+
+# define TRUE 1
+# define FALSE 0
 
 //=========== TOKENS ============
 # define WORD 0
@@ -121,12 +124,6 @@ t_all	g_all;
 int		add_token_to_cmd(t_lexer *lexer, t_cmd *cmd);
 int		fill_t_cmd(void);
 
-//t_cmd_utils.c
-t_cmd	*cmd_lstlast(t_cmd *lst);
-void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
-t_cmd	*cmd_lstnew(void);
-int		update_wd(char *str, t_cmd *cmd);
-
 //here_doc.c
 int		add_key_word_here_doc(t_lexer *lexer);
 char	*here_doc(char *keyword, t_doc *doc);
@@ -142,6 +139,9 @@ int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 void	write_error(char *begin, char *middle, char *end);
 void	error_token(t_lexer *lst, int len);
 int		ft_perror(char *str);
+
+//=========== EXECUTE ============
+
 
 //=========== FREE ============
 void	free_tab_strs(char **str);
@@ -181,6 +181,17 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strzero(char *s, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+
+//=========== T_CMD ===============
+//t_cmd_1.c
+t_cmd	*cmd_lstlast(t_cmd *lst);
+void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
+t_cmd	*cmd_lstnew(void);
+int		update_wd(char *str, t_cmd *cmd);
+
+//t_cmd_2.c
+t_cmd	*copy_t_cmd(t_cmd *src);
+int		copy_str_t_cmd(t_cmd *new, t_cmd *src);
 
 //=========== UTILITIES ============
 //lst_utils.c

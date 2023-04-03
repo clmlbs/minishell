@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 18:55:26 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:03:02 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,26 @@ int	check_if_openable(t_cmd *cmd)
 	if (fd == -1)
 		return (ft_perror("Minishell: "));
 	close(fd);
+}
+
+int	execute(t_cmd *cmd_in_global)
+{
+	t_cmd	*cmd;
+
+	cmd = copy_t_cmd(cmd_in_global);
+	if (!cmd)
+		return (FAILURE);
+	// if (is_builtin(cmd) == TRUE)
+	// 	builtin(cmd);
+	// else
+	{	
+		if (fork(cmd) == FAILURE)
+			return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+int	fork(t_cmd *cmd)
+{
+	
 }
