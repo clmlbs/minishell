@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:47:38 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:12:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:46:17 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	add_token_to_cmd(t_lexer *lexer, t_cmd *cmd)
 
 	result = SUCCESS;
 	if (lexer->id == KEY_WORD_HERE_DOC)
-		result = add_key_word_here_doc(lexer);
-	if (lexer->id == WORD && result == SUCCESS)
+		result = add_key_word_here_doc(lexer, cmd);
+	else if (lexer->id == WORD)
 		result = add_word(lexer, cmd);
 	else if (lexer->id == INFILE_NAME)
 		result = add_infile_name(lexer, cmd);

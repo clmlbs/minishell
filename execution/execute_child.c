@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:01:56 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 17:24:43 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:12:49 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int check_if_writable(t_cmd *cmd)
 
 int	dup_fd(t_cmd *cmd)
 {
-	if (cmd->infile_mode == READ)
+	if (cmd->infile_mode == READ || cmd->infile_mode == HERE_DOC)
 	{
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 			return (FAILURE);

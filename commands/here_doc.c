@@ -6,13 +6,13 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 17:35:05 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:22:19 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	add_key_word_here_doc(t_lexer *lexer)
+int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 {
 	char	*input;
 	t_doc	*doc;
@@ -31,10 +31,11 @@ int	add_key_word_here_doc(t_lexer *lexer)
 		free (doc);
 		return (FAILURE);
 	}
-	// lexer->id = WORD;
-	// free(lexer->token);
-	// lexer->token = input;
+	free(lexer->token);
+	lexer->token = input;
 	free(doc);//normalement pas besoin de free chaque truc car deja fait 
+	if (add_here_doc_to_cmd(lexer, cmd) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -80,4 +81,20 @@ void	create_here_doc_line(t_doc *doc)
 	free(doc->line);
 	doc->line = doc->buf_line;
 	free(doc->input);
+}
+
+int	add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd)
+{
+	int	fd[2];
+
+	if (pipe(fd) == -1)
+		perror_failure("Minishell");
+	if (write(fd[1], lexer->token, ft_strlen(lexer->token)) == -1)
+		perror_failure("Minishell");
+	if (write(fd[1], "\n", 1) == -1)
+		perror_failure("Minishell");
+	close(fd[1]); // ici c'est ok ? 
+	cmd->infile_mode = HERE_DOC;
+	cmd->fd_infile = fd[0];
+	return (SUCCESS);
 }

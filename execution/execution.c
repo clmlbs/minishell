@@ -6,13 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 17:25:05 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:12:58 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
 
 int	ft_fork(t_cmd *cmd)
 {
@@ -56,7 +54,6 @@ int	execute(t_cmd *cmd_in_global)
 	// 	builtin(cmd);
 	// else
 	{	
-		print_t_cmd();
 		if (ft_fork(cmd) == FAILURE)
 		{
 			free_t_cmd(cmd);

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:47:19 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:09:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@
 
 # define CLASSIC 0
 # define READ 1
-# define REPLACE 2
-# define APPEND 3
+# define HERE_DOC 2
+# define REPLACE 3
+# define APPEND 4
 
 //============ COLORS ==============
 # define WATERMELON "\x1b[38;2;254;127;156m"
@@ -131,9 +132,10 @@ int		add_token_to_cmd(t_lexer *lexer, t_cmd *cmd);
 int		fill_t_cmd(void);
 
 //here_doc.c
-int		add_key_word_here_doc(t_lexer *lexer);
+int		add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd);
 char	*here_doc(char *keyword, t_doc *doc);
 void	create_here_doc_line(t_doc *doc);
+int		add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd);
 
 //add_cmds.c
 int		add_word(t_lexer *lexer, t_cmd *cmd);
