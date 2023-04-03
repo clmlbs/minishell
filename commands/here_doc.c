@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 13:35:17 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	add_key_word_here_doc(t_lexer *lexer)
 
 	doc = (t_doc *)malloc(sizeof(t_doc));
 	if (!doc)
-		ft_perror("Minishell: malloc()");
+		perror_failure("Minishell: malloc()");
 	doc->input = NULL;
 	doc->line = NULL;
 	doc->buf_line = NULL;
@@ -54,7 +54,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 		doc->buf_line = (char *)malloc(sizeof(char) * (doc->line_len + doc->input_len + 1));
 		if (!(doc->buf_line))
 		{
-			perror("Minishell: malloc()");
+			perror_void("Minishell: malloc()");
 			return (NULL);
 		}
 		create_here_doc_line(doc);

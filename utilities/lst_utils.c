@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:17:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 13:37:52 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_lexer	*lex_lstnew(void)
 	lexer = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!lexer)
 	{
-		perror("Minishell: malloc()");
+		perror_void("Minishell: malloc()");
 		return (NULL);
 	}
 	lexer->prev = NULL;

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:17:27 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 13:37:23 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ms_strjoin(char const *s1, char const *s2)
 	str = (char *)malloc(sizeof(*str) * len);
 	if (!str)
 	{
-		perror("Minishell: malloc()");
+		perror_void("Minishell: malloc()");
 		return (NULL);
 	}
 	ft_strlcpy(str, s1, ft_strlen(s1) + 1);

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:19:10 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 13:37:09 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	str = (char *)malloc(sizeof(*str) * (len + 1));
 	if (!str)
 	{
-		perror("Minishell: malloc()");
+		perror_void("Minishell: malloc()");
 		return (NULL);
 	}
 	while (i < len)

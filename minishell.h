@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:35:33 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:47:19 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,8 @@ int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 //errors.c
 void	write_error(char *begin, char *middle, char *end);
 void	error_token(t_lexer *lst, int len);
-int		ft_perror(char *str);
+int		perror_failure(char *str);
+void 	perror_void(char *str);
 
 //=========== EXECUTE ============
 //execution.c 

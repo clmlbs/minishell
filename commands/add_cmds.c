@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:45:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 13:35:09 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:44:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	add_infile_name(t_lexer *lexer, t_cmd *cmd)
 {
 	cmd->infile_name = ft_strdup(lexer->token);
 	if (!cmd->infile_name)
-		return (ft_perror("Minishell: malloc()"));
+		return (perror_failure("Minishell: malloc()"));
 	cmd->infile_mode = READ;
 	return (SUCCESS);
 }
@@ -34,7 +34,7 @@ int	add_outfile_name(t_lexer *lexer, t_cmd *cmd)
 {
 	cmd->outfile_name = ft_strdup(lexer->token);
 	if (!cmd->outfile_name)
-		return (ft_perror("Minishell: malloc()"));
+		return (perror_failure("Minishell: malloc()"));
 	if (lexer->prev->id == SIMPLE_REDIR_OUT)
 		cmd->outfile_mode = REPLACE;
 	else if (lexer->prev->id == DOUBLE_REDIR_OUT)

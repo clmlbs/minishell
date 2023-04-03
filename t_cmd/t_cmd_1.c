@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:56:04 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:12:55 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cmd	*cmd_lstnew(void)
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 	{
-		perror("Minishell: malloc()");
+		perror_void("Minishell: malloc()");
 		return (NULL);
 	}
 	cmd->prev = NULL;

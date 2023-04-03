@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:06:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:35:27 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:49:34 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,17 @@ void	error_token(t_lexer *lst, int len)
 	}
 }
 
-int	ft_perror(char *str)
+int	perror_failure(char *str)
 {
+	write(2, ORANGE, ft_strlen(ORANGE));
 	perror(str);
+	write(2, WHITE, ft_strlen(WHITE));
 	return (FAILURE);
+}
+
+void perror_void(char *str)
+{
+	write(2, ORANGE, ft_strlen(ORANGE));
+	perror(str);
+	write(2, WHITE, ft_strlen(WHITE));
 }
