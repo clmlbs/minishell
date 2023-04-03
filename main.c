@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 19:35:01 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:14:35 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,48 @@ int	check_line(char *input)
 		return (EMPTY);
 }
 
+void	ft_waitpid(void)
+{
+	int	i;
+	int	pid;
+	int	status;
+
+	i = 0;
+	while (i < g_all.nb_cmd) // ca va poser pb si pas de fork pour les builtin
+	{
+		pid = waitpid(-1, &status, 0);
+		if (pid > 0)
+			printf("Child process %d exited with status %d\n", pid, status);
+		if (pid <= 0)
+		{
+			perror("Minishell: waitpid()");
+			exit(1); // code d'erreur ok ? 
+		}
+		i++;
+	}
+}
+
+int	env_update(char **envp)
+{
+	int	i;
+	int	line;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], "PATH=", 5))
+		{
+			line = i;
+			break ;
+		}
+		i++;
+	}
+	g_all.all_path = ms_split(envp[i] + 5, ':');
+	if (!g_all.all_path)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 
 void	minishell(char *input)
 {
@@ -44,42 +86,18 @@ void	minishell(char *input)
 		return ;
 	if (parser() == FAILURE)
 		return ;
-	//print_t_lexer();//********
 	if (fill_t_cmd() == FAILURE)
 		return ;
-	print_t_cmd();
-	
+//	print_t_cmd();
 	buf = g_all.cmd;
 	while (buf)
 	{
 		if (execute(buf) == FAILURE)
-			return (FAILURE);
+			return ;
 		buf = buf->next;
 	}
+	ft_waitpid(); // ok ici le waitpid ? 
 }
-
-void	init_global(char **av)
-{
-	(void)av;
-	g_all.lexer = NULL;
-	g_all.cmd = cmd_lstnew();
-	if (!g_all.cmd)
-		exit(1);// bon status de sortie ? 
-	g_all.all_path = NULL;
-	g_all.nb_cmd = 0;
-}
-
-void	free_all_lexer_and_cmd(void)
-{
-	free_all_lexer();
-	free_all_cmd();
-	g_all.lexer = NULL;
-	g_all.cmd = cmd_lstnew();
-	if (!g_all.cmd)
-		exit(1);// bon status de sortie ? 
-	g_all.nb_cmd = 0;
-}
-
 
 int	main(int ac, char **av, char **env)
 {
@@ -97,6 +115,8 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		signal(SIGINT, sign_ctrl_c);
+		if (env_update(env) == FAILURE) // MODIFIER
+			break ;
 		//env_pwd_update(); // faut pas mettre ca apres l'exec ?
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 11:00:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:54:22 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,13 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 }	t_lexer;
 
-typedef struct s_all
+typedef struct s_count
 {
-	t_lexer	*lexer;
-	t_cmd	*cmd;
-	char	**all_path;
-//	char	**env;
-	int		end[2];
-	int		nb_cmd;
-}	t_all;
+	unsigned int	count;
+	unsigned int	j;
+	unsigned int	start;
+	size_t			len;
+}	t_count;
 
 typedef struct s_doc
 {
@@ -116,6 +114,14 @@ typedef struct s_doc
 	int		input_len;
 }	t_doc;
 
+typedef struct s_all
+{
+	t_lexer	*lexer;
+	t_cmd	*cmd;
+	char	**all_path;
+	char	**env;
+	int		nb_cmd;
+}	t_all;
 
 t_all	g_all;
 
@@ -139,19 +145,29 @@ int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 void	write_error(char *begin, char *middle, char *end);
 void	error_token(t_lexer *lst, int len);
 int		ft_perror(char *str);
+int		error_dup(int i);
 
 //=========== EXECUTE ============
+//execution.c 
+int		check_if_openable(t_cmd *cmd);
+int		ft_fork(t_cmd *cmd);
+int		execute(t_cmd *cmd_in_global);
 
+//execute_child.c
+int		find_good_path(t_cmd *cmd);
+int		execute_child(t_cmd *cmd);
 
 //=========== FREE ============
+//free.c
 void	free_tab_strs(char **str);
 void	free_t_cmd(t_cmd *cmd);
 void	free_t_lexer(t_lexer *lst);
 void	free_all_lexer(void);
 void	free_all_cmd(void);
+void	free_all_lexer_and_cmd(void);
 
 //=========== INIT ============
-int		init_t_cmd(t_cmd *cmd);
+void	init_global(char **av);
 
 //=========== LEXER ============
 //lexer.c
@@ -181,6 +197,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strzero(char *s, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	**ms_split(char *s, char c);
 
 //=========== T_CMD ===============
 //t_cmd_1.c
@@ -208,7 +225,7 @@ int		is_quote(char c);
 
 void	printf_strs(char **strs);
 void	print_t_cmd(void);
-int		copy_tab_of_strs(char **old, char **new);
+char	**copy_strs_plus_one(char **old);
 int		tab_strlen(char **tab_of_str);
 
 void	env_check(char **env);
@@ -252,6 +269,7 @@ int		fill_cmd(t_cmd *cmd, t_lexer *lst);
 //=========== MAIN =============
 
 int		check_line(char *input);
+void	ft_waitpid(void);
 void	minishell(char *input);
 int		main(int arc, char **arv, char **env);
 #endif

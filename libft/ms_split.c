@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ms_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:16:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 13:36:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:37:16 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,34 @@ static t_count	*ft_count_init(void)
 	return (nbr);
 }
 
-static void	ft_fillstrs(char const *s, char c, char **strs, t_count *n)
+char	*ms_substr(char *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s) == 0)
+		len = 0;
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	if (start > ft_strlen(s) - 1)
+		len = 0;
+	str = (char *)malloc(sizeof(*str) * (len + 2));
+	if (!str)
+	{
+		perror("Minishell: malloc()");
+		return (NULL);
+	}
+	i = -1;
+	while (++i < len)
+		str[i] = s[start + i];
+	str[i] = '/';
+	str[i + 1] = '\0';
+	return (str);
+}
+
+static void	ft_fillstrs(char *s, char c, char **strs, t_count *n)
 {
 	unsigned int	i;
 
@@ -42,15 +69,10 @@ static void	ft_fillstrs(char const *s, char c, char **strs, t_count *n)
 		while (s[i] != c && s[i])
 			i++;
 		n->len = i - n->start;
-		strs[n->j] = ft_substr(s, n->start, n->len);
+		strs[n->j] = ms_substr(s, n->start, n->len);
 		if (!strs[n->j])
 		{
-			n->j--;
-			while (n->j >= 0)
-			{
-				free(strs[n->j]);
-				n->j--;
-			}
+			free_tab_strs(strs);
 			return ;
 		}
 		n->j++;
@@ -58,7 +80,7 @@ static void	ft_fillstrs(char const *s, char c, char **strs, t_count *n)
 	strs[n->j] = 0;
 }
 
-char	**ft_split(char const *s, char c)
+char	**ms_split(char *s, char c)
 {
 	t_count	*n;
 	char	**strs;
@@ -86,3 +108,4 @@ char	**ft_split(char const *s, char c)
 	free(n);
 	return (strs);
 }
+

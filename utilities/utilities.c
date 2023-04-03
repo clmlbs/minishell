@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 19:28:42 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:11:36 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,31 @@ void	print_t_cmd(void)
 	}
 }
 
-int	copy_tab_of_strs(char **old, char **new)
+char	**copy_strs_plus_one(char **old)
 {
-	int tab_len;
-	int	i;
+	int		tab_len;
+	int		i;
+	char	**new;
 
-	if (!old)
-		return (SUCCESS); //ok bien protege ca ? 
 	tab_len = tab_strlen(old);
-	i = 0;
-	while (i < tab_len)
+	new = (char **)malloc(sizeof(char *) * (tab_len + 2));
+	if (!new)
+		ft_perror("Minishell: malloc()");
+	if (!new)
+		return (NULL);
+	i = -1;
+	while (++i < tab_len)
 	{
 		new[i] = ft_strdup(old[i]);
 		if (!new[i])
 		{
 			free_tab_strs(new);
-			return (FAILURE);
+			return (NULL);
 		}
-		i++;
 	}
-	return (SUCCESS);
+	new[tab_len] = NULL;
+	new[tab_len + 1] = NULL;
+	return (new);
 }
 
 int	tab_strlen(char **tab_of_str)

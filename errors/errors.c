@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:06:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 16:55:05 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:12:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	write_error(char *begin, char *middle, char *end)
 
 void	error_token(t_lexer *lst, int len)
 {
-	printf("str:%s\n", lst->token);///******
 	if (len == 2 || len == 3) //|| lst->token[3] != lst->token[4])
 	{
 		write_error("Minishell:", " syntax error near unexpected", " token `");
@@ -45,4 +44,10 @@ int	ft_perror(char *str)
 {
 	perror(str);
 	return (FAILURE);
+}
+
+int	error_dup(int i)
+{
+	close(i);
+	return(ft_perror("Minishell: dup2()"));
 }

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:47:38 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 19:30:33 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:12:21 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int	fill_t_cmd(void)
 		if (add_token_to_cmd(lexer,cmd) == FAILURE)
 			return (FAILURE);
 		lexer = lexer->next;
-	}	
+	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/03 11:00:24 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/03 13:06:05 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRCS		=	main.c \
 				commands/here_doc.c \
 				commands/add_cmds.c \
 				errors/errors.c \
+				execution/execution.c \
+				execution/execute_child.c \
 				free/free.c \
 				init/init.c \
 				lexer/env.c \
@@ -25,7 +27,6 @@ SRCS		=	main.c \
 				lexer/token.c \
 				libft/ft_split.c \
 				libft/ft_strdup.c \
-				libft/ms_strjoin.c \
 				libft/ft_strlcat.c \
 				libft/ft_strlcpy.c \
 				libft/ft_strlen.c \
@@ -33,6 +34,8 @@ SRCS		=	main.c \
 				libft/ft_strtrim.c \
 				libft/ft_strzero.c \
 				libft/ft_substr.c \
+				libft/ms_strjoin.c \
+				libft/ms_split.c \
 				parser/parser_utils.c \
 				parser/parser.c \
 				parser/quotes.c \

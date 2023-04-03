@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:56:04 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 10:56:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:12:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,15 @@ int	update_wd(char *str, t_cmd *cmd)
 	int		index;
 
 	index = tab_strlen(cmd->wd);
-	new = (char **)malloc(sizeof(char *) * (index + 2));
+	new = copy_strs_plus_one(cmd->wd);
 	if (!new)
-		return (ft_perror("Minishell: malloc()"));
-	if (copy_tab_of_strs(cmd->wd, new) == FAILURE)
-	{
-		free(new);
 		return (FAILURE);
-	}
 	new[index] = ft_strdup(str);
 	if (!new[index])
 	{
 		free_tab_strs(new);
 		return (FAILURE);
 	}
-	new[index + 1] = NULL;
 	free_tab_strs(cmd->wd);
 	cmd->wd = new;
 	return (SUCCESS);

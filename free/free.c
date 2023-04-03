@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 16:39:03 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:48:52 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,6 @@ void	free_tab_strs(char **str)
 		free(str[i]);
 		free (str);
 	}
-}
-
-void	free_t_cmd(t_cmd *cmd)
-{
-	if (!cmd)
-		return ;
-	if (cmd->wd)
-		free_tab_strs(cmd->wd);
-	if (cmd->infile_name)
-		free(cmd->infile_name);
-	if (cmd->outfile_name)
-		free(cmd->outfile_name);
-	if (cmd->good_path)
-		free(cmd->good_path);
-	free(cmd); // ok ca ? 
 }
 
 void	free_t_lexer(t_lexer *lst)
@@ -73,6 +58,21 @@ void	free_all_lexer(void)
 	}
 }
 
+void	free_t_cmd(t_cmd *cmd)
+{
+	if (!cmd)
+		return ;
+	if (cmd->wd)
+		free_tab_strs(cmd->wd);
+	if (cmd->infile_name)
+		free(cmd->infile_name);
+	if (cmd->outfile_name)
+		free(cmd->outfile_name);
+	if (cmd->good_path)
+		free(cmd->good_path);
+	free(cmd); // ok ca ? 
+}
+
 void	free_all_cmd(void)
 {
 	t_cmd	*buf;
@@ -84,16 +84,19 @@ void	free_all_cmd(void)
 		while (cmd)
 		{
 			buf = cmd->next;
-			if (cmd->wd)
-				free_tab_strs(cmd->wd);
-			if (cmd->infile_name)
-				free(cmd->infile_name);
-			if (cmd->outfile_name)
-				free(cmd->outfile_name);
-			if (cmd->good_path)
-				free(cmd->good_path);
-			free(cmd);
+			free_t_cmd(cmd);
 			cmd = buf;
 		}
 	}
+}
+
+void	free_all_lexer_and_cmd(void)
+{
+	free_all_lexer();
+	free_all_cmd();
+	g_all.lexer = NULL;
+	g_all.cmd = cmd_lstnew();
+	if (!g_all.cmd)
+		exit(1);// bon status de sortie ? 
+	g_all.nb_cmd = 0;
 }
