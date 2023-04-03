@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 13:54:22 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:35:33 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 void	write_error(char *begin, char *middle, char *end);
 void	error_token(t_lexer *lst, int len);
 int		ft_perror(char *str);
-int		error_dup(int i);
 
 //=========== EXECUTE ============
 //execution.c 
@@ -155,7 +154,7 @@ int		execute(t_cmd *cmd_in_global);
 
 //execute_child.c
 int		find_good_path(t_cmd *cmd);
-int		execute_child(t_cmd *cmd);
+void	execute_child(t_cmd *cmd);
 
 //=========== FREE ============
 //free.c

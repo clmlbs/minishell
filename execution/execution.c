@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:12:09 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:36:14 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,14 @@ int	ft_fork(t_cmd *cmd)
 	{
 		if (close(end[0] < 0))
 			return (ft_perror("Minishell: close()"));
-		if (execute_child(cmd) == FAILURE)
-			return (FAILURE);
+		execute_child(cmd);
 	}
 	else
 	{
 		if (close(end[1]) < 0)
 			return (ft_perror("Minishell: close()"));
-		if (dup2(end[0], STDIN_FILENO) < 0)
-			error_dup(end[0]);
+		if (dup2(STDIN_FILENO, end[0]) < 0)
+			perror("Minishell: dup2()");
 		if (close(end[0]) < 0)
 			return (ft_perror("Minishell: close()"));
 	}

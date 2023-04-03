@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:01:56 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:14:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:22:17 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,16 @@ int	find_good_path(t_cmd *cmd)
 }
 
 
-int	execute_child(t_cmd *cmd)
+void	execute_child(t_cmd *cmd)
 {
 	if (find_good_path(cmd) == FAILURE)
-		return (FAILURE);
+		exit(1); // trouver le bon code
 	// if (dup_fd(cmd) == FAILURE)
-	// 	return (FAILURE);
+	// 	exit(1);//trouver le bon code
 	print_t_cmd();//***** A SUPPR
 	if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
-		return (ft_perror("Minishell: execve()"));
-	return (SUCCESS);
+	{	
+		perror("Minishell: execve()");
+		exit(1);// trouver le bon code 
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:06:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:12:50 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:35:27 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,4 @@ int	ft_perror(char *str)
 {
 	perror(str);
 	return (FAILURE);
-}
-
-int	error_dup(int i)
-{
-	close(i);
-	return(ft_perror("Minishell: dup2()"));
 }

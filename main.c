@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:14:35 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:32:27 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_line(char *input)
 {
 	if (!input)
 	{
-		printf("exit\n"); //fr en sorte qu'il l'affiche sur la mm ligne 
+		printf("exit pas d'input\n"); //fr en sorte qu'il l'affiche sur la mm ligne 
 		return (FAILURE);
 	}
 	if (input[0] != '\0')
@@ -117,6 +117,7 @@ int	main(int ac, char **av, char **env)
 		signal(SIGINT, sign_ctrl_c);
 		if (env_update(env) == FAILURE) // MODIFIER
 			break ;
+		write(1, "OK\n", 3);//***************
 		//env_pwd_update(); // faut pas mettre ca apres l'exec ?
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);
