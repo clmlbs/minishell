@@ -6,32 +6,13 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 16:02:23 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:25:05 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_if_openable(t_cmd *cmd)
-{
-	DIR	*dir;
-	int	fd;
 
-	dir = opendir(cmd->infile_name);
-	if (dir)
-	{
-		closedir(dir);
-		write_error("Minishell: ", cmd->infile_name, " Is a directory\n");
-		return (FAILURE);
-	}
-	if (access(cmd->infile_name, F_OK) == -1)
-		return (perror_failure("Minishell: access"));
-	fd = open(cmd->infile_name, O_RDONLY);
-	if (fd == -1)
-		return (perror_failure("Minishell"));
-	close(fd);
-	return (SUCCESS);
-}
 
 int	ft_fork(t_cmd *cmd)
 {
@@ -65,9 +46,9 @@ int	execute(t_cmd *cmd_in_global)
 {
 	t_cmd	*cmd;
 
-	if (cmd_in_global->infile_name && \
-		check_if_openable(cmd_in_global) == FAILURE)
-		return (FAILURE);
+//	if (cmd_in_global->infile_name && \
+//		check_if_openable(cmd_in_global) == FAILURE)
+//		return (FAILURE);
 	cmd = copy_t_cmd(cmd_in_global);
 	if (!cmd)
 		return (FAILURE);
@@ -75,6 +56,7 @@ int	execute(t_cmd *cmd_in_global)
 	// 	builtin(cmd);
 	// else
 	{	
+		print_t_cmd();
 		if (ft_fork(cmd) == FAILURE)
 		{
 			free_t_cmd(cmd);

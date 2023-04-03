@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:35:05 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	add_key_word_here_doc(t_lexer *lexer)
 		free (doc);
 		return (FAILURE);
 	}
-	lexer->id = WORD;
-	free(lexer->token);
-	lexer->token = input;
+	// lexer->id = WORD;
+	// free(lexer->token);
+	// lexer->token = input;
 	free(doc);//normalement pas besoin de free chaque truc car deja fait 
 	return (SUCCESS);
 }
