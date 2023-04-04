@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 09:23:04 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:35:29 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ void	execute_env(t_cmd *cmd)
 void	execute_pwd(t_cmd *cmd)
 {
 	char	cwd[1024];
-	
+
+	if (cmd->wd[1] && cmd->wd[1][0] == '-')
+	{
+		write_error("Minishell: ", "error: pwd should be executed ",\
+		"without option\n");
+		exit(FAILURE);
+	}
 	if (!getcwd(cwd, 1024))
 	{
 		perror(ORANGE "Minishell: getcwd()" WHITE);
