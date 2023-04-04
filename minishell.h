@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 09:03:00 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:13:22 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ t_all	g_all;
 
 //=========== BUILTIN ============
 //builtin_1.c
+int		is_builtin(t_cmd *cmd);
 void	execute_env(t_cmd *env);
 void	execute_pwd(void);
 
@@ -159,7 +160,6 @@ void 	perror_void(char *str);
 
 //=========== EXECUTE ============
 //execution.c 
-int		is_builtin(t_cmd *cmd);
 int		ft_fork(t_cmd *cmd);
 int		execute(t_cmd *cmd_in_global);
 
