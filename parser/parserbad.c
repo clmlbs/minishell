@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 13:11:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 08:16:43 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 08:26:40 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 // 				return ;
 // 			tmp = tmp->next;
 // 		}
-// 		printf_strs(cmd.wd);//********
+// 		printf_strs(cmd.wd, WITH_INDEX);//********
 // 		//execute_cmd(&cmd);
 // 		free_t_cmd(&cmd);
 // 		if (tmp && tmp->id == PIPE)

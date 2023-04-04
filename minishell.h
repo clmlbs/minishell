@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 08:19:07 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 08:30:40 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 
 # define TRUE 1
 # define FALSE 0
+
+# define WITH_INDEX 1
+# define WITHOUT_INDEX 0
 
 //=========== TOKENS ============
 # define WORD 0
@@ -169,7 +172,7 @@ void	free_all_cmd(void);
 void	free_all_lexer_and_cmd(void);
 
 //=========== INIT ============
-void	init_global(char **av);
+void	init_global(int ac, char **av, char **env);
 
 //=========== LEXER ============
 //lexer.c
@@ -225,7 +228,7 @@ int		is_var(char c);
 int		is_redir_or_pipe(char c);
 int		is_quote(char c);
 
-void	printf_strs(char **strs);
+void	printf_strs(char **strs, int mode);
 void	print_t_cmd(void);
 char	**copy_strs_plus_one(char **old);
 int		tab_strlen(char **tab_of_str);

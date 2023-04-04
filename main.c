@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 16:02:35 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 08:30:21 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	env_update(char **envp)
 	g_all.all_path = ms_split(envp[i] + 5, ':');
 	if (!g_all.all_path)
 		return (FAILURE);
-	//printf_strs(g_all.all_path);//********
+	//printf_strs(g_all.all_path, WITH_INDEX);//********
 	return (SUCCESS);
 }
 
@@ -105,14 +105,7 @@ int	main(int ac, char **av, char **env)
 	char		*input;
 	int			line_ok;
 
-	init_global(av);
-	//env_check(env);
-	if (ac != 1)
-	{
-		write_error("Error: ", "you cannot add arguments", \
-		" after \"minishell\"\n");
-		return (FAILURE);
-	}
+	init_global(ac, av, env);
 	while (1)
 	{
 		signal(SIGINT, sign_ctrl_c);

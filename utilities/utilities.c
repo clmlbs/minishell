@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:44:55 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 08:26:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,28 @@ int	is_var(char c)
 	return (0);
 }
 
-void	printf_strs(char **strs)
+void	printf_strs(char **strs, int mode)
 {
 	int	i;
 
 	i = 0;
 	if (strs)
 	{
-		while (strs[i])
+		if (mode == WITH_INDEX)
 		{
-			printf("%d] %s\n", i, strs[i]);
-			i++;
+			while (strs[i])
+			{
+				printf("%d] %s\n", i, strs[i]);
+				i++;
+			}
+		}
+		else
+		{
+			while (strs[i])
+			{
+				printf("%s\n", strs[i]);
+				i++;
+			}
 		}
 	}
 }
@@ -63,7 +74,7 @@ void	print_t_cmd(void)
 	buf = g_all.cmd;
 	while (buf)
 	{
-		printf_strs(buf->wd);
+		printf_strs(buf->wd, WITH_INDEX);
 		printf("fd_infile	%d\n", buf->fd_infile);
 		printf("fd_outfile	%d\n",  buf->fd_outfile);
 		printf("I_mode:		%d\n", buf->infile_mode);
