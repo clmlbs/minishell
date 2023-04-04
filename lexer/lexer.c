@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 15:44:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:15:05 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,25 @@ int	lexer(char *input)
 char	*ft_getvar(char *var)
 {
 	int		i;
+	int		j;
 	int		exist;
 	char	*new;
+	
 
 	exist = NO;
 	i = 0;
+	j = 0;
 	while (g_all.env[i])
 	{
 		if (!ft_strncmp(g_all.env[i], var, ft_strlen(var)))
 		{
-			exist = YES;
-			break ;
+			while (g_all.env[i][j] && g_all.env[i][j] != '=')
+				j++;
+			if (j == ft_strlen(var))
+			{	
+				exist = YES;
+				break ;
+			}
 		}
 		i++;
 	}
@@ -80,7 +88,7 @@ int	tokenize_all_steps(void)
 	update_id_var();
 	if (replace_var() == FAILURE)
 		return (FAILURE);
-	//print_t_lexer();
+	print_t_lexer();
 	if (tokenize_words(WORD, WORD) == FAILURE)
 		return (FAILURE);
 	if (tokenize_words(PIPE, PIPE) == FAILURE)

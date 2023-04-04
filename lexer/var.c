@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 15:42:36 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 16:25:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,26 @@ int	update_token(t_lexer *lexer, int *index)
 	// Si le $ est en dernier ou suivi d'un espace on le laisse
 	if (!lexer->token[i] || is_space(lexer->token[i]) == TRUE)
 	{
-		free(new);
+		new = ft_add_char_to_str(ft_strdup(new), '$');
+		if (!new)
+			return (FAILURE);
+		free(lexer->token);
+		lexer->token = new;
 		(*index)++;
-		return (FAILURE);
+		return (SUCCESS);
+	}
+	if (lexer->token[i] == '\"' && !(lexer->token[i + 1]))
+	{
+		new = ft_add_char_to_str(ft_strdup(new), '$');
+		if (!new)
+			return (FAILURE);
+		new = ft_add_char_to_str(ft_strdup(new), lexer->token[i]);
+		if (!new)
+			return (FAILURE);
+		free(lexer->token);
+		lexer->token = new;
+		(*index)++;
+		return (SUCCESS);
 	}
 	if (is_spe_or_num(lexer->token[i]) == TRUE)
 		i++;

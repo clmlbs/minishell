@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 09:03:24 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:15:27 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	minishell(char *input)
 		return ;
 	if (fill_t_cmd() == FAILURE)
 		return ;
-//	print_t_cmd();
+	//print_t_cmd();
 	buf = g_all.cmd;
 	while (buf)
 	{
