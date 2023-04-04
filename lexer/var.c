@@ -1,0 +1,120 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   var.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
+/*   Updated: 2023/04/04 15:42:36 by cleblais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+void	update_id_var(void)
+{
+	t_lexer *buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == DOUBLE_QUOTE && ft_strchr(buf->token, '$'))
+			buf->id = VAR;
+		buf = buf->next;
+	}
+}
+
+int	replace_var(void)
+{
+	t_lexer	*buf;
+	int		i;
+
+	i = 0;
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == VAR)
+		{
+			while (buf->token[i])
+			{
+				while (buf->token[i] && buf->token[i] != '$')
+					i++;
+				if (buf->token[i] == '$' && update_token(buf, &i) == FAILURE)
+					return (FAILURE);
+				if (buf->token[0] == '\"')
+					buf->id = DOUBLE_QUOTE;
+				else
+					buf->id = WORD;
+			}
+		}
+		buf = buf->next;
+	}
+	return (SUCCESS);
+}
+
+int	update_token(t_lexer *lexer, int *index)
+{
+	char	*new;
+	char	*var;
+	int		i;
+	int		begin;
+	char 	*fullvar;
+	char	*old_and_fullvar;
+
+	new = NULL;
+	i = 0;
+	while (i < (*index))
+	{
+		new = ft_add_char_to_str(ft_strdup(new), lexer->token[i]);
+		if (!new)
+			return (FAILURE);
+		i++;
+	}
+	// Pour passer apres le $
+	i++; 
+	begin = i;
+	// Si le $ est en dernier ou suivi d'un espace on le laisse
+	if (!lexer->token[i] || is_space(lexer->token[i]) == TRUE)
+	{
+		free(new);
+		(*index)++;
+		return (FAILURE);
+	}
+	if (is_spe_or_num(lexer->token[i]) == TRUE)
+		i++;
+	else
+	{
+		i++;
+		while (lexer->token[i] && ft_isalnum(lexer->token[i]) == TRUE)
+			i++;
+	}
+	var = ft_substr(lexer->token, begin, i - begin);
+	if (!var)
+	{
+		free(new);
+		return (FAILURE);
+	}
+	fullvar = ft_getvar(var); // doit renvoyer soit str complete
+							// soit NULL si echoue soit '\0' si n'existe pas	
+	free(var);
+	if (!fullvar)
+	{
+		free(new);
+		return (FAILURE);
+	}
+	old_and_fullvar = ms_strjoin(new, fullvar);
+	free(new);
+	free(fullvar);
+	if (!old_and_fullvar)
+		return (FAILURE);
+	(*index) = ft_strlen(old_and_fullvar);
+	new = ms_strjoin(old_and_fullvar, \
+		ft_substr(lexer->token, i, ft_strlen(lexer->token) - i));
+	free(old_and_fullvar);
+	if (!new)
+		return (FAILURE);
+	free(lexer->token);
+	lexer->token = new;
+	return (SUCCESS);
+}

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 14:11:32 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:14:36 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,16 +188,13 @@ void	init_global(int ac, char **av, char **env);
 //=========== LEXER ============
 //lexer.c
 int		lexer(char *input);
-void	update_id_var(void);
-int		replace_var(void);
-int		update_token(t_lexer *lexer, int *index);
 char	*ft_getvar(char *var);
 int		tokenize_all_steps(void);
 
 //t_lexer_utils.c
 int		add_next_char_to_current(t_lexer *current);
 int		add_char_to_str(t_lexer *str_dest, t_lexer *char_src);
-int		ft_add_char_to_str(char *str, char c);
+char	*ft_add_char_to_str(char *str, char c);
 
 //token.c
 int		init_id(char c);
@@ -205,6 +202,11 @@ int		assign_id_to_char(char c, int id);
 int		tokenize_words(int id_target, int id_compare);
 int		tokenize_quotes(int even, int id);
 void	remove_spaces(void);
+
+//var.c
+void	update_id_var(void);
+int		replace_var(void);
+int		update_token(t_lexer *lexer, int *index);
 
 //=========== LIBFT ============
 void	ft_putstr_fd(char *s, int fd);
