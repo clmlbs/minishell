@@ -6,13 +6,14 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/03 13:06:05 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/04 08:49:34 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 
 SRCS		=	main.c \
+				builtin/builtin_1.c \
 				commands/commands.c \
 				commands/here_doc.c \
 				commands/add_cmds.c \
@@ -44,8 +45,7 @@ SRCS		=	main.c \
 				utilities/stack_function.c \
 				utilities/utilities.c \
 				utilities/utilities_second.c \
-				utilities/lst_utils.c \
-				builtin/built_env.c
+				utilities/lst_utils.c
 				
 
 HEADERS		=		-I/Users/$(USER)/.brew/opt/readline/include -I include

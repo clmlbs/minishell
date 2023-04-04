@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 08:30:40 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 08:51:12 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,10 @@ typedef struct s_all
 
 t_all	g_all;
 
+//=========== BUILTIN ============
+//builtin_1.c
+void	execute_env(t_cmd *env);
+
 //=========== COMMANDS ============
 //commands.c
 int		add_token_to_cmd(t_lexer *lexer, t_cmd *cmd);
@@ -154,11 +158,12 @@ void 	perror_void(char *str);
 
 //=========== EXECUTE ============
 //execution.c 
-int		check_if_openable(t_cmd *cmd);
+int		is_builtin(t_cmd *cmd);
 int		ft_fork(t_cmd *cmd);
 int		execute(t_cmd *cmd_in_global);
 
 //execute_child.c
+int		check_if_openable(t_cmd *cmd);
 int		find_good_path(t_cmd *cmd);
 void	execute_child(t_cmd *cmd);
 

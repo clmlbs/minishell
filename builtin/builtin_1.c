@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_env.c                                        :+:      :+:    :+:   */
+/*   builtin_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 13:33:39 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 09:23:17 by cleblais         ###   ########.fr       */
+/*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
+/*   Updated: 2023/04/04 08:52:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//extern t_context	g_all;
-
-// void built_env(void)
-// {
-//     t_lexer  *temp;
-
-//     temp = g_all.env;
-//     while (!ft_strcmp(temp->name_env, "PWD"))
-// 	{
-// 		temp = temp->next;
-// 	}
-//     printf("%s\n", temp->path_env);
-// }
+void	execute_env(t_cmd *cmd)
+{
+	if (cmd->wd[1])
+	{
+		write_error("Minishell: ", "error: env should be executed ",\
+		"without option nor argument\n");
+		// mettre bon status
+	}
+	else
+	{
+		printf_strs(g_all.env, WITHOUT_INDEX);
+		// mettre le bon status
+	}
+}
