@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/04 09:05:12 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/04 09:19:26 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS		=	main.c \
 				commands/add_cmds.c \
 				errors/errors.c \
 				execution/execution.c \
-				execution/execute_child.c \
+				execution/execute_utils.c \
 				free/free.c \
 				init/init.c \
 				lexer/env.c \

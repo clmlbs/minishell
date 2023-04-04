@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 09:13:22 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:23:39 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ t_all	g_all;
 //=========== BUILTIN ============
 //builtin_1.c
 int		is_builtin(t_cmd *cmd);
-void	execute_env(t_cmd *env);
-void	execute_pwd(void);
+void	execute_env(t_cmd *cmd);
+void	execute_pwd(t_cmd *cmd);
 
 //=========== COMMANDS ============
 //commands.c
@@ -162,11 +162,15 @@ void 	perror_void(char *str);
 //execution.c 
 int		ft_fork(t_cmd *cmd);
 int		execute(t_cmd *cmd_in_global);
-
-//execute_child.c
-int		check_if_openable(t_cmd *cmd);
-int		find_good_path(t_cmd *cmd);
 void	execute_child(t_cmd *cmd);
+void	execute_builtin(t_cmd *cmd);
+
+//execute_utils.c
+int		find_good_path(t_cmd *cmd);
+int		check_if_openable(t_cmd *cmd);
+int		check_if_writable(t_cmd *cmd);
+int		dup_fd(t_cmd *cmd);
+
 
 //=========== FREE ============
 //free.c
