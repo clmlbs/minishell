@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:12:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 13:37:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 10:34:27 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	check_quotes_even(t_lexer *lst)
 		return (SUCCESS);
 	else
 	{
-		printf("quotes = %d\n", nb_quotes);//****
 		if (lst->id == SIMPLE_QUOTE)
 			write_error("Minishell: ", "error: quotes `'' ", "are not even\n");
 		else

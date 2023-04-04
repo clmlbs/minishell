@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 09:50:16 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:11:32 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,11 +188,16 @@ void	init_global(int ac, char **av, char **env);
 //=========== LEXER ============
 //lexer.c
 int		lexer(char *input);
+void	update_id_var(void);
+int		replace_var(void);
+int		update_token(t_lexer *lexer, int *index);
+char	*ft_getvar(char *var);
 int		tokenize_all_steps(void);
 
 //t_lexer_utils.c
 int		add_next_char_to_current(t_lexer *current);
 int		add_char_to_str(t_lexer *str_dest, t_lexer *char_src);
+int		ft_add_char_to_str(char *str, char c);
 
 //token.c
 int		init_id(char c);
@@ -204,6 +209,7 @@ void	remove_spaces(void);
 //=========== LIBFT ============
 void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
+char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ms_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -239,6 +245,9 @@ int		isnt_specific(char c);
 int		is_var(char c);
 int		is_redir_or_pipe(char c);
 int		is_quote(char c);
+int		is_space(char c);
+int		is_spe_or_num(char c);
+int		ft_isalnum(int c);
 
 void	printf_strs(char **strs, int mode, int fd);
 void	print_t_cmd(void);

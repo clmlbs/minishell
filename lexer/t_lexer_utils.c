@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:43:04 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 16:41:44 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 11:35:17 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ int	add_char_to_str(t_lexer *str_dest, t_lexer *char_src)
 		return (FAILURE);
 	free(str_dest->token);
 	str_dest->token = str_buf;
+	return (SUCCESS);
+}
+
+int	ft_add_char_to_str(char *str, char c)
+{
+	char	unique_char[2];
+	char	*str_buf;
+
+	unique_char[0] = c;
+	unique_char[1] = '\0';
+	str_buf = ms_strjoin(str, unique_char);
+	if (!str_buf)
+		return (FAILURE);
+	free(str);
+	str = str_buf; // bon ou passer par char ** ?
 	return (SUCCESS);
 }
 

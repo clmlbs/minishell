@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:33 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 10:47:23 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 10:44:10 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	init_id(char c)
 		result = assign_id_to_char(c, WHITESPACE);
 	else if (c == '\n')
 		result = assign_id_to_char(c, BACKSLASH_N);
-//	else if (c == '$')
-	//	result = assign_id_to_char(c, VAR);
+	else if (c == '$')
+		result = assign_id_to_char(c, VAR);
 	else if (c == '|')
 		result = assign_id_to_char(c, PIPE);
 	else if (c == '<')

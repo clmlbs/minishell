@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 09:06:46 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:01:29 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ int	isnt_specific(char c)
 		&& !is_quote(c))
 		return (SUCCESS);
 	return (FAILURE);
+}
+
+int	is_var(char c)
+{
+	if (c == '$')
+		return (1);
+	return (0);
 }
 
 int	is_redir_or_pipe(char c)
@@ -34,11 +41,31 @@ int is_quote(char c)
 	return (0);
 }
 
-int	is_var(char c)
+int is_space(char c)
 {
-	if (c == '$')
-		return (1);
-	return (0);
+	if (c == '\n' || c == 9 || c == 11 || c == ' ')
+		return (TRUE);
+	return (FALSE);
+}
+
+int	is_spe_or_num(char c)
+{
+	if (c >= 33 && c <= 64)
+		return (TRUE);
+	if (c >= 91 && c <= 96)
+		return (TRUE);
+	if (c <= 123 && c >= 127)
+		return (TRUE);
+	return (FALSE);
+}
+
+int	ft_isalnum(int c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+		|| (c >= '0' && c <= '9'))
+		return (TRUE);
+	else
+		return (FALSE);
 }
 
 void	printf_strs(char **strs, int mode, int fd)
