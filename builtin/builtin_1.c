@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 09:35:29 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:52:17 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,58 @@ void	execute_pwd(t_cmd *cmd)
 	}
 	ft_putstr_fd(cwd, cmd->fd_outfile);
 	ft_putstr_fd("\n",cmd->fd_outfile);
+	exit(SUCCESS);
+}
+
+// void	execute_echo(t_cmd *cmd)
+// {
+// 	int	i;
+
+// 	if (cmd->wd[1] == NULL)
+// 		ft_putstr_fd("\n", cmd->fd_outfile);
+// 	else if (ft_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2))
+// 	{
+// 		i = 1;
+// 		if (cmd->wd[2] == NULL)
+// 			exit(SUCCESS) ;// ca ok ou '\0' ?
+// 		while (cmd->wd[++i + 1])
+// 		{
+// 			ft_putstr_fd(cmd->wd[i], cmd->fd_outfile);
+// 			ft_putstr_fd(" ", cmd->fd_outfile);
+// 		}
+// 		ft_putstr_fd(cmd->wd[i], cmd->fd_outfile);
+// 	}
+// 	else
+// 	{
+// 		i = 0;
+// 		while (cmd->wd[++i + 1])
+// 			printf("%s ", lst->wd[i]);
+// 		printf("%s\n", lst->wd[i]);
+// 	}
+// 	exit(SUCCESS);
+// }
+
+void	execute_echo(t_cmd *cmd)
+{
+	int	i;
+
+	if (cmd->wd[1] == NULL)
+		ft_putstr_fd("\n", cmd->fd_outfile);
+	else if (ft_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2))
+	{
+		if (cmd->wd[2] == NULL)
+			exit(SUCCESS) ;
+		i = 1;
+	}
+	else
+		i = 0;
+	while (cmd->wd[++i + 1])
+	{
+		ft_putstr_fd(cmd->wd[i], cmd->fd_outfile);
+		ft_putstr_fd(" ", cmd->fd_outfile);
+	}
+	ft_putstr_fd(cmd->wd[i], cmd->fd_outfile);
+	if (!(ft_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2)))
+		ft_putstr_fd("\n", cmd->fd_outfile);
 	exit(SUCCESS);
 }
