@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 14:01:29 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:27:34 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	is_spe_or_num(char c)
 {
 	if (c >= 33 && c <= 64)
 		return (TRUE);
-	if (c >= 91 && c <= 96)
+	if ((c >= 91 && c <= 96) && c != '_')
 		return (TRUE);
 	if (c <= 123 && c >= 127)
 		return (TRUE);
