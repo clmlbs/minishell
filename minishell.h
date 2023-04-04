@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 18:09:23 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 08:19:07 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ char	**ms_split(char *s, char c);
 t_cmd	*cmd_lstlast(t_cmd *lst);
 void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*cmd_lstnew(void);
-int		update_wd(char *str, t_cmd *cmd);
+int		update_strs(char ***strs, char *to_add);
 
 //t_cmd_2.c
 t_cmd	*copy_t_cmd(t_cmd *src);

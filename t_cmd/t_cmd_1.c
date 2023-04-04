@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:56:04 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 08:18:54 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,22 @@ void	cmd_lstadd_back(t_cmd **lst, t_cmd *new)
 	new->prev = ptr;
 }
 
-int	update_wd(char *str, t_cmd *cmd)
+int	update_strs(char ***strs, char *to_add)
 {
 	char	**new;
 	int		index;
 
-	index = tab_strlen(cmd->wd);
-	new = copy_strs_plus_one(cmd->wd);
+	index = tab_strlen(*strs);
+	new = copy_strs_plus_one(*strs);
 	if (!new)
 		return (FAILURE);
-	new[index] = ft_strdup(str);
+	new[index] = ft_strdup(to_add);
 	if (!new[index])
 	{
 		free_tab_strs(new);
 		return (FAILURE);
 	}
-	free_tab_strs(cmd->wd);
-	cmd->wd = new;
+	free_tab_strs(*strs);
+	*strs = new;
 	return (SUCCESS);
 }
