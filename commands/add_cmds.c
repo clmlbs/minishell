@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:45:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 08:18:41 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:08:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	add_infile_name(t_lexer *lexer, t_cmd *cmd)
 	if (!cmd->infile_name)
 		return (perror_failure("Minishell: malloc()"));
 	cmd->infile_mode = READ;
+	if (check_if_openable(cmd) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -35,10 +37,16 @@ int	add_outfile_name(t_lexer *lexer, t_cmd *cmd)
 	cmd->outfile_name = ft_strdup(lexer->token);
 	if (!cmd->outfile_name)
 		return (perror_failure("Minishell: malloc()"));
-	if (lexer->prev->id == SIMPLE_REDIR_OUT)
-		cmd->outfile_mode = REPLACE;
-	else if (lexer->prev->id == DOUBLE_REDIR_OUT)
-		cmd->outfile_mode = APPEND;
+	if (lexer->prev->id == SIMPLE_REDIR_OUT || \
+		lexer->prev->id == DOUBLE_REDIR_OUT)
+	{
+		if (lexer->prev->id == SIMPLE_REDIR_OUT)
+			cmd->outfile_mode = REPLACE;
+		else if (lexer->prev->id == DOUBLE_REDIR_OUT)
+			cmd->outfile_mode = APPEND;
+		if (check_if_writable(cmd) == FAILURE)
+			return (FAILURE);
+	}
 	else
 	{
 		write_error("Minishell: ", "syntax error", "\n");

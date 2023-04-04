@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 09:39:54 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:52:00 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	execute(t_cmd *cmd_in_global)
 
 void	execute_child(t_cmd *cmd)
 {
+	print_t_cmd();//*******
 	if (is_builtin(cmd) == FALSE && find_good_path(cmd) == FAILURE)
 		exit(1); // trouver le bon code
 	if (cmd->infile_mode == READ && check_if_openable(cmd) == FAILURE)

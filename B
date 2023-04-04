@@ -1,0 +1,25 @@
+total 160
+-rw-r--r--   1 cleblais  2022_nice      0 Apr  4 18:09 A
+-rw-r--r--   1 cleblais  2022_nice      0 Apr  4 18:09 B
+-rw-r--r--   1 cleblais  2022_nice   2323 Apr  4 14:29 Makefile
+-rwxr-xr-x   1 cleblais  2022_nice   8432 Apr  4 15:47 a.out
+drwxr-xr-x   4 cleblais  2022_nice    136 Apr  4 18:08 builtin
+drwxr-xr-x   8 cleblais  2022_nice    272 Apr  4 18:08 commands
+drwxr-xr-x   4 cleblais  2022_nice    136 Apr  4 18:08 errors
+drwxr-xr-x   6 cleblais  2022_nice    204 Apr  4 18:08 execution
+-rw-r--r--   1 cleblais  2022_nice    324 Apr  4 08:13 fichier1
+-rw-r--r--   1 cleblais  2022_nice      0 Apr  4 08:13 fichier2
+-rw-r--r--   1 cleblais  2022_nice     23 Apr  4 08:13 fichier3
+-rw-r--r--   1 cleblais  2022_nice     10 Apr  4 09:51 fichier4
+drwxr-xr-x   4 cleblais  2022_nice    136 Apr  4 18:08 free
+-rw-r--r--   1 cleblais  2022_nice      0 Apr  4 11:22 infile
+drwxr-xr-x   4 cleblais  2022_nice    136 Apr  4 18:08 init
+drwxr-xr-x  12 cleblais  2022_nice    408 Apr  4 18:09 lexer
+drwxr-xr-x  28 cleblais  2022_nice    952 Apr  4 18:09 libft
+-rwxr-xr-x   1 cleblais  2022_nice   2816 Apr  4 17:15 main.c
+-rw-r--r--   1 cleblais  2022_nice   2756 Apr  4 18:08 main.o
+-rwxr-xr-x   1 cleblais  2022_nice  35116 Apr  4 18:09 minishell
+-rwxr-xr-x   1 cleblais  2022_nice   7553 Apr  4 15:14 minishell.h
+drwxr-xr-x   8 cleblais  2022_nice    272 Apr  4 18:09 parser
+drwxr-xr-x   6 cleblais  2022_nice    204 Apr  4 18:09 t_cmd
+drwxr-xr-x  10 cleblais  2022_nice    340 Apr  4 18:09 utilities
