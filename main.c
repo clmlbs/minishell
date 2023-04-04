@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 08:30:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:03:24 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	env_update(char **envp)
 	g_all.all_path = ms_split(envp[i] + 5, ':');
 	if (!g_all.all_path)
 		return (FAILURE);
-	//printf_strs(g_all.all_path, WITH_INDEX);//********
+	//printf_strs(g_all.all_path, WITH_INDEX, STDOUT_FILENO);//********
 	return (SUCCESS);
 }
 

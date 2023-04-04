@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 08:51:12 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:03:00 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ t_all	g_all;
 //=========== BUILTIN ============
 //builtin_1.c
 void	execute_env(t_cmd *env);
+void	execute_pwd(void);
 
 //=========== COMMANDS ============
 //commands.c
@@ -196,6 +197,7 @@ int		tokenize_quotes(int even, int id);
 void	remove_spaces(void);
 
 //=========== LIBFT ============
+void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char *s1);
 char	*ms_strjoin(char const *s1, char const *s2);
@@ -233,7 +235,7 @@ int		is_var(char c);
 int		is_redir_or_pipe(char c);
 int		is_quote(char c);
 
-void	printf_strs(char **strs, int mode);
+void	printf_strs(char **strs, int mode, int fd);
 void	print_t_cmd(void);
 char	**copy_strs_plus_one(char **old);
 int		tab_strlen(char **tab_of_str);
