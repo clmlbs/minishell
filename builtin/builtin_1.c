@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 16:58:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:32:37 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	is_builtin(t_cmd *cmd)
 	// 	return (TRUE);
 	// else if (ft_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "exit", 4))
 	// 	return (TRUE);
-	// else if (ft_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
-	// 	return (TRUE);
+	else if (ft_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
+		return (TRUE);
 	// else if (ft_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
 	// 	return (TRUE);
 	else
@@ -93,19 +93,19 @@ void	execute_echo(t_cmd *cmd)
 	exit(SUCCESS);
 }
 
-// void	execute_unset(t_cmd	*cmd)
-// {
-// 	char	**new;
-// 	int		i;
+void	execute_unset(t_cmd	*cmd)
+{
+	char	**new;
+	int		i;
 
-// 	new = copy_strs_plus_one(g_all.env);
-// 	if (!new)
-// 		exit(FAILURE);
-// 	i = 0;
-// 	while (g_all.env[i])
-// 	{
-// 		if ()
-// 		i++;
-// 	}
-// 	//penser a free
-// }
+	new = copy_strs_plus_one(g_all.env);
+	if (!new)
+		exit(FAILURE);
+	i = 0;
+	while (g_all.env[i])
+	{
+		if ()
+		i++;
+	}
+	//penser a free
+}
