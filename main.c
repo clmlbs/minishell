@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 13:59:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:12:14 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	minishell(char *input)
 	g_all.pid = (pid_t *)malloc(sizeof(pid_t) * g_all.nb_cmd);
 	if (!g_all.pid)
 		return(perror_void("Minishell: malloc()"));
-	//print_t_cmd();
 	buf = g_all.cmd;
 	while (buf)
 	{

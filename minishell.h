@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 12:52:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:17:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,8 @@ int		replace_var(void);
 int		update_token(t_lexer *lexer, int *index);
 
 //=========== LIBFT ============
+void	ft_putchar_fd(char c, int fd);
+void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
@@ -256,7 +258,7 @@ int		is_spe_or_num(char c);
 int		ft_isalnum(int c);
 
 void	printf_strs(char **strs, int mode, int fd);
-void	print_t_cmd(void);
+void	print_t_cmd(t_cmd *cmd);
 char	**copy_strs_plus_one(char **old);
 int		tab_strlen(char **tab_of_str);
 

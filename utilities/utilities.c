@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 17:27:34 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:17:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,14 @@ void	printf_strs(char **strs, int mode, int fd)
 	}
 }
 
-void	print_t_cmd(void)
+void	print_t_cmd(t_cmd *cmd)
 {
 	t_cmd	*buf;
 
-	buf = g_all.cmd;
+	if (cmd == NULL)
+		buf = g_all.cmd;
+	else
+		buf = cmd;
 	while (buf)
 	{
 		printf_strs(buf->wd, WITH_INDEX, STDOUT_FILENO);

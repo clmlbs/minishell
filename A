@@ -1,0 +1,16 @@
+id:0	e	echo
+id:0	c	coucou
+id:63	>	>
+id:42	A	A
+0] echo
+1] coucou
+fd_infile	0
+fd_outfile	5
+I_mode:		0
+O_mode:		3
+I_name:		(null)
+O_name: 	A
+good_path:	(null)
+position:	1
+
+coucou

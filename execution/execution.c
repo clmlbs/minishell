@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 14:35:03 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:18:17 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	ft_fork(t_cmd *cmd)
 		}
 		if (g_all.nb_cmd != 1 && cmd->position == g_all.nb_cmd)
 		{
-			printf("fd_stdin:%d\n", g_all.fd_stdin);//********
 			if (dup2(g_all.fd_stdin, STDIN_FILENO) < 0)
 				perror_void("Minishell: dup2()");
 		}
@@ -120,7 +119,6 @@ int	execute(t_cmd *cmd_in_global)
 
 void	execute_child(t_cmd *cmd)
 {
-	//print_t_cmd();//*******
 	if (is_builtin(cmd) == FALSE && find_good_path(cmd) == FAILURE)
 		exit(1); // trouver le bon code
 	if (cmd->infile_mode == READ && check_if_openable(cmd) == FAILURE)
@@ -133,6 +131,7 @@ void	execute_child(t_cmd *cmd)
 		execute_builtin(cmd);
 	else
 	{
+		print_t_cmd(cmd);//*****
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
 		{	
 			perror_void("Minishell: execve()");

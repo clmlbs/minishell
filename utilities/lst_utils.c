@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:17:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:15:11 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,13 @@ void	print_t_lexer(void)
 	buf = g_all.lexer;
 	while (buf)
 	{
-		printf("id:%d	%c	%s\n", buf->id, buf->c, buf->token);
+		ft_putstr_fd("id: ", 2);
+		ft_putnbr_fd(buf->id, 2);
+		ft_putstr_fd("		", 2);
+		ft_putchar_fd(buf->c, 2);
+		ft_putstr_fd("	", 2);
+		ft_putstr_fd(buf->token, 2);
+		ft_putstr_fd("\n", 2);
 		buf = buf->next;
 	}
 }
