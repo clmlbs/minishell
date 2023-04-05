@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 17:33:16 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 18:42:02 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,11 @@ int		is_builtin(t_cmd *cmd);
 void	execute_env(t_cmd *cmd);
 void	execute_pwd(t_cmd *cmd);
 void	execute_echo(t_cmd *cmd);
+
+//unset.c
 void	execute_unset(t_cmd	*cmd);
+char	**remove_var(char **env, int index, int i);
+char	**error_strdup(char **env, char **new);
 
 //=========== COMMANDS ============
 //commands.c

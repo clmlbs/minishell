@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 17:32:37 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 18:21:52 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,21 +91,4 @@ void	execute_echo(t_cmd *cmd)
 	if (!(ft_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2)))
 		ft_putstr_fd("\n", cmd->fd_outfile);
 	exit(SUCCESS);
-}
-
-void	execute_unset(t_cmd	*cmd)
-{
-	char	**new;
-	int		i;
-
-	new = copy_strs_plus_one(g_all.env);
-	if (!new)
-		exit(FAILURE);
-	i = 0;
-	while (g_all.env[i])
-	{
-		if ()
-		i++;
-	}
-	//penser a free
 }

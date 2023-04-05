@@ -6,50 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 17:31:53 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:22:28 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// int	ft_fork(t_cmd *cmd)
-// {
-// 	pid_t	pid;
-// 	int		end[2];
-
-// 	g_all.pid = (pid_t *)malloc(sizeof(pid_t) * g_all.nb_cmd);
-// 	if (!g_all.pid)
-// 		return(perror_failure("Minishell: malloc()"));
-// 	if (pipe(end) < 0)
-// 		return (perror_failure("Minishell: pipe()"));
-// 	pid = fork();
-// 	if (pid < 0)
-// 		return (perror_failure("Minishell: fork()"));
-// 	else if (pid == 0)
-// 	{
-// 		if (close(end[0]) < 0)
-// 			return (perror_failure("Minishell: close()"));
-// 		if (dup2(end[1], STDOUT_FILENO) < 0)
-// 			perror_void("Minishell: dup2()");
-// 		if (close(end[1]) < 0)
-// 			return (perror_failure("Minishell: close()"));
-// 		execute_child(cmd);
-// 	}
-// 	else
-// 	{
-// 		g_all.pid[cmd->position - 1] = pid;
-// 		if (close(end[1]) < 0)
-// 			return (perror_failure("Minishell: close()"));
-// 		g_all.fd_save = STDIN_FILENO;
-// 		if (dup2(end[0], STDIN_FILENO) < 0)
-// 			perror_void("Minishell: dup2()");
-// 		if (close(end[0]) < 0)
-// 			return (perror_failure("Minishell: close()"));
-// 		if (dup2(g_all.fd_save, STDIN_FILENO) < 0)
-// 			perror_void("Minishell: dup2()");
-// 	}
-// 	return (SUCCESS);
-// }
 
 int	ft_fork(t_cmd *cmd)
 {
@@ -131,7 +92,7 @@ void	execute_child(t_cmd *cmd)
 		execute_builtin(cmd);
 	else
 	{
-		print_t_cmd(cmd);//******
+		//print_t_cmd(cmd);//******
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
 		{	
 			perror_void("Minishell: execve()");
