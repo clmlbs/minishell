@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 18:22:19 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:13:22 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 	free(doc);//normalement pas besoin de free chaque truc car deja fait 
 	if (add_here_doc_to_cmd(lexer, cmd) == FAILURE)
 		return (FAILURE);
+	// close le fd du here_doc ?? 
 	return (SUCCESS);
 }
 

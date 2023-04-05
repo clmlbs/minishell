@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 13:01:12 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:59:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ int	main(int ac, char **av, char **env)
 		}
 		free(input);
 	}
+	close(g_all.fd_stdin);
+	close(g_all.fd_stdout);
 	//free les trucs de la globale 
 	return (0);
 }

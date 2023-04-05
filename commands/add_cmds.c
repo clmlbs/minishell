@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:45:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 18:08:55 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:25:37 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	add_infile_name(t_lexer *lexer, t_cmd *cmd)
 	cmd->infile_mode = READ;
 	if (check_if_openable(cmd) == FAILURE)
 		return (FAILURE);
+	close(cmd->fd_infile);
 	return (SUCCESS);
 }
 
@@ -46,6 +47,7 @@ int	add_outfile_name(t_lexer *lexer, t_cmd *cmd)
 			cmd->outfile_mode = APPEND;
 		if (check_if_writable(cmd) == FAILURE)
 			return (FAILURE);
+		close(cmd->fd_outfile);
 	}
 	else
 	{

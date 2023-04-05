@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:19:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 09:21:04 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:26:46 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	check_if_openable(t_cmd *cmd)
 	cmd->fd_infile = open(cmd->infile_name, O_RDONLY);
 	if (cmd->fd_infile == -1)
 		return (perror_failure("Minishell"));
-	//close(fd); normalement pas besoin de le close puisqu'on va l'exec 
 	return (SUCCESS);
 }
 
@@ -70,7 +69,7 @@ int	check_if_writable(t_cmd *cmd)
 	else if (cmd->outfile_mode == APPEND)
 		cmd->fd_outfile = open(cmd->outfile_name, \
 			O_CREAT | O_RDWR | O_APPEND, 0666);
-	if (cmd->fd_infile == -1)
+	if (cmd->fd_outfile == -1)
 		return (perror_failure("Minishell"));
 	return (SUCCESS);
 }

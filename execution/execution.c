@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 12:54:29 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:35:03 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ int	ft_fork(t_cmd *cmd)
 		}
 		if (close(g_all.end[0]) < 0)
 			return (perror_failure("Minishell: close()"));
+		if (cmd->infile_mode != CLASSIC)
+			close(cmd->fd_infile);
+		if (cmd->outfile_mode != CLASSIC)
+			close(cmd->fd_outfile);
 	}
 	return (SUCCESS);
 }
