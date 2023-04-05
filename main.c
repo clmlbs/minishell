@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 17:15:27 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:01:12 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,27 @@ int	check_line(char *input)
 		return (EMPTY);
 }
 
+// void	ft_waitpid(void)
+// {
+// 	int	i;
+// 	int	pid;
+// 	int	status;
+
+// 	i = 0;
+// 	while (i < g_all.nb_cmd) // ca va poser pb si pas de fork pour les builtin
+// 	{
+// 		pid = waitpid(g_all.pid[i], &status, 0);
+// 		if (pid > 0)
+// 			printf("Child process %d exited with status %d\n", pid, status);
+// 		if (pid <= 0)
+// 		{
+// 			perror_void("Minishell: waitpid()");
+// 			exit(1); // code d'erreur ok ? 
+// 		}
+// 		i++;
+// 	}
+// }
+
 void	ft_waitpid(void)
 {
 	int	i;
@@ -44,9 +65,9 @@ void	ft_waitpid(void)
 	i = 0;
 	while (i < g_all.nb_cmd) // ca va poser pb si pas de fork pour les builtin
 	{
-		pid = waitpid(-1, &status, 0);
-		//if (pid > 0)
-		//	printf("Child process %d exited with status %d\n", pid, status);
+		pid = waitpid(g_all.pid[i], &status, 0);
+		// if (pid > 0)
+		// 	printf("Child process %d exited with status %d\n", pid, status);
 		if (pid <= 0)
 		{
 			perror_void("Minishell: waitpid()");
@@ -82,17 +103,22 @@ int	env_update(char **envp)
 void	minishell(char *input)
 {
 	t_cmd	*buf;
-	
+		
 	if (lexer(input) == FAILURE)
 		return ;
 	if (parser() == FAILURE)
 		return ;
 	if (fill_t_cmd() == FAILURE)
 		return ;
+	g_all.pid = (pid_t *)malloc(sizeof(pid_t) * g_all.nb_cmd);
+	if (!g_all.pid)
+		return(perror_void("Minishell: malloc()"));
 	//print_t_cmd();
 	buf = g_all.cmd;
 	while (buf)
 	{
+		if (pipe(g_all.end) < 0)
+			return (perror_void("Minishell: pipe()"));
 		if (execute(buf) == FAILURE)
 			return ;
 		buf = buf->next;
@@ -106,6 +132,7 @@ int	main(int ac, char **av, char **env)
 	int			line_ok;
 
 	init_global(ac, av, env);
+	printf("pid:%d\n", getpid());//******
 	while (1)
 	{
 		signal(SIGINT, sign_ctrl_c);

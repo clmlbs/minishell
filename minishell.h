@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 15:14:36 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 12:52:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,10 @@ typedef struct s_all
 	char	**all_path;
 	char	**env;
 	int		nb_cmd;
+	int		*pid;
+	int		fd_stdin;
+	int		fd_stdout;
+	int		end[2];
 }	t_all;
 
 t_all	g_all;

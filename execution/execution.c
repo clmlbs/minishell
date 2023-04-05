@@ -6,35 +6,93 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 17:52:00 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 12:54:29 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// int	ft_fork(t_cmd *cmd)
+// {
+// 	pid_t	pid;
+// 	int		end[2];
+
+// 	g_all.pid = (pid_t *)malloc(sizeof(pid_t) * g_all.nb_cmd);
+// 	if (!g_all.pid)
+// 		return(perror_failure("Minishell: malloc()"));
+// 	if (pipe(end) < 0)
+// 		return (perror_failure("Minishell: pipe()"));
+// 	pid = fork();
+// 	if (pid < 0)
+// 		return (perror_failure("Minishell: fork()"));
+// 	else if (pid == 0)
+// 	{
+// 		if (close(end[0]) < 0)
+// 			return (perror_failure("Minishell: close()"));
+// 		if (dup2(end[1], STDOUT_FILENO) < 0)
+// 			perror_void("Minishell: dup2()");
+// 		if (close(end[1]) < 0)
+// 			return (perror_failure("Minishell: close()"));
+// 		execute_child(cmd);
+// 	}
+// 	else
+// 	{
+// 		g_all.pid[cmd->position - 1] = pid;
+// 		if (close(end[1]) < 0)
+// 			return (perror_failure("Minishell: close()"));
+// 		g_all.fd_save = STDIN_FILENO;
+// 		if (dup2(end[0], STDIN_FILENO) < 0)
+// 			perror_void("Minishell: dup2()");
+// 		if (close(end[0]) < 0)
+// 			return (perror_failure("Minishell: close()"));
+// 		if (dup2(g_all.fd_save, STDIN_FILENO) < 0)
+// 			perror_void("Minishell: dup2()");
+// 	}
+// 	return (SUCCESS);
+// }
+
 int	ft_fork(t_cmd *cmd)
 {
 	pid_t	pid;
-	int		end[2];
 
-	if (pipe(end) < 0)
-		return (perror_failure("Minishell: pipe()"));
 	pid = fork();
 	if (pid < 0)
 		return (perror_failure("Minishell: fork()"));
 	else if (pid == 0)
 	{
-		if (close(end[0] < 0))
+		if (close(g_all.end[0]) < 0)
+			return (perror_failure("Minishell: close()"));
+		if (g_all.nb_cmd != 1 && cmd->position != g_all.nb_cmd)
+		{
+			if (dup2(g_all.end[1], STDOUT_FILENO) < 0)
+				perror_void("Minishell: dup2()");
+		}
+		if (g_all.nb_cmd != 1 && cmd->position == g_all.nb_cmd)
+		{
+			if (dup2(g_all.fd_stdout, STDOUT_FILENO) < 0)
+				perror_void("Minishell: dup2()");
+		}
+		if (close(g_all.end[1]) < 0)
 			return (perror_failure("Minishell: close()"));
 		execute_child(cmd);
 	}
 	else
 	{
-		if (close(end[1]) < 0)
+		g_all.pid[cmd->position - 1] = pid;
+		if (close(g_all.end[1]) < 0)
 			return (perror_failure("Minishell: close()"));
-		if (dup2(STDIN_FILENO, end[0]) < 0)
-			perror_void("Minishell: dup2()");
-		if (close(end[0]) < 0)
+		if (g_all.nb_cmd != 1 && cmd->position != g_all.nb_cmd)
+		{
+			if (dup2(g_all.end[0], STDIN_FILENO) < 0)
+				perror_void("Minishell: dup2()");
+		}
+		if (g_all.nb_cmd != 1 && cmd->position == g_all.nb_cmd)
+		{
+			printf("fd_stdin:%d\n", g_all.fd_stdin);//********
+			if (dup2(g_all.fd_stdin, STDIN_FILENO) < 0)
+				perror_void("Minishell: dup2()");
+		}
+		if (close(g_all.end[0]) < 0)
 			return (perror_failure("Minishell: close()"));
 	}
 	return (SUCCESS);
@@ -58,7 +116,7 @@ int	execute(t_cmd *cmd_in_global)
 
 void	execute_child(t_cmd *cmd)
 {
-	print_t_cmd();//*******
+	//print_t_cmd();//*******
 	if (is_builtin(cmd) == FALSE && find_good_path(cmd) == FAILURE)
 		exit(1); // trouver le bon code
 	if (cmd->infile_mode == READ && check_if_openable(cmd) == FAILURE)
