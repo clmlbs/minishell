@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 17:48:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:27:54 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,21 @@ int	replace_var(void)
 	{
 		if (buf->id == VAR)
 		{
+			printf("token:%s\n", buf->token);//******
 			while (buf->token[i])
 			{
-				while (buf->token[i] && buf->token[i] != '$')
-					i++;
-				if (buf->token[i] == '$' && update_token(buf, &i) == FAILURE)
-					return (FAILURE);
-				if (buf->token[0] == '\"')
-					buf->id = DOUBLE_QUOTE;
-				else
-					buf->id = WORD;
+				if (buf->token[i] == '$')
+				{
+					if (update_token(buf, &i) == FAILURE)
+						return (FAILURE);
+					if (buf->token[0] == '\"')
+						buf->id = DOUBLE_QUOTE;
+					else
+						buf->id = WORD;
+				}
+				i++;
 			}
+			i = 0;
 		}
 		buf = buf->next;
 	}
@@ -64,6 +68,7 @@ int	update_token(t_lexer *lexer, int *index)
 
 	new = NULL;
 	i = 0;
+	printf("Dans update_token\n");//*******
 	while (i < (*index))
 	{
 		new = ft_add_char_to_str(ft_strdup(new), lexer->token[i]);
@@ -71,6 +76,7 @@ int	update_token(t_lexer *lexer, int *index)
 			return (FAILURE);
 		i++;
 	}
+	printf("new:%s\n", new);//******
 	i++; 
 	begin = i;
 	if (!lexer->token[i] || is_space(lexer->token[i]) == TRUE)
@@ -111,6 +117,7 @@ int	update_token(t_lexer *lexer, int *index)
 		free(new);
 		return (FAILURE);
 	}
+	printf("var:%s\n", var);//**********
 	fullvar = ft_getvar(var); // doit renvoyer soit str complete
 							// soit NULL si echoue soit '\0' si n'existe pas	
 	free(var);

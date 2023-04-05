@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 16:18:17 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:10:13 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,11 @@ void	execute_child(t_cmd *cmd)
 		exit(1); // trouver le bon code 
 	if (dup_fd(cmd) == FAILURE)
 		exit(1);//trouver le bon code
-	if (is_builtin(cmd) == TRUE)
-		execute_builtin(cmd);
-	else
+	// if (is_builtin(cmd) == TRUE)
+	// 	execute_builtin(cmd);
+	// else
 	{
-		print_t_cmd(cmd);//*****
+		print_t_cmd(cmd);//******
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
 		{	
 			perror_void("Minishell: execve()");

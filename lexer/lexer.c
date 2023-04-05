@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 14:43:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:57:58 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,34 @@ int	lexer(char *input)
 	return (SUCCESS);
 }
 
+int	is_var_exist(char *var, int *index)
+{
+	int	j;
+
+	j = 0;	
+	while (g_all.env[*index])
+	{
+		if (!ft_strncmp(g_all.env[*index], var, ft_strlen(var)))
+		{
+			while (g_all.env[*index][j] && g_all.env[*index][j] != '=')
+				j++;
+			if (j == ft_strlen(var))
+				return (SUCCESS);
+			j = 0;
+		}
+		(*index)++;
+	}
+	return (FAILURE);
+}
+
 char	*ft_getvar(char *var)
 {
 	int		i;
-	int		j;
-	int		exist;
+
 	char	*new;
 
-	exist = NO;
 	i = 0;
-	j = 0;
-	while (g_all.env[i])
-	{
-		if (!ft_strncmp(g_all.env[i], var, ft_strlen(var)))
-		{
-			while (g_all.env[i][j] && g_all.env[i][j] != '=')
-				j++;
-			if (j == ft_strlen(var))
-			{	
-				exist = YES;
-				break ;
-			}
-			j = 0;
-		}
-		i++;
-	}
-	if (exist == NO)
+	if (is_var_exist(var, &i) == FAILURE)
 	{
 		new = (char *)malloc(sizeof(char));
 		if (!new)
