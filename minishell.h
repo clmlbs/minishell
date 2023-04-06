@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 18:42:02 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 07:57:04 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_all
 	int		fd_stdin;
 	int		fd_stdout;
 	int		end[2];
+	int		heritage[2];
 }	t_all;
 
 t_all	g_all;
@@ -166,7 +167,7 @@ int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 void	write_error(char *begin, char *middle, char *end);
 void	error_token(t_lexer *lst, int len);
 int		perror_failure(char *str);
-void 	perror_void(char *str);
+void	perror_void(char *str);
 
 //=========== EXECUTE ============
 //execution.c 
@@ -193,6 +194,7 @@ void	free_all_lexer_and_cmd(void);
 
 //=========== INIT ============
 void	init_global(int ac, char **av, char **env);
+int		init_env(char **envp);
 
 //=========== LEXER ============
 //lexer.c
@@ -273,17 +275,12 @@ void	lex_lstadd_back(t_lexer **lst, t_lexer *new);
 void	env_to_lst(char **env);
 void	env_pwd_update(void);
 void	built_env(void);
-// void    parser(char *input);
 
 t_lexer	*add_path_and_name_env(char *path, char *name);
 t_lexer	*add_token(char *token, int id);
 t_lexer	*add_other(char *oth);
 t_lexer	*lst_new_env(char *str);
 t_lexer	*add_var_env(char *token);
-
-int		ft_strcmp(const char *s1, const char *s2);
-
-char	**ft_split(const char *s, char c);
 
 //=========== PARSER ============
 // parser.c
@@ -302,9 +299,6 @@ void	remove_token(t_lexer *lst);
 int		add_next_str_to_current(t_lexer *current);
 int		parse_same_id(int id_target);
 void	change_id_redir(t_lexer *lst);
-
-//parsermauvais.c
-int		fill_cmd(t_cmd *cmd, t_lexer *lst);
 
 //=========== MAIN =============
 

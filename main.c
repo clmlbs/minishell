@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 16:12:14 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 07:47:40 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,33 +77,10 @@ void	ft_waitpid(void)
 	}
 }
 
-int	env_update(char **envp)
-{
-	int	i;
-	int	line;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(envp[i], "PATH=", 5))
-		{
-			line = i;
-			break ;
-		}
-		i++;
-	}
-	g_all.all_path = ms_split(envp[i] + 5, ':');
-	if (!g_all.all_path)
-		return (FAILURE);
-	//printf_strs(g_all.all_path, WITH_INDEX, STDOUT_FILENO);//********
-	return (SUCCESS);
-}
-
-
 void	minishell(char *input)
 {
 	t_cmd	*buf;
-		
+
 	if (lexer(input) == FAILURE)
 		return ;
 	if (parser() == FAILURE)
@@ -131,12 +108,14 @@ int	main(int ac, char **av, char **env)
 	int			line_ok;
 
 	init_global(ac, av, env);
+	if (pipe(g_all.heritage) < 0)
+		return (perror_failure("Minishell: pipe()"));
 	printf("pid:%d\n", getpid());//******
 	while (1)
 	{
 		signal(SIGINT, sign_ctrl_c);
-		if (env_update(env) == FAILURE) // MODIFIER
-			break ;
+		// if (init_env(env) == FAILURE) // MODIFIER
+		// 	break ;
 		//env_pwd_update(); // faut pas mettre ca apres l'exec ?
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);
