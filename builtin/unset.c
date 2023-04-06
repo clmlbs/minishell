@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 18:41:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 13:15:50 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:23:13 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,29 @@ void	execute_unset(t_cmd	*cmd)
 	exit(SUCCESS);
 }
 
-int send_env_to_father(char **env, int *fd)
+int	send_env_to_father(char **env, int *fd)
 {
-    int i, nb_strs;
-    size_t len;
+	int		i;
+	int		nb_strs;
+	size_t	len;
 
-    if (close(fd[0]) < 0)
-        return (perror_fail("Minishell: close()"));
-
-    nb_strs = tab_strlen(env);
-    if (write(fd[1], &nb_strs, sizeof(int)) == -1)
-        return (perror_fail("Minishell: write()"));
-
-    i = 0;
-    while (env[i])
-    {
-        len = ft_strlen(env[i]) + 1;
-        if (write(fd[1], &len, sizeof(size_t)) == -1)
-            return (perror_fail("Minishell: write()"));
-        if (write(fd[1], env[i], len) == -1)
-            return (perror_fail("Minishell: write()"));
-        i++;
-    }
-    return (SUCCESS);
+	if (close(fd[0]) < 0)
+		return (perror_fail("Minishell: close()"));
+	nb_strs = tab_strlen(env);
+	if (write(fd[1], &nb_strs, sizeof(int)) == -1)
+		return (perror_fail("Minishell: write()"));
+	i = 0;
+	while (env[i])
+	{
+		len = ft_strlen(env[i]) + 1;
+		if (write(fd[1], &len, sizeof(size_t)) == -1)
+			return (perror_fail("Minishell: write()"));
+		if (write(fd[1], env[i], len) == -1)
+			return (perror_fail("Minishell: write()"));
+		i++;
+	}
+	return (SUCCESS);
 }
-
 
 char	**remove_var(char **env, int index, int i)
 {
