@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 14:13:22 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 09:15:00 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 
 	doc = (t_doc *)malloc(sizeof(t_doc));
 	if (!doc)
-		perror_failure("Minishell: malloc()");
+		perror_fail("Minishell: malloc()");
 	doc->input = NULL;
 	doc->line = NULL;
 	doc->buf_line = NULL;
@@ -89,11 +89,11 @@ int	add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd)
 	int	fd[2];
 
 	if (pipe(fd) == -1)
-		perror_failure("Minishell");
+		perror_fail("Minishell");
 	if (write(fd[1], lexer->token, ft_strlen(lexer->token)) == -1)
-		perror_failure("Minishell");
+		perror_fail("Minishell");
 	if (write(fd[1], "\n", 1) == -1)
-		perror_failure("Minishell");
+		perror_fail("Minishell");
 	close(fd[1]); // ici c'est ok ? 
 	cmd->infile_mode = HERE_DOC;
 	cmd->fd_infile = fd[0];

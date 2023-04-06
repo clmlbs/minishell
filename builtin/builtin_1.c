@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 18:21:52 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 09:45:18 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	is_builtin(t_cmd *cmd)
 
 void	execute_env(t_cmd *cmd)
 {
+	if (put_size_to_zero() == FAILURE)
+		exit(FAILURE);
 	if (cmd->wd[1])
 	{
 		write_error("Minishell: ", "error: env should be executed ",\
@@ -52,6 +54,8 @@ void	execute_pwd(t_cmd *cmd)
 {
 	char	cwd[1024];
 
+	if (put_size_to_zero() == FAILURE)
+		exit(FAILURE);
 	if (cmd->wd[1] && cmd->wd[1][0] == '-')
 	{
 		write_error("Minishell: ", "error: pwd should be executed ",\
@@ -72,6 +76,8 @@ void	execute_echo(t_cmd *cmd)
 {
 	int	i;
 
+	if (put_size_to_zero() == FAILURE)
+		exit(FAILURE);
 	if (cmd->wd[1] == NULL)
 		ft_putstr_fd("\n", cmd->fd_outfile);
 	else if (ft_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2))

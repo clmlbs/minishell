@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 07:57:04 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 10:03:45 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct s_all
 	int		fd_stdout;
 	int		end[2];
 	int		heritage[2];
+	int		size[2];
 }	t_all;
 
 t_all	g_all;
@@ -143,6 +144,7 @@ void	execute_echo(t_cmd *cmd);
 
 //unset.c
 void	execute_unset(t_cmd	*cmd);
+int		send_env_to_father(void);
 char	**remove_var(char **env, int index, int i);
 char	**error_strdup(char **env, char **new);
 
@@ -166,7 +168,7 @@ int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 //errors.c
 void	write_error(char *begin, char *middle, char *end);
 void	error_token(t_lexer *lst, int len);
-int		perror_failure(char *str);
+int		perror_fail(char *str);
 void	perror_void(char *str);
 
 //=========== EXECUTE ============
@@ -181,6 +183,7 @@ int		find_good_path(t_cmd *cmd);
 int		check_if_openable(t_cmd *cmd);
 int		check_if_writable(t_cmd *cmd);
 int		dup_fd(t_cmd *cmd);
+int		put_size_to_zero(void);
 
 
 //=========== FREE ============
@@ -195,6 +198,8 @@ void	free_all_lexer_and_cmd(void);
 //=========== INIT ============
 void	init_global(int ac, char **av, char **env);
 int		init_env(char **envp);
+int		update_global(void);
+int		ret_upt(char **new_env, int *nb_strs, int return_value);
 
 //=========== LEXER ============
 //lexer.c
@@ -270,11 +275,7 @@ void	print_t_cmd(t_cmd *cmd);
 char	**copy_strs_plus_one(char **old);
 int		tab_strlen(char **tab_of_str);
 
-void	env_check(char **env);
 void	lex_lstadd_back(t_lexer **lst, t_lexer *new);
-void	env_to_lst(char **env);
-void	env_pwd_update(void);
-void	built_env(void);
 
 t_lexer	*add_path_and_name_env(char *path, char *name);
 t_lexer	*add_token(char *token, int id);

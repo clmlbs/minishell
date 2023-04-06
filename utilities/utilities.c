@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 16:17:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 09:14:58 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char	**copy_strs_plus_one(char **old)
 	tab_len = tab_strlen(old);
 	new = (char **)malloc(sizeof(char *) * (tab_len + 2));
 	if (!new)
-		perror_failure("Minishell: malloc()");
+		perror_fail("Minishell: malloc()");
 	if (!new)
 		return (NULL);
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 07:47:40 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 10:16:21 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,16 @@ void	minishell(char *input)
 	buf = g_all.cmd;
 	while (buf)
 	{
-		if (pipe(g_all.end) < 0)
-			return (perror_void("Minishell: pipe()"));
-		if (execute(buf) == FAILURE)
-			return ;
+		if (buf->position != 1 && update_global() == FAILURE)
+			break ;
+		else
+		{
+			if (pipe(g_all.end) < 0)
+				return (perror_void("Minishell: pipe()"));
+			if (execute(buf) == FAILURE)
+				return ;
 		buf = buf->next;
+		}
 	}
 	ft_waitpid(); // ok ici le waitpid ? 
 }
@@ -108,15 +113,12 @@ int	main(int ac, char **av, char **env)
 	int			line_ok;
 
 	init_global(ac, av, env);
-	if (pipe(g_all.heritage) < 0)
-		return (perror_failure("Minishell: pipe()"));
+	if (pipe(g_all.heritage) < 0 || pipe(g_all.size))
+		return (perror_fail("Minishell: pipe()"));
 	printf("pid:%d\n", getpid());//******
 	while (1)
 	{
 		signal(SIGINT, sign_ctrl_c);
-		// if (init_env(env) == FAILURE) // MODIFIER
-		// 	break ;
-		//env_pwd_update(); // faut pas mettre ca apres l'exec ?
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);
 		if (line_ok == FAILURE)
@@ -132,5 +134,6 @@ int	main(int ac, char **av, char **env)
 	close(g_all.fd_stdin);
 	close(g_all.fd_stdout);
 	//free les trucs de la globale 
+	// close heritage + size
 	return (0);
 }

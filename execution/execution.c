@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 19:22:28 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 09:43:40 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	ft_fork(t_cmd *cmd)
 
 	pid = fork();
 	if (pid < 0)
-		return (perror_failure("Minishell: fork()"));
+		return (perror_fail("Minishell: fork()"));
 	else if (pid == 0)
 	{
 		if (close(g_all.end[0]) < 0)
-			return (perror_failure("Minishell: close()"));
+			return (perror_fail("Minishell: close()"));
 		if (g_all.nb_cmd != 1 && cmd->position != g_all.nb_cmd)
 		{
 			if (dup2(g_all.end[1], STDOUT_FILENO) < 0)
@@ -34,14 +34,14 @@ int	ft_fork(t_cmd *cmd)
 				perror_void("Minishell: dup2()");
 		}
 		if (close(g_all.end[1]) < 0)
-			return (perror_failure("Minishell: close()"));
+			return (perror_fail("Minishell: close()"));
 		execute_child(cmd);
 	}
 	else
 	{
 		g_all.pid[cmd->position - 1] = pid;
 		if (close(g_all.end[1]) < 0)
-			return (perror_failure("Minishell: close()"));
+			return (perror_fail("Minishell: close()"));
 		if (g_all.nb_cmd != 1 && cmd->position != g_all.nb_cmd)
 		{
 			if (dup2(g_all.end[0], STDIN_FILENO) < 0)
@@ -53,7 +53,7 @@ int	ft_fork(t_cmd *cmd)
 				perror_void("Minishell: dup2()");
 		}
 		if (close(g_all.end[0]) < 0)
-			return (perror_failure("Minishell: close()"));
+			return (perror_fail("Minishell: close()"));
 		if (cmd->infile_mode != CLASSIC)
 			close(cmd->fd_infile);
 		if (cmd->outfile_mode != CLASSIC)
@@ -92,17 +92,17 @@ void	execute_child(t_cmd *cmd)
 		execute_builtin(cmd);
 	else
 	{
-		//print_t_cmd(cmd);//******
+		if (put_size_to_zero() == FAILURE)
+			exit(FAILURE); // ok ? ou on execute quand meme ? 
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
-		{	
-			perror_void("Minishell: execve()");
-			exit(1);// trouver le bon code 
-		}
+			exit(perror_fail("Minishell: execve()"));// trouver le bon code 
 	}
 }
 
 void	execute_builtin(t_cmd *cmd)
 {
+	// ATTENTION : verifier que tous les builtin ont put_size_to_zero !
+	
 	// if (ft_strlen(cmd->wd[0]) == 2 && !ft_strncmp(cmd->wd[0], "cd", 2))
 	// 	execute_cd(cmd);
 	/*else*/if (ft_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "pwd", 3))

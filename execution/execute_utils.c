@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:19:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 16:18:56 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 10:26:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	check_if_openable(t_cmd *cmd)
 		return (FAILURE);
 	}
 	if (access(cmd->infile_name, F_OK) == -1)
-		return (perror_failure("Minishell: access"));
+		return (perror_fail("Minishell: access"));
 	cmd->fd_infile = open(cmd->infile_name, O_RDONLY);
 	if (cmd->fd_infile == -1)
-		return (perror_failure("Minishell"));
+		return (perror_fail("Minishell"));
 	return (SUCCESS);
 }
 
@@ -62,7 +62,7 @@ int	check_if_writable(t_cmd *cmd)
 		return (FAILURE);
 	}
 	// if (access(cmd->outfile_name, W_OK) == -1)
-	// 	return (perror_failure("Minishell: access"));
+	// 	return (perror_fail("Minishell: access"));
 	if (cmd->outfile_mode == REPLACE)
 		cmd->fd_outfile = open(cmd->outfile_name, \
 			O_CREAT | O_RDWR | O_TRUNC, 0666);
@@ -70,7 +70,7 @@ int	check_if_writable(t_cmd *cmd)
 		cmd->fd_outfile = open(cmd->outfile_name, \
 			O_CREAT | O_RDWR | O_APPEND, 0666);
 	if (cmd->fd_outfile == -1)
-		return (perror_failure("Minishell"));
+		return (perror_fail("Minishell"));
 	return (SUCCESS);
 }
 
@@ -87,4 +87,30 @@ int	dup_fd(t_cmd *cmd)
 			return (FAILURE);
 	}
 	return (SUCCESS);
+}
+
+int	put_size_to_zero(void)
+{
+	int	result;
+	int	*zero;
+
+	result = SUCCESS;
+	zero = (int *)malloc(sizeof(int));
+	if (!zero)
+	{
+		perror_fail("Minishell: malloc()");
+		result = FAILURE;
+	}
+	zero[0] = 0;
+	if (close(g_all.size[0]) == -1)
+	{
+		perror_fail("Minishell: close()");
+		result = FAILURE;
+	}
+	if (write(g_all.size[1], zero, sizeof(int)) == -1)
+	{
+		perror_fail("Minishell: write()");
+		result = FAILURE;
+	}
+	return (result);
 }
