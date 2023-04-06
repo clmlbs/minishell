@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 12:11:58 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:10:56 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	main(int ac, char **av, char **env)
 	int			line_ok;
 
 	init_global(ac, av, env);
-	if (pipe(g_all.herit) < 0 || pipe(g_all.size))
+	if (pipe(g_all.herit) < 0)
 		return (perror_fail("Minishell: pipe()"));
 	printf("pid:%d\n", getpid());//******
 	while (1)

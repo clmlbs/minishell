@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 09:43:40 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:13:09 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ void	execute_child(t_cmd *cmd)
 		execute_builtin(cmd);
 	else
 	{
-		if (put_size_to_zero() == FAILURE)
-			exit(FAILURE); // ok ? ou on execute quand meme ? 
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
 			exit(perror_fail("Minishell: execve()"));// trouver le bon code 
 	}
@@ -101,8 +99,6 @@ void	execute_child(t_cmd *cmd)
 
 void	execute_builtin(t_cmd *cmd)
 {
-	// ATTENTION : verifier que tous les builtin ont put_size_to_zero !
-	
 	// if (ft_strlen(cmd->wd[0]) == 2 && !ft_strncmp(cmd->wd[0], "cd", 2))
 	// 	execute_cd(cmd);
 	/*else*/if (ft_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "pwd", 3))

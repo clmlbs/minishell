@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 12:10:13 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:13:37 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,8 @@ int	ret_upt(char **new_env, int *nb_strs, int return_value)
 		free(new_env);
 	if (nb_strs)
 		free(nb_strs);
-	close(g_all.size[1]);
-	close(g_all.size[0]);
 	close(g_all.herit[1]);
 	close(g_all.herit[0]);
-	if (pipe(g_all.size) < 0)
-		perror("Minishell: pipe()");
 	if (pipe(g_all.herit) < 0)
 		perror("Minishell: pipe()");
 	return (return_value);

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 12:12:04 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:12:30 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ typedef struct s_all
 	int		fd_stdout;
 	int		end[2];
 	int		herit[2];
-	int		size[2];
 	int		is_first_turn;
 }	t_all;
 
@@ -184,7 +183,6 @@ int		find_good_path(t_cmd *cmd);
 int		check_if_openable(t_cmd *cmd);
 int		check_if_writable(t_cmd *cmd);
 int		dup_fd(t_cmd *cmd);
-int		put_size_to_zero(void);
 
 
 //=========== FREE ============

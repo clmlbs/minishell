@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:19:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 10:26:55 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:12:16 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,30 +87,4 @@ int	dup_fd(t_cmd *cmd)
 			return (FAILURE);
 	}
 	return (SUCCESS);
-}
-
-int	put_size_to_zero(void)
-{
-	int	result;
-	int	*zero;
-
-	result = SUCCESS;
-	zero = (int *)malloc(sizeof(int));
-	if (!zero)
-	{
-		perror_fail("Minishell: malloc()");
-		result = FAILURE;
-	}
-	zero[0] = 0;
-	if (close(g_all.size[0]) == -1)
-	{
-		perror_fail("Minishell: close()");
-		result = FAILURE;
-	}
-	if (write(g_all.size[1], zero, sizeof(int)) == -1)
-	{
-		perror_fail("Minishell: write()");
-		result = FAILURE;
-	}
-	return (result);
 }
