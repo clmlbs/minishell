@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 13:13:09 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:11:25 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void	execute_builtin(t_cmd *cmd)
 	// 	execute_exit();
 	else if (ft_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
 		execute_unset(cmd);
-	// else if (ft_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
-	// 	execute_export(cmd);
+	else if (ft_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
+		execute_export(cmd);
 	else
 		exit(1);// je vois pas comment on peut etre else mais au cas ou pour pas segfault
 }

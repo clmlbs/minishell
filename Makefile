@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/06 10:06:32 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/06 15:10:33 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME		=	minishell
 SRCS		=	main.c \
 				builtin/builtin_1.c \
 				builtin/unset.c \
+				builtin/export.c \
 				commands/commands.c \
 				commands/here_doc.c \
 				commands/add_cmds.c \

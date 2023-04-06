@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 18:41:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 13:55:51 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:04:35 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,24 @@ int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target)
 		(*new) = NULL;
 	}
 	(*index) = 0;
-	(*var_target)++;
+	return (SUCCESS);
+}
+
+int	unset_check_args(char **strs, int *var_target)
+{
+	if (strs[*var_target] && strs[*var_target][0] == '-')
+	{
+		write_error("Minishell: ", "options for unset are not ", \
+			"implemented in this Minishell\n");
+		return (FAILURE);
+	}
+	else if (strs[*var_target] && is_spe_or_num(strs[*var_target][0]) == TRUE)
+	{
+		write_error("Minishell: ", "unset:", " `");
+		ft_putstr_fd(strs[*var_target], STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
@@ -40,19 +57,15 @@ void	execute_unset(t_cmd	*cmd)
 
 	var_target = 1;
 	index = 0;
+	new = NULL;
 	while (cmd->wd[var_target])
 	{
-		if (cmd->wd[var_target] && cmd->wd[var_target][0] == '-')
-		{
-			write_error("Minishell: ", "options for unset are not ", \
-				"implemented in this Minishell\n");
-			var_target++;
-		}
-		else
+		if (unset_check_args(cmd->wd, &var_target) == SUCCESS)
 		{
 			if (unset_var(&new, cmd, &index, &var_target) == FAILURE)
 				exit(FAILURE);
 		}
+		var_target++;
 	}
 	if (new)
 		free_tab_strs(new);

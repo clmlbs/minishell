@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 13:55:24 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:12:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,9 @@ int		unset_var(char ***new, t_cmd *cmd, int *index, int *var_target);
 void	execute_unset(t_cmd	*cmd);
 char	**remove_var(char **env, int index, int i);
 char	**error_strdup(char **env, char **new);
+
+//export.c
+void	execute_export(t_cmd *cmd);
 
 //=========== COMMANDS ============
 //commands.c
