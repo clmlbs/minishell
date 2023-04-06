@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 16:36:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:52:36 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,32 @@ void	put_in_alphabetic_order(char **strs)
 	}
 }
 
-void	print_env_in_alphabetic(void)
+void	print_env_in_alphabetic(char **strs)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < tab_strlen(strs))
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		while (strs[i][j] != '=')
+		{
+			ft_putchar_fd(strs[i][j], STDOUT_FILENO);
+			j++;
+		}
+		ft_putchar_fd(strs[i][j], STDOUT_FILENO);
+		ft_putchar_fd('\"', STDOUT_FILENO);
+		while (strs[i][++j])
+			ft_putchar_fd(strs[i][j], STDOUT_FILENO);
+		ft_putstr_fd("\"\n", STDOUT_FILENO);
+		j = 0;
+		i++;
+	}
+}
+
+void	export_without_args(void)
 {
 	char	**env_copy;
 
@@ -47,12 +72,13 @@ void	print_env_in_alphabetic(void)
 	if (!env_copy)
 		exit(FAILURE);
 	put_in_alphabetic_order(env_copy);
-	printf_strs(env_copy, WITH_INDEX, 2);//******
+	print_env_in_alphabetic(env_copy);
+	free_tab_strs(env_copy);
 	exit(SUCCESS);
 }
 
 void	execute_export(t_cmd *cmd)
 {
 	if (!cmd->wd[1])
-		print_env_in_alphabetic();
+		export_without_args();
 }
