@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 10:16:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 11:14:29 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	minishell(char *input)
 	buf = g_all.cmd;
 	while (buf)
 	{
-		if (buf->position != 1 && update_global() == FAILURE)
+		if (g_all.is_first_turn == NO && update_global() == FAILURE) // modifier et dire que si history n'a aucune cmd 
 			break ;
 		else
 		{
@@ -113,7 +113,7 @@ int	main(int ac, char **av, char **env)
 	int			line_ok;
 
 	init_global(ac, av, env);
-	if (pipe(g_all.heritage) < 0 || pipe(g_all.size))
+	if (pipe(g_all.herit) < 0 || pipe(g_all.size))
 		return (perror_fail("Minishell: pipe()"));
 	printf("pid:%d\n", getpid());//******
 	while (1)
@@ -130,10 +130,11 @@ int	main(int ac, char **av, char **env)
 			free_all_lexer_and_cmd();
 		}
 		free(input);
+		g_all.is_first_turn = NO;
 	}
 	close(g_all.fd_stdin);
 	close(g_all.fd_stdout);
 	//free les trucs de la globale 
-	// close heritage + size
+	// close herit + size
 	return (0);
 }

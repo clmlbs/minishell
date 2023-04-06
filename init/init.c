@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 10:10:58 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 11:51:20 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_global(int ac, char **av, char **env)
 		perror_fail("Minishell: dup()");
 		exit(1); // bon statut ? 
 	}
+	g_all.is_first_turn = YES;
 	// PENSER A FERMER LES FD !!!
 }
 
@@ -68,26 +69,65 @@ int	update_global(void)
 {
 	char	**new_env;
 	int		*nb_strs;
-	int		ssize;
-
+	size_t	ssize;
+	int		i;
+	size_t	len;
+	
 	new_env = NULL;
 	nb_strs = (int *)malloc(sizeof(int));
 	if (!nb_strs)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
-	if (close(g_all.size[1]) < 0 || close(g_all.heritage[1]) < 0)
+	if (close(g_all.size[1]) < 0 || close(g_all.herit[1]) < 0)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: close()")));
+// ========TEST=============
+
+	ssize_t n = sizeof(int);
+	ssize = 0;
+	while (ssize < n)
+	{
+		ssize_t rc;
+		rc = read(g_all.size[0], nb_strs + ssize, n - ssize);
+		if (rc == -1)
+			return ret_upt(new_env, nb_strs, perror_fail("Minishell: read()"));
+		else if (rc == 0)
+			break ;
+		else
+			ssize += rc;
+	}
+
+
+
+
+
+//========= ANCIENNEMENT ==========
 	ssize = read(g_all.size[0], nb_strs, sizeof(int));
+//=================================
+	
 	if (ssize == -1)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
 	if (*nb_strs <= 0) // ok ? 
 		return (ret_upt(new_env, nb_strs, EMPTY));
-	printf("nb_strs:%d\n", *nb_strs);//******
 	new_env = (char **)malloc(sizeof(char *) * ((*nb_strs) + 1));
-	ft_putstr_fd("Ici\n", 2);//******
 	if (!new_env)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
-	if (read(g_all.heritage[0], new_env, sizeof(char *) * (*nb_strs)) == -1)
-		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
+	i = 0;
+	printf("la\n");//*********
+	while (i < *nb_strs)
+	{
+		len = 0;
+		if (read(g_all.herit[0], &len, sizeof(size_t)) == -1)
+			return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
+		printf("len:%zu\n", len);
+		new_env[i] = (char *)malloc(len);
+		if (!new_env[i])
+		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
+		if (read(g_all.herit[0], new_env[i], len) == -1)
+			return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
+		i++;
+	}
+	printf("ici\n");//*********
+	new_env[*nb_strs] = NULL;
+	printf_strs(new_env, WITH_INDEX, 2);//*********
 	free_tab_strs(g_all.env);
 	g_all.env = new_env;
 	new_env = NULL;
@@ -102,11 +142,11 @@ int	ret_upt(char **new_env, int *nb_strs, int return_value)
 		free(nb_strs);
 	close(g_all.size[1]);
 	close(g_all.size[0]);
-	close(g_all.heritage[1]);
-	close(g_all.heritage[0]);
+	close(g_all.herit[1]);
+	close(g_all.herit[0]);
 	if (pipe(g_all.size) < 0)
 		perror("Minishell: pipe()");
-	if (pipe(g_all.heritage) < 0)
+	if (pipe(g_all.herit) < 0)
 		perror("Minishell: pipe()");
 	return (return_value);
 }

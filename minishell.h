@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 10:03:45 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 11:32:32 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,13 @@ typedef struct s_all
 	char	**all_path;
 	char	**env;
 	int		nb_cmd;
-	int		*pid;
+	int		*pid; // utile ??
 	int		fd_stdin;
 	int		fd_stdout;
 	int		end[2];
-	int		heritage[2];
+	int		herit[2];
 	int		size[2];
+	int		is_first_turn;
 }	t_all;
 
 t_all	g_all;
@@ -144,7 +145,7 @@ void	execute_echo(t_cmd *cmd);
 
 //unset.c
 void	execute_unset(t_cmd	*cmd);
-int		send_env_to_father(void);
+int		send_env_to_father(char **env, int *fd);
 char	**remove_var(char **env, int index, int i);
 char	**error_strdup(char **env, char **new);
 
