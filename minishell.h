@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 15:12:53 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:25:21 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int		send_env_to_father(char **env, int *fd);
 
 //unset.c
 int		unset_var(char ***new, t_cmd *cmd, int *index, int *var_target);
+int		unset_check_args(char **strs, int *var_target);
 void	execute_unset(t_cmd	*cmd);
 char	**remove_var(char **env, int index, int i);
 char	**error_strdup(char **env, char **new);
@@ -234,6 +235,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *s1);
 char	*ms_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);

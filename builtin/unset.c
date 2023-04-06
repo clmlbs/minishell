@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 18:41:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 16:04:35 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:11:14 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	unset_check_args(char **strs, int *var_target)
 	}
 	return (SUCCESS);
 }
-
 
 void	execute_unset(t_cmd	*cmd)
 {
