@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 13:12:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:55:24 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,11 @@ int		is_builtin(t_cmd *cmd);
 void	execute_env(t_cmd *cmd);
 void	execute_pwd(t_cmd *cmd);
 void	execute_echo(t_cmd *cmd);
+int		send_env_to_father(char **env, int *fd);
 
 //unset.c
+int		unset_var(char ***new, t_cmd *cmd, int *index, int *var_target);
 void	execute_unset(t_cmd	*cmd);
-int		send_env_to_father(char **env, int *fd);
 char	**remove_var(char **env, int index, int i);
 char	**error_strdup(char **env, char **new);
 

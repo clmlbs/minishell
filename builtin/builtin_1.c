@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 13:12:53 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:44:22 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,28 @@ void	execute_echo(t_cmd *cmd)
 	if (!(ft_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2)))
 		ft_putstr_fd("\n", cmd->fd_outfile);
 	exit(SUCCESS);
+}
+
+int	send_env_to_father(char **env, int *fd)
+{
+	int		i;
+	int		nb_strs;
+	size_t	len;
+
+	if (close(fd[0]) < 0)
+		return (perror_fail("Minishell: close()"));
+	nb_strs = tab_strlen(env);
+	if (write(fd[1], &nb_strs, sizeof(int)) == -1)
+		return (perror_fail("Minishell: write()"));
+	i = 0;
+	while (env[i])
+	{
+		len = ft_strlen(env[i]) + 1;
+		if (write(fd[1], &len, sizeof(size_t)) == -1)
+			return (perror_fail("Minishell: write()"));
+		if (write(fd[1], env[i], len) == -1)
+			return (perror_fail("Minishell: write()"));
+		i++;
+	}
+	return (SUCCESS);
 }

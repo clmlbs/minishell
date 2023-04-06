@@ -6,11 +6,31 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 18:41:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 13:23:13 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:55:51 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target)
+{
+	(*new) = copy_strs_plus_one(g_all.env);
+	if (!(*new))
+		return (FAILURE);
+	if (is_var_exist(cmd->wd[*var_target], index) == SUCCESS)
+	{
+		(*new) = remove_var(*new, *index, 0);
+		if (!(*new))
+			return (FAILURE);
+		free_tab_strs(g_all.env);
+		g_all.env = (*new);
+		(*new) = NULL;
+	}
+	(*index) = 0;
+	(*var_target)++;
+	return (SUCCESS);
+}
+
 
 void	execute_unset(t_cmd	*cmd)
 {
@@ -22,50 +42,23 @@ void	execute_unset(t_cmd	*cmd)
 	index = 0;
 	while (cmd->wd[var_target])
 	{
-		new = copy_strs_plus_one(g_all.env);
-		if (!new)
-			exit(FAILURE);
-		if (is_var_exist(cmd->wd[var_target], &index) == SUCCESS)
+		if (cmd->wd[var_target] && cmd->wd[var_target][0] == '-')
 		{
-			new = remove_var(new, index, 0); // penser a free ancien new dedans
-			if (!new)
-				exit(FAILURE);
-			free_tab_strs(g_all.env);
-			g_all.env = new;
-			new = NULL;
+			write_error("Minishell: ", "options for unset are not ", \
+				"implemented in this Minishell\n");
+			var_target++;
 		}
-		index = 0;
-		var_target++;
+		else
+		{
+			if (unset_var(&new, cmd, &index, &var_target) == FAILURE)
+				exit(FAILURE);
+		}
 	}
 	if (new)
 		free_tab_strs(new);
 	if (send_env_to_father(g_all.env, g_all.herit) == FAILURE)
 		exit(FAILURE);
 	exit(SUCCESS);
-}
-
-int	send_env_to_father(char **env, int *fd)
-{
-	int		i;
-	int		nb_strs;
-	size_t	len;
-
-	if (close(fd[0]) < 0)
-		return (perror_fail("Minishell: close()"));
-	nb_strs = tab_strlen(env);
-	if (write(fd[1], &nb_strs, sizeof(int)) == -1)
-		return (perror_fail("Minishell: write()"));
-	i = 0;
-	while (env[i])
-	{
-		len = ft_strlen(env[i]) + 1;
-		if (write(fd[1], &len, sizeof(size_t)) == -1)
-			return (perror_fail("Minishell: write()"));
-		if (write(fd[1], env[i], len) == -1)
-			return (perror_fail("Minishell: write()"));
-		i++;
-	}
-	return (SUCCESS);
 }
 
 char	**remove_var(char **env, int index, int i)
