@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 16:16:53 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:36:26 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,7 @@ void	init_global(int ac, char **av, char **env);
 int		init_env(char **envp);
 int		update_global(void);
 int		ret_upt(char **new_env, int *nb_strs, int return_value);
+void	init_t_updated_token(t_update_token *t);
 
 //=========== LEXER ============
 //lexer.c

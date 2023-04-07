@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 14:23:29 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:27:02 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,4 +171,15 @@ int	ret_upt(char **new_env, int *nb_strs, int return_value)
 	if (pipe(g_all.herit) < 0)
 		perror("Minishell: pipe()");
 	return (return_value);
+}
+
+void init_t_updated_token(t_update_token *t)
+{
+	t->i = 0;
+	t->begin = 0;
+	t->str_begin = NULL;
+	t->var_name = NULL;
+	t->var_value = NULL;
+	t->begin_and_value = NULL;
+	t->token_updated = NULL;
 }

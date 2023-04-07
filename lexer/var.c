@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 16:20:33 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:40:32 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,23 @@ void	go_until_end_of_var(t_lexer *lexer, int *i)
 	}
 }
 
+int	create_var_name(t_lexer *lexer, t_update_token *t)
+{
+	t->var_name = ft_substr(lexer->token, t->begin, t->i - t->begin);
+	if (!(t->var_name))
+	{
+		free(t->str_begin);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+
 int	update_token(t_lexer *lexer, int *index)
 {
 	t_update_token	t;
 	
-	t.str_begin = NULL;
-	t.i = 0;
+	init_t_updated_token(&t);
 	if (add_until_dollar(&(t.str_begin), &(t.i), *index, lexer) == FAILURE)
 		return (FAILURE);
 	(t.i)++;
@@ -123,12 +134,16 @@ int	update_token(t_lexer *lexer, int *index)
 	if (lexer->token[t.i] == '\"' && !(lexer->token[t.i + 1]))
 		return(end_of_token_in_quotes(&(t.str_begin), lexer, index, &(t.i)));
 	go_until_end_of_var(lexer, &(t.i));
-	t.var_name = ft_substr(lexer->token, t.begin, t.i - t.begin);
-	if (!(t.var_name))
-	{
-		free(t.str_begin);
+	if (create_var_name(lexer, &t) == FAILURE)
 		return (FAILURE);
-	}
+	
+	// t.var_name = ft_substr(lexer->token, t.begin, t.i - t.begin);
+	// if (!(t.var_name))
+	// {
+	// 	free(t.str_begin);
+	// 	return (FAILURE);
+	// }
+	
 	t.var_value = ptr_to_begin_of_var_value(t.var_name);
 	free(t.var_name);
 	if (!(t.var_value))
