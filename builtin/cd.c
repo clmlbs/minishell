@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:18:27 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 19:07:28 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/08 00:10:09 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,48 @@ int	add_or_update_var_in_env(char *var_str)
 	return (SUCCESS);
 }
 
-int	cd_update_env(t_cmd *cmd)
+// int	cd_update_env(t_cmd *cmd)
+// {
+// 	char	*value;
+// 	char	*var;
+
+// 	value = create_var_value("OLDPWD");
+// 	if (!value)
+// 		return (FAILURE);
+// 	var = ms_strjoin("OLDPWD=", value);
+// 	if (!var)
+// 		return (FAILURE);
+// 	if (add_or_update_var_in_env(var) == FAILURE)
+// 		return (FAILURE);
+// 	free(value);
+// 	free(var);
+// 	if (!cmd->wd[1])
+// 	{
+// 		if (cmd->wd[1] = creat_var_value(g_all.tilde) == -1)
+// 		{
+// 			perror("Minishell");
+// 			return (FAILURE);
+// 		}
+// 	}
+// 	value = ft_strdup(cmd->wd[1]);
+// 	if (!value)
+// 		return (FAILURE);
+// 	var = ms_strjoin("PWD=", value);
+// 	if (!var)
+// 		return (FAILURE);
+// 	if (add_or_update_var_in_env(var) == FAILURE)
+// 		return (FAILURE);
+// 	free(value);
+// 	free(var);
+// 	return (SUCCESS);
+// }
+
+int	add_oldpwd(t_cmd *cmd)
 {
 	char	*value;
 	char	*var;
 
-	value = create_var_value("OLDPWD");
+	value = create_var_value("PWD");
 	if (!value)
 		return (FAILURE);
 	var = ms_strjoin("OLDPWD=", value);
@@ -66,15 +102,21 @@ int	cd_update_env(t_cmd *cmd)
 		return (FAILURE);
 	free(value);
 	free(var);
-	if (!cmd->wd[1])
+	return (SUCCESS);
+}
+
+int	add_newpwd(t_cmd *cmd)
+{
+	char	*value;
+	char	*var;
+	char	cwd[1024];
+
+	if (!getcwd(cwd, 1024))
 	{
-		if (cmd->wd[1] = creat_var_value(g_all.tilde) == -1)
-		{
-			perror("Minishell");
-			return (FAILURE);
-		}
+		perror(ORANGE "Minishell: getcwd()" WHITE);
+		exit(FAILURE);
 	}
-	value = ft_strdup(cmd->wd[1]);
+	value = ft_strdup(cwd);
 	if (!value)
 		return (FAILURE);
 	var = ms_strjoin("PWD=", value);
@@ -87,12 +129,34 @@ int	cd_update_env(t_cmd *cmd)
 	return (SUCCESS);
 }
 
+int	check_destination(t_cmd *cmd) // ok ou passer par open ?
+{
+	DIR *dir;
+
+	if (!cmd->wd[1])
+	{
+		cmd->wd[1] = create_var_value(g_all.tilde);
+		if (!cmd->wd[1])
+		{
+			perror("Minishell");
+			return (FAILURE);
+		}
+	}
+	dir = opendir(cmd->wd[1]);
+	if (dir == NULL)
+	{
+		perror("Minishell");
+		return (FAILURE);
+	}
+	closedir(dir);
+	return (SUCCESS);
+}
 
 void	execute_cd(t_cmd *cmd)
 {
 	int	result;
 
-	if (cd_update_env(cmd) == FAILURE) // faire 2 petites fonctions 
+	if (add_oldpwd(cmd) == FAILURE) 
 		exit(FAILURE);
 	result = check_destination(cmd);
 	if (result != SUCCESS)
@@ -101,7 +165,9 @@ void	execute_cd(t_cmd *cmd)
 	{
 		perror("Minishell");
 		exit(FAILURE);
-	}	
+	}
+	if (add_newpwd(cmd) == FAILURE)
+		exit(FAILURE);
 	if (send_env_to_father(g_all.env, g_all.herit) == FAILURE)
 		exit(FAILURE);
 	exit(SUCCESS);

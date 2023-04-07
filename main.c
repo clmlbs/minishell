@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 12:06:25 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/08 00:20:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,26 @@ void	ft_waitpid(void)
 		}
 		i++;
 	}
+}
+
+int	update_env_after_son(void)
+{
+	char	*pwd;
+
+	if (g_all.is_first_turn == NO)
+	{
+		pwd = create_var_value("PWD");
+		if (!pwd)
+			return (FAILURE);
+		if (chdir(pwd) == -1)
+		{
+			perror("Minishell");
+			free(pwd);
+			return (FAILURE);
+		}
+		free(pwd);
+	}
+	return (SUCCESS);
 }
 
 int	execute_line(void)
