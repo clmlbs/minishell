@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 16:27:02 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:13:16 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	init_global(int ac, char **av, char **env)
 	g_all.env = copy_strs_plus_one(env);
 	if (!g_all.env)
 		exit(1);// bon status de sortie ? 
-	// trouveer le home et le mettre dans tilde 
+	g_all.tilde = create_var_value("HOME");
+	if (!g_all.tilde)
+		exit(1); // bon statut de sortie ?
 	g_all.nb_cmd = 0;
 	g_all.pid = NULL;
 	g_all.fd_stdin = dup(STDIN_FILENO);
