@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 12:08:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:46:14 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct s_all
 	t_cmd	*cmd;
 	char	**all_path;
 	char	**env;
+	char	*tilde;
 	int		nb_cmd;
 	int		*pid; // utile ??
 	int		fd_stdin;
@@ -143,6 +144,7 @@ void	execute_env(t_cmd *cmd);
 void	execute_pwd(t_cmd *cmd);
 void	execute_echo(t_cmd *cmd);
 int		send_env_to_father(char **env, int *fd);
+void	execute_cd(t_cmd *cmd);
 
 //builtin_utils.c
 size_t	len_of_var(char *str);

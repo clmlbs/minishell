@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 12:17:37 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:15:47 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,18 @@ int	replace_var(void)
 	return (SUCCESS);
 }
 
+int	add_until_dollar(char **new, int *i, int index, t_lexer *lexer)
+{
+	while ((*i) < index)
+	{
+		(*new) = ft_add_char_to_str(ft_strdup(*new), lexer->token[*i]);
+		if (!(*new))
+			return (FAILURE);
+		(*i)++;
+	}
+	return (SUCCESS);
+}
+
 int	update_token(t_lexer *lexer, int *index)
 {
 	char	*new;
@@ -67,13 +79,8 @@ int	update_token(t_lexer *lexer, int *index)
 
 	new = NULL;
 	i = 0;
-	while (i < (*index))
-	{
-		new = ft_add_char_to_str(ft_strdup(new), lexer->token[i]);
-		if (!new)
-			return (FAILURE);
-		i++;
-	}
+	if (add_until_dollar(&new, &i, *index, lexer) == FAILURE)
+		return (FAILURE);
 	i++; 
 	begin = i;
 	if (!lexer->token[i] || is_space(lexer->token[i]) == TRUE)
