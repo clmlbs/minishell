@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 14:46:14 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:34:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,7 @@ int		is_var(char c);
 int		is_redir_or_pipe(char c);
 int		is_quote(char c);
 int		is_space(char c);
-int		is_spe_or_num(char c);
+int		is_special_char_or_numeric(char c);
 int		ft_isalnum(int c);
 
 void	printf_strs(char **strs, int mode, int fd);

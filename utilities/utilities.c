@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 09:14:58 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:34:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int is_space(char c)
 	return (FALSE);
 }
 
-int	is_spe_or_num(char c)
+int	is_special_char_or_numeric(char c)
 {
 	if (c >= 33 && c <= 64)
 		return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 15:29:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:38:13 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,19 @@ int	end_of_token_in_quotes(char **new, t_lexer *lexer, int *index, int *i)
 	return (SUCCESS);
 }
 
+void	go_until_end_of_var(t_lexer *lexer, int *i)
+{
+	if (is_special_char_or_numeric(lexer->token[*i]) == TRUE)
+		(*i)++;
+	else
+	{
+		(*i)++;
+		while (lexer->token[*i] && (ft_isalnum(lexer->token[*i]) == TRUE \
+			|| lexer->token[*i] == '_'))
+			(*i)++;
+	}
+}
+
 int	update_token(t_lexer *lexer, int *index)
 {
 	char	*new;
@@ -114,27 +127,19 @@ int	update_token(t_lexer *lexer, int *index)
 
 	if (lexer->token[i] == '\"' && !(lexer->token[i + 1]))
 		return(end_of_token_in_quotes(&new, lexer, index, &i));
+	go_until_end_of_var(lexer, &i);
+		
+	// if (is_special_char_or_numeric(lexer->token[i]) == TRUE)
+	// 	i++;
+	// else
 	// {
-	// 	new = ft_add_char_to_str(ft_strdup(new), '$');
-	// 	if (!new)
-	// 		return (FAILURE);
-	// 	new = ft_add_char_to_str(ft_strdup(new), lexer->token[i]);
-	// 	if (!new)
-	// 		return (FAILURE);
-	// 	free(lexer->token);
-	// 	lexer->token = new;
-	// 	(*index)++;
-	// 	return (SUCCESS);
+	// 	i++;
+	// 	while (lexer->token[i] && (ft_isalnum(lexer->token[i]) == TRUE \
+	// 		|| lexer->token[i] == '_'))
+	// 		i++;
 	// }
-	if (is_spe_or_num(lexer->token[i]) == TRUE)
-		i++;
-	else
-	{
-		i++;
-		while (lexer->token[i] && (ft_isalnum(lexer->token[i]) == TRUE \
-			|| lexer->token[i] == '_'))
-			i++;
-	}
+
+	
 	var = ft_substr(lexer->token, begin, i - begin);
 	if (!var)
 	{

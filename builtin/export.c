@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 11:59:18 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:34:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	export_check_args(char **strs, int *i)
 			"implemented in this Minishell\n");
 		return (FAILURE);
 	}
-	else if (strs[*i] && is_spe_or_num(strs[*i][0]) == TRUE)
+	else if (strs[*i] && is_special_char_or_numeric(strs[*i][0]) == TRUE)
 	{
 		write_error("Minishell: ", "export:", " `");
 		ft_putstr_fd(strs[*i], STDERR_FILENO);
