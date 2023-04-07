@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 12:34:37 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:08:19 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,6 @@ void	key_word_contain_dollar(void)
 
 int	parser(void)
 {
-	// replace_var : ne pas fair de tokn var mais word et remplacer la 
-	//variable d'env avant d'enlever les quotes (car ne marche pas avec les ')
-	// ce qui suit $ doit etre alphanumerique et ne pas commencer par un 
-	// chiffre sinon ce n'est pas une var d'env 
 	if (are_quotes_even() == FAILURE)
 		return (FAILURE);
 	if (parse_same_id(WORD) == FAILURE)
