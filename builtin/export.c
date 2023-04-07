@@ -6,38 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 17:20:11 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:59:18 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	put_in_alphabetic_order(char **strs)
-{
-	int		i;
-	int		j;	
-	int		len;
-	char	*temp;
-
-	len = tab_strlen(strs);
-	i = 0;
-	j = 0;
-	while (i < len - 1)
-	{
-		while (j < len - i - 1)
-		{
-			if (ft_strcmp(strs[j], strs[j + 1]) > 0)
-			{
-				temp = strs[j];
-				strs[j] = strs[j + 1];
-				strs[j + 1] = temp;
-			}
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-}
 
 void	print_env_in_alphabetic(char **strs)
 {
@@ -115,10 +88,7 @@ int	export_check_args(char **strs, int *i)
 	while (strs[*i][j])
 	{
 		if (strs[*i][j] == '=')
-		{
-			printf("str:%s\n", strs[*i]);//*********
 			equal_present = SUCCESS;
-		}
 		j++;
 	}
 	return (equal_present);
@@ -128,14 +98,24 @@ void	execute_export(t_cmd *cmd)
 {
 	int		i;
 	char	**buf;
-// PENSER A VERIFIER LES CHIFFRES QUI SONT PAS VALIDES ET SI PAS DE = RIEN FAIRE 
+	int		j;
+	char	*var;
+
 	i = 1;
+	j = 0;
 	if (!cmd->wd[1])
 		export_without_args();
 	while (cmd->wd[i])
 	{
 		if (export_check_args(cmd->wd, &i) == SUCCESS)
-			export_var(cmd->wd[i]);
+		{
+			var = ft_substr(cmd->wd[i], 0, len_of_var(cmd->wd[i]));
+			if (var && is_var_exist(var, &j) == SUCCESS)
+				change_var_value(cmd->wd[i], &j);
+			else if (var)
+				export_var(cmd->wd[i]);
+			j = 0;
+		}
 		i++;
 	}
 	if (send_env_to_father(g_all.env, g_all.herit) == FAILURE)

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 16:25:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:59:48 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,11 @@ void	execute_pwd(t_cmd *cmd);
 void	execute_echo(t_cmd *cmd);
 int		send_env_to_father(char **env, int *fd);
 
+//builtin_utils.c
+size_t	len_of_var(char *str);
+void	change_var_value(char *str, int *env_index);
+void	put_in_alphabetic_order(char **strs);
+
 //unset.c
 int		unset_var(char ***new, t_cmd *cmd, int *index, int *var_target);
 int		unset_check_args(char **strs, int *var_target);
@@ -151,6 +156,10 @@ char	**remove_var(char **env, int index, int i);
 char	**error_strdup(char **env, char **new);
 
 //export.c
+void	print_env_in_alphabetic(char **strs);
+void	export_without_args(void);
+void	export_var(char *str);
+int		export_check_args(char **strs, int *i);
 void	execute_export(t_cmd *cmd);
 
 //=========== COMMANDS ============
