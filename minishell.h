@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 15:34:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:47:43 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ int		ret_upt(char **new_env, int *nb_strs, int return_value);
 //lexer.c
 int		lexer(char *input);
 int		is_var_exist(char *var, int *index);
-char	*ft_getvar(char *var);
+char	*ptr_to_begin_of_var_value(char *var);
 int		tokenize_all_steps(void);
 
 //t_lexer_utils.c

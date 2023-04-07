@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 15:38:13 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:08:32 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,63 +109,51 @@ void	go_until_end_of_var(t_lexer *lexer, int *i)
 
 int	update_token(t_lexer *lexer, int *index)
 {
-	char	*new;
-	char	*var;
+	char	*str_begin;
+	char	*var_name;
 	int		i;
 	int		begin;
-	char 	*fullvar;
-	char	*old_and_fullvar;
+	char 	*var_value;
+	char	*old_and_var_value;
 
-	new = NULL;
+	str_begin = NULL;
 	i = 0;
-	if (add_until_dollar(&new, &i, *index, lexer) == FAILURE)
+	if (add_until_dollar(&str_begin, &i, *index, lexer) == FAILURE)
 		return (FAILURE);
 	i++;
 	begin = i;
 	if (!lexer->token[i] || is_space(lexer->token[i]) == TRUE)
-		return(end_of_token(&new, lexer, index));
+		return(end_of_token(&str_begin, lexer, index));
 
 	if (lexer->token[i] == '\"' && !(lexer->token[i + 1]))
-		return(end_of_token_in_quotes(&new, lexer, index, &i));
+		return(end_of_token_in_quotes(&str_begin, lexer, index, &i));
 	go_until_end_of_var(lexer, &i);
-		
-	// if (is_special_char_or_numeric(lexer->token[i]) == TRUE)
-	// 	i++;
-	// else
-	// {
-	// 	i++;
-	// 	while (lexer->token[i] && (ft_isalnum(lexer->token[i]) == TRUE \
-	// 		|| lexer->token[i] == '_'))
-	// 		i++;
-	// }
-
-	
-	var = ft_substr(lexer->token, begin, i - begin);
-	if (!var)
+	var_name = ft_substr(lexer->token, begin, i - begin);
+	if (!var_name)
 	{
-		free(new);
+		free(str_begin);
 		return (FAILURE);
 	}
-	fullvar = ft_getvar(var); // doit renvoyer soit str complete
-							// soit NULL si echoue soit '\0' si n'existe pas	
-	free(var);
-	if (!fullvar)
+	var_value = ptr_to_begin_of_var_value(var_name);
+	printf("var_value:%s\n", var_value);//************
+	free(var_name);
+	if (!var_value)
 	{
-		free(new);
+		free(str_begin);
 		return (FAILURE);
 	}
-	old_and_fullvar = ms_strjoin(new, fullvar);
-	free(new);
-	free(fullvar);
-	if (!old_and_fullvar)
+	old_and_var_value = ms_strjoin(str_begin, var_value);
+	free(str_begin);
+	free(var_value);
+	if (!old_and_var_value)
 		return (FAILURE);
-	(*index) = ft_strlen(old_and_fullvar);
-	new = ms_strjoin(old_and_fullvar, \
+	(*index) = ft_strlen(old_and_var_value);
+	str_begin = ms_strjoin(old_and_var_value, \
 		ft_substr(lexer->token, i, ft_strlen(lexer->token) - i));
-	free(old_and_fullvar);
-	if (!new)
+	free(old_and_var_value);
+	if (!str_begin)
 		return (FAILURE);
 	lexer->save = lexer->token;
-	lexer->token = new;
+	lexer->token = str_begin;
 	return (SUCCESS);
 }
