@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 17:30:07 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:17:37 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	update_token(t_lexer *lexer, int *index)
 		new = ft_add_char_to_str(ft_strdup(new), lexer->token[i]);
 		if (!new)
 			return (FAILURE);
-		free(lexer->token);
+		free(lexer->token); // ok le free la ? 
 		lexer->token = new;
 		(*index)++;
 		return (SUCCESS);
@@ -133,7 +133,7 @@ int	update_token(t_lexer *lexer, int *index)
 	free(old_and_fullvar);
 	if (!new)
 		return (FAILURE);
-	free(lexer->token);
+	lexer->save = lexer->token;
 	lexer->token = new;
 	return (SUCCESS);
 }

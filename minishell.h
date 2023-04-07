@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 11:59:48 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:08:20 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_lexer
 	struct s_lexer	*prev;
 	char			c;
 	char			*token;
+	char			*save;
 	int				id;
 	struct s_lexer	*next;
 }	t_lexer;

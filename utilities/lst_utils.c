@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:17:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 15:15:11 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:14:46 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_lexer	*lex_lstnew(void)
 	lexer->prev = NULL;
 	lexer->c = 0;
 	lexer->token = NULL;
+	lexer->save = NULL;
 	lexer->id = WORD;
 	lexer->next = NULL;
 	return (lexer);
@@ -71,6 +72,11 @@ void	print_t_lexer(void)
 		ft_putchar_fd(buf->c, 2);
 		ft_putstr_fd("	", 2);
 		ft_putstr_fd(buf->token, 2);
+		if (buf->save)
+		{
+			ft_putstr_fd("	", 2);
+			ft_putstr_fd(buf->save, 2);
+		}
 		ft_putstr_fd("\n", 2);
 		buf = buf->next;
 	}

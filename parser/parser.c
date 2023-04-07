@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/05 15:00:10 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:34:37 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,26 @@ int	parse_token_after_redir(void)
 	return (SUCCESS);
 }
 
+void	key_word_contain_dollar(void)
+{
+	t_lexer	*buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == KEY_WORD_HERE_DOC)
+		{
+			if (buf->save && buf->save[0] == '$')
+			{
+				free(buf->token);
+				buf->token = buf->save;
+				buf->save = NULL;
+			}
+		}
+		buf = buf->next;
+	}
+}
+
 int	parser(void)
 {
 	// replace_var : ne pas fair de tokn var mais word et remplacer la 
@@ -102,5 +122,6 @@ int	parser(void)
 		return (FAILURE);
 	if (parse_token_after_redir() == FAILURE)
 		return (FAILURE);
+	key_word_contain_dollar();
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 11:48:52 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:09:09 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	free_t_lexer(t_lexer *lst)
 		return ;
 	if (lst->token)
 		free(lst->token);
+	if (lst->save)
+		free(lst->save);
 	free(lst);
 	lst = NULL;//mettre ou pas ca ? 
 }
