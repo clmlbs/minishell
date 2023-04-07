@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 16:49:45 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:00:25 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,9 +248,17 @@ int		tokenize_words(int id_target, int id_compare);
 int		tokenize_quotes(int even, int id);
 void	remove_spaces(void);
 
-//var.c
+//var_utils.c
 void	update_id_var(void);
+int		add_until_dollar(char **new, int *i, int index, t_lexer *lexer);
+int		end_of_token(char **new, t_lexer *lexer, int *index);
+int		end_of_token_in_quotes(char **new, t_lexer *lexer, int *index, int *i);
+void	go_until_end_of_var(t_lexer *lexer, int *i);
+
+//var.c
 int		replace_var(void);
+int		create_var_name(t_lexer *lexer, t_update_token *t);
+int		create_token_updated(t_lexer *lexer, t_update_token *t, int *index);
 int		update_token(t_lexer *lexer, int *index);
 
 //=========== LIBFT ============
