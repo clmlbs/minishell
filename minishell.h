@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 16:36:26 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:49:45 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ void	init_t_updated_token(t_update_token *t);
 //lexer.c
 int		lexer(char *input);
 int		is_var_exist(char *var, int *index);
-char	*ptr_to_begin_of_var_value(char *var);
+char	*create_var_value(char *var);
 int		tokenize_all_steps(void);
 
 //t_lexer_utils.c
