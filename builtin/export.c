@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 15:34:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:44:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	export_check_args(char **strs, int *i)
 void	execute_export(t_cmd *cmd)
 {
 	int		i;
-	char	**buf;
+	//char	**buf;
 	int		j;
 	char	*var;
 
@@ -109,7 +109,7 @@ void	execute_export(t_cmd *cmd)
 	{
 		if (export_check_args(cmd->wd, &i) == SUCCESS)
 		{
-			var = ft_substr(cmd->wd[i], 0, len_of_var(cmd->wd[i]));
+			var = ft_substr(cmd->wd[i], 0, var_name_len(cmd->wd[i]));
 			if (var && is_var_exist(var, &j) == SUCCESS)
 				change_var_value(cmd->wd[i], &j);
 			else if (var)

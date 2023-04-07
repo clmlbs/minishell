@@ -6,13 +6,13 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:56:13 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 11:58:44 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:44:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-size_t	len_of_var(char *str)
+size_t	var_name_len(char *str)
 {
 	int		i;
 	char	c;
