@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 15:15:47 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:21:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,18 @@ int	add_until_dollar(char **new, int *i, int index, t_lexer *lexer)
 	return (SUCCESS);
 }
 
+
+int	end_of_token(char **new, t_lexer *lexer, int *index)
+{
+	(*new) = ft_add_char_to_str(ft_strdup(*new), '$');
+	if (!(*new))
+		return (FAILURE);
+	free(lexer->token);
+	lexer->token = (*new);
+	(*index)++;
+	return (SUCCESS);
+}
+
 int	update_token(t_lexer *lexer, int *index)
 {
 	char	*new;
@@ -81,18 +93,22 @@ int	update_token(t_lexer *lexer, int *index)
 	i = 0;
 	if (add_until_dollar(&new, &i, *index, lexer) == FAILURE)
 		return (FAILURE);
-	i++; 
+	i++;
 	begin = i;
 	if (!lexer->token[i] || is_space(lexer->token[i]) == TRUE)
-	{
-		new = ft_add_char_to_str(ft_strdup(new), '$');
-		if (!new)
-			return (FAILURE);
-		free(lexer->token);
-		lexer->token = new;
-		(*index)++;
-		return (SUCCESS);
-	}
+		return(end_of_token(&new, lexer, index));
+
+
+	
+	// {
+	// 	new = ft_add_char_to_str(ft_strdup(new), '$');
+	// 	if (!new)
+	// 		return (FAILURE);
+	// 	free(lexer->token);
+	// 	lexer->token = new;
+	// 	(*index)++;
+	// 	return (SUCCESS);
+	// }
 	if (lexer->token[i] == '\"' && !(lexer->token[i + 1]))
 	{
 		new = ft_add_char_to_str(ft_strdup(new), '$');
