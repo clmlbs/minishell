@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 16:08:32 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:20:33 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,51 +109,45 @@ void	go_until_end_of_var(t_lexer *lexer, int *i)
 
 int	update_token(t_lexer *lexer, int *index)
 {
-	char	*str_begin;
-	char	*var_name;
-	int		i;
-	int		begin;
-	char 	*var_value;
-	char	*old_and_var_value;
-
-	str_begin = NULL;
-	i = 0;
-	if (add_until_dollar(&str_begin, &i, *index, lexer) == FAILURE)
+	t_update_token	t;
+	
+	t.str_begin = NULL;
+	t.i = 0;
+	if (add_until_dollar(&(t.str_begin), &(t.i), *index, lexer) == FAILURE)
 		return (FAILURE);
-	i++;
-	begin = i;
-	if (!lexer->token[i] || is_space(lexer->token[i]) == TRUE)
-		return(end_of_token(&str_begin, lexer, index));
+	(t.i)++;
+	t.begin = t.i;
+	if (!lexer->token[t.i] || is_space(lexer->token[t.i]) == TRUE)
+		return(end_of_token(&(t.str_begin), lexer, index));
 
-	if (lexer->token[i] == '\"' && !(lexer->token[i + 1]))
-		return(end_of_token_in_quotes(&str_begin, lexer, index, &i));
-	go_until_end_of_var(lexer, &i);
-	var_name = ft_substr(lexer->token, begin, i - begin);
-	if (!var_name)
+	if (lexer->token[t.i] == '\"' && !(lexer->token[t.i + 1]))
+		return(end_of_token_in_quotes(&(t.str_begin), lexer, index, &(t.i)));
+	go_until_end_of_var(lexer, &(t.i));
+	t.var_name = ft_substr(lexer->token, t.begin, t.i - t.begin);
+	if (!(t.var_name))
 	{
-		free(str_begin);
+		free(t.str_begin);
 		return (FAILURE);
 	}
-	var_value = ptr_to_begin_of_var_value(var_name);
-	printf("var_value:%s\n", var_value);//************
-	free(var_name);
-	if (!var_value)
+	t.var_value = ptr_to_begin_of_var_value(t.var_name);
+	free(t.var_name);
+	if (!(t.var_value))
 	{
-		free(str_begin);
+		free(t.str_begin);
 		return (FAILURE);
 	}
-	old_and_var_value = ms_strjoin(str_begin, var_value);
-	free(str_begin);
-	free(var_value);
-	if (!old_and_var_value)
+	t.begin_and_value = ms_strjoin(t.str_begin, t.var_value);
+	free(t.str_begin);
+	free(t.var_value);
+	if (!(t.begin_and_value))
 		return (FAILURE);
-	(*index) = ft_strlen(old_and_var_value);
-	str_begin = ms_strjoin(old_and_var_value, \
-		ft_substr(lexer->token, i, ft_strlen(lexer->token) - i));
-	free(old_and_var_value);
-	if (!str_begin)
+	(*index) = ft_strlen(t.begin_and_value);
+	t.token_updated = ms_strjoin(t.begin_and_value, \
+		ft_substr(lexer->token, t.i, ft_strlen(lexer->token) - t.i));
+	free(t.begin_and_value);
+	if (!(t.token_updated))
 		return (FAILURE);
 	lexer->save = lexer->token;
-	lexer->token = str_begin;
+	lexer->token = t.token_updated;
 	return (SUCCESS);
 }

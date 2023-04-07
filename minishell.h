@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 15:47:43 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:16:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,17 @@ typedef struct s_doc
 	int		line_len;
 	int		input_len;
 }	t_doc;
+
+typedef struct s_update_token
+{
+	int		i;
+	int		begin;
+	char	*str_begin;
+	char	*var_name;
+	char 	*var_value;
+	char	*begin_and_value;
+	char	*token_updated;
+}	t_update_token;
 
 typedef struct s_all
 {
