@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 18:44:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/08 00:33:49 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,4 +344,5 @@ int		check_line(char *input);
 void	ft_waitpid(void);
 void	minishell(char *input);
 int		main(int arc, char **arv, char **env);
+int		update_env_after_son(void);
 #endif
