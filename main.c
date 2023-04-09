@@ -12,18 +12,24 @@
 
 #include "minishell.h"
 
-//t_context	g_all;
+t_all	g_all;
 
-void	sign_ctrl_c(int sign)
+void	signal_handle(int sig)
 {
-	(void) sign;
+	if (sig == SIGINT)
+	{
+		g_all.status = 130;
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+	}
 }
 
 int	check_line(char *input)
 {
 	if (!input)
 	{
-		printf("exit pas d'input\n"); //fr en sorte qu'il l'affiche sur la mm ligne 
+		printf("exit\n"); //fr en sorte qu'il l'affiche sur la mm ligne 
 		return (FAILURE);
 	}
 	if (input[0] != '\0')
@@ -83,7 +89,7 @@ void	ft_waitpid(void)
 		if (pid <= 0)
 		{
 			perror_void("Minishell: waitpid()");
-			exit(FAILURE); // code d'erreur ok ? 
+			exit(FAILURE);
 		}
 		i++;
 	}
@@ -162,7 +168,10 @@ int	execute_line(void)
 	}
 	ft_waitpid(); // ok ici le waitpid ?
 	if (g_all.pid)
+	{
 		free(g_all.pid);
+		g_all.pid = NULL;
+	}
 	return (SUCCESS);
 }
 
@@ -205,7 +214,8 @@ int	main(int ac, char **av, char **env)
 		return (perror_fail("Minishell: pipe()"));
 	while (1)
 	{
-		signal(SIGINT, sign_ctrl_c);
+		signal(SIGINT, signal_handle);
+		signal(SIGQUIT, SIG_IGN);
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);
 		if (line_ok == FAILURE)

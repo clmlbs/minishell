@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 int	add_word(t_lexer *lexer, t_cmd *cmd)
 {

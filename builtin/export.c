@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 void	print_env_in_alphabetic(char **strs)
 {

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 int	is_builtin(t_cmd *cmd)
 {

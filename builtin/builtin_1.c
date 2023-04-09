@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 void	execute_builtin(t_cmd *cmd)
 {
@@ -58,7 +59,7 @@ void	execute_pwd(t_cmd *cmd)
 	}
 	if (!getcwd(cwd, 1024))
 	{
-		perror(ORANGE "Minishell: getcwd()" WHITE);
+		perror("Minishell: getcwd()");
 		exit(FAILURE);
 	}
 	ft_putstr_fd(cwd, cmd->fd_outfile);

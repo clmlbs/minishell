@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 void	update_id_var(void)
 {

@@ -29,7 +29,6 @@
 
 //============ COLORS ==============
 # define WATERMELON "\x1b[38;2;254;127;156m"
-# define ORANGE "\x1b[38;2;255;165;0m"
 # define WHITE "\x1b[0m"
 
 typedef struct s_count

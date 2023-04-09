@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 int	add_token_to_cmd(t_lexer *lexer, t_cmd *cmd)
 {

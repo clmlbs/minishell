@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 int	update_shlvl(void)
 {
@@ -143,7 +144,6 @@ int	init_env(char **envp)
 // 			return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
 // 		i++;
 // 	}
-// 	printf("ici\n");//*********
 // 	new_env[*nb_strs] = NULL;
 // 	printf_strs(new_env, WITH_INDEX, 2);//*********
 // 	free_tab_strs(g_all.env);

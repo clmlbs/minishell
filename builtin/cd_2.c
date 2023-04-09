@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 int	replace_tilde(t_cmd *cmd)
 {
@@ -87,7 +88,7 @@ int	add_newpwd(t_cmd *cmd)
 
 	if (!getcwd(cwd, 1024))
 	{
-		perror(ORANGE "Minishell: getcwd()" WHITE);
+		perror("Minishell: getcwd()");
 		exit(FAILURE);
 	}
 	value = ft_strdup(cwd);

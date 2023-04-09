@@ -21,6 +21,7 @@
 #include <errno.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <sys/ioctl.h>
 #include <dirent.h>
 #include <limits.h>
 #include "libft.h"
@@ -137,7 +138,7 @@ typedef struct s_all
 	int		status;
 }	t_all;
 
-t_all	g_all;
+//t_all	g_all;
 
 //=========== BUILTIN ============
 //builtin_1.c

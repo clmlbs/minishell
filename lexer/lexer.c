@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-//extern t_context	g_all;
+extern t_all g_all;
 
 int	lexer(char *input)
 {

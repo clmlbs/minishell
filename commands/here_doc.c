@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 {
@@ -42,16 +43,23 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 
 char	*here_doc(char *keyword, t_doc *doc)
 {
-	while (1)
+	char	str[] = "Minishell: warning: here-document delimited by end-of-file ";
+	while (g_all.status != 130)
 	{
 		doc->input = readline("> ");
+		// if (doc->input == NULL ||!doc->input[0])
+		// {
+		// 	ft_putstr_fd(str, STDERR_FILENO);
+		// 	write_error("(wanted `", keyword, "')\n");
+		// 	break ;
+		// }
 		if (doc->input == NULL || !ft_strncmp(doc->input, keyword, \
 			ft_strlen(keyword)))
 		{
-			free(doc->input);
+			if (doc->input)
+				free(doc->input);
 			break ;
 		}
-	//	add_history(input); // Je l'ai enlever pour pas fausser l'historique 
 		doc->input_len = ft_strlen(doc->input) + 1;
 		doc->buf_line = (char *)malloc(sizeof(char) * (doc->line_len + doc->input_len + 1));
 		if (!(doc->buf_line))
@@ -94,7 +102,7 @@ int	add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd)
 		perror_fail("Minishell");
 	if (write(fd[1], "\n", 1) == -1)
 		perror_fail("Minishell");
-	close(fd[1]); // ici c'est ok ? 
+	close(fd[1]); // ici c'est ok ? que si status = 130 ? et return -1 ?
 	cmd->infile_mode = HERE_DOC;
 	cmd->fd_infile = fd[0];
 	return (SUCCESS);

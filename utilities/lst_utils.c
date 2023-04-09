@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 void	lex_lstadd_back(t_lexer **lst, t_lexer *new)
 {

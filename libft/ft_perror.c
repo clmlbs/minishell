@@ -14,7 +14,5 @@
 
 void perror_void(char *str)
 {
-	write(2, ORANGE, ft_strlen(ORANGE));
 	perror(str);
-	write(2, WHITE, ft_strlen(WHITE));
 }

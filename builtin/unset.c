@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+extern t_all g_all;
 
 int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target)
 {
