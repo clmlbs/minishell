@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 16:36:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:12:43 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void	free_all_lexer_and_cmd(void)
 	g_all.lexer = NULL;
 	g_all.cmd = cmd_lstnew();
 	if (!g_all.cmd)
-		exit(1);// bon status de sortie ? 
+		exit(FAILURE);
 	g_all.nb_cmd = 0;
 }

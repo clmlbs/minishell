@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 12:51:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:12:28 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ void	init_global(int ac, char **av, char **env)
 	{
 		write_error("Error: ", "you cannot add arguments", \
 		" after \"minishell\"\n");
-		exit(1); // bon status ?
+		exit(FAILURE);
 	}
 	g_all.lexer = NULL;
 	g_all.cmd = cmd_lstnew();
 	if (!g_all.cmd)
-		exit(1);// bon status de sortie ? 
+		exit(FAILURE);
 	if (init_env(env) == FAILURE)
-		exit(1); // bon statut?
+		exit(FAILURE);
 	g_all.env = copy_strs_plus_one(env);
 	if (!g_all.env)
-		exit(1);// bon status de sortie ? 
+		exit(FAILURE); 
 	g_all.tilde = create_var_value("HOME", 0);
 	if (!g_all.tilde)
-		exit(1); // bon statut de sortie ?
+		exit(FAILURE);
 	g_all.nb_cmd = 0;
 	g_all.pid = NULL;
 	g_all.fd_stdin = dup(STDIN_FILENO);
@@ -40,7 +40,7 @@ void	init_global(int ac, char **av, char **env)
 	if (g_all.fd_stdin == -1 || g_all.fd_stdout == -1)
 	{
 		perror_fail("Minishell: dup()");
-		exit(1); // bon statut ? 
+		exit(FAILURE);
 	}
 	g_all.is_first_turn = YES;
 	g_all.status = 0;

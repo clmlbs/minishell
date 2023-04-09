@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 14:07:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:12:56 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ int	execute(t_cmd *cmd_in_global)
 void	execute_child(t_cmd *cmd)
 {
 	if (is_builtin(cmd) == FALSE && find_good_path(cmd) == FAILURE)
-		exit(127); // trouver le bon code
+		exit(127);
 	if (cmd->infile_mode == READ && check_if_openable(cmd) == FAILURE)
-		exit(1); // trouver le bon code 
+		exit(FAILURE);
 	if (cmd->outfile_mode != CLASSIC && check_if_writable(cmd) == FAILURE)
-		exit(1); // trouver le bon code 
+		exit(FAILURE);
 	if (dup_fd(cmd) == FAILURE)
-		exit(1);//trouver le bon code
+		exit(FAILURE);
 	if (is_builtin(cmd) == TRUE)
 		execute_builtin(cmd);
 	else
@@ -125,5 +125,5 @@ void	execute_builtin(t_cmd *cmd)
 	else if (ft_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
 		execute_export(cmd);
 	else
-		exit(FAILURE); // a garder car exit quand fail va passer par la 
+		exit(FAILURE);
 }
