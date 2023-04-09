@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 08:27:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 08:28:32 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 08:48:08 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	replace_home(t_cmd *cmd)
 int	replace_oldpwd(t_cmd *cmd)
 {
 	char *var;
-	
+
 	var = create_var_value("OLDPWD");
 	if (!var)
 		return (FAILURE);
@@ -57,38 +57,25 @@ int	replace_oldpwd(t_cmd *cmd)
 	}
 	free(cmd->wd[1]);
 	cmd->wd[1] = var;
+	ft_putstr_fd(cmd->wd[1], cmd->fd_outfile);
+	ft_putstr_fd("\n", cmd->fd_outfile);
 	return (SUCCESS);
 }
 
-int	replace_path(t_cmd *cmd)
+int	check_destination(t_cmd *cmd)
 {
-	int	result;
-
-	if (!cmd->wd[1] || (!ft_strcmp(cmd->wd[1], "--") && ft_strlen(cmd->wd[1]) == 2))
-	{
-		result = replace_home(cmd);
-		if (result != SUCCESS)
-			return (result);
-	}
-	if (!ft_strcmp(cmd->wd[1], "~") && ft_strlen(cmd->wd[1]) == 1)
-	{
-		result = replace_tilde(cmd);
-		if (result != SUCCESS)
-			return (result);
-	}
-	if (!ft_strcmp(cmd->wd[1], "-") && ft_strlen(cmd->wd[1]) == 1)
-	{
-		result = replace_oldpwd(cmd);
-		if (result != SUCCESS)
-			return (result);
-	}
-	if (cmd->wd[1][0] == '-' && ft_strlen(cmd->wd[1]) != 1)
+	DIR	*dir;
+	
+	dir = opendir(cmd->wd[1]);
+	if (dir == NULL)
 	{
 		ft_putstr_fd("Minishell: cd: ", 2);
 		ft_putstr_fd(cmd->wd[1], 2);
-		ft_putstr_fd(": invalid option\n", 2);
+		ft_putstr_fd(": ", 2);
+		perror("");
 		return (FAILURE);
 	}
+	closedir(dir);
 	return (SUCCESS);
 }
 

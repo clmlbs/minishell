@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 08:27:29 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 08:32:24 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,14 +165,14 @@ void	put_in_alphabetic_order(char **strs);
 int		add_var_to_env(char *str);
 int		add_or_update_var_in_env(char *var_str);
 int		add_oldpwd(t_cmd *cmd);
-int		check_destination(t_cmd *cmd);
+int		replace_path(t_cmd *cmd);
 void	execute_cd(t_cmd *cmd);
 
 //cd_2.c
 int		replace_tilde(t_cmd *cmd);
 int		replace_home(t_cmd *cmd);
 int		replace_oldpwd(t_cmd *cmd);
-int		replace_path(t_cmd *cmd);
+int		check_destination(t_cmd *cmd);
 int		add_newpwd(t_cmd *cmd);
 
 //unset.c

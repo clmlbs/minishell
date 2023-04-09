@@ -69,20 +69,22 @@ int	add_oldpwd(t_cmd *cmd)
 	return (SUCCESS);
 }
 
-int	check_destination(t_cmd *cmd)
+int	replace_path(t_cmd *cmd)
 {
-	DIR	*dir;
-	
-	dir = opendir(cmd->wd[1]);
-	if (dir == NULL)
+	if (!cmd->wd[1] || (!ft_strcmp(cmd->wd[1], "--") && \
+		ft_strlen(cmd->wd[1]) == 2))
+		return (replace_home(cmd));
+	if (!ft_strcmp(cmd->wd[1], "~") && ft_strlen(cmd->wd[1]) == 1)
+		return (replace_tilde(cmd));
+	if (!ft_strcmp(cmd->wd[1], "-") && ft_strlen(cmd->wd[1]) == 1)
+		return (replace_oldpwd(cmd));
+	if (cmd->wd[1][0] == '-' && ft_strlen(cmd->wd[1]) != 1)
 	{
 		ft_putstr_fd("Minishell: cd: ", 2);
 		ft_putstr_fd(cmd->wd[1], 2);
-		ft_putstr_fd(": ", 2);
-		perror("");
+		ft_putstr_fd(": invalid option\n", 2);
 		return (FAILURE);
 	}
-	closedir(dir);
 	return (SUCCESS);
 }
 
