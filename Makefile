@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/09 08:27:47 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/09 09:31:54 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS		=	main.c \
 				builtin/builtin_utils.c \
 				builtin/cd_1.c \
 				builtin/cd_2.c \
+				builtin/exit.c \
 				builtin/unset.c \
 				builtin/export.c \
 				commands/commands.c \
@@ -45,6 +46,7 @@ SRCS		=	main.c \
 				libft/ft_strtrim.c \
 				libft/ft_strzero.c \
 				libft/ft_substr.c \
+				libft/ms_atoi.c \
 				libft/ms_strjoin.c \
 				libft/ms_split.c \
 				parser/parser_utils.c \

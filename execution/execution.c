@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 14:49:55 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 10:27:24 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,17 @@ int	execute(t_cmd *cmd_in_global)
 	cmd = copy_t_cmd(cmd_in_global);
 	if (!cmd)
 		return (FAILURE);
-	if (ft_fork(cmd) == FAILURE)
+	if (is_builtin(cmd) == TRUE && ft_strlen(cmd->wd[0]) == 4 && \
+		!ft_strncmp(cmd->wd[0], "exit", 4))
+	{
+		if (!cmd->wd[1])
+		{
+			ft_putstr_fd("exit\n", STDERR_FILENO);
+			exit(0);
+		}
+		execute_exit(cmd);
+	}
+	else if (ft_fork(cmd) == FAILURE)
 	{
 		free_t_cmd(cmd);
 		return (FAILURE);
@@ -107,12 +117,10 @@ void	execute_builtin(t_cmd *cmd)
 		execute_env(cmd);
 	else if (ft_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "echo", 4))
 		execute_echo(cmd);
-	// else if (ft_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "exit", 4))
-	// 	execute_exit();
 	else if (ft_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
 		execute_unset(cmd);
 	else if (ft_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
 		execute_export(cmd);
 	else
-		exit(1);// je vois pas comment on peut etre else mais au cas ou pour pas segfault
+		exit(FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 08:32:24 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 09:44:40 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 #include <dirent.h>
+#include <limits.h>
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -175,6 +176,9 @@ int		replace_oldpwd(t_cmd *cmd);
 int		check_destination(t_cmd *cmd);
 int		add_newpwd(t_cmd *cmd);
 
+//exit.c
+void	execute_exit(t_cmd *cmd);
+
 //unset.c
 int		unset_var(char ***new, t_cmd *cmd, int *index, int *var_target);
 int		unset_check_args(char **strs, int *var_target);
@@ -275,23 +279,24 @@ int		create_token_updated(t_lexer *lexer, t_update_token *t, int *index);
 int		update_token(t_lexer *lexer, int *index);
 
 //=========== LIBFT ============
-void	ft_putchar_fd(char c, int fd);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putstr_fd(char *s, int fd);
-char	**ft_split(char const *s, char c);
-char	*ft_strchr(const char *s, int c);
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strdup(const char *s1);
-char	*ms_strjoin(char const *s1, char const *s2);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlen(const char *s);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strtrim(char const *s1, char const *set);
-char	*ft_strzero(char *s, size_t n);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	**ms_split(char *s, char c);
+void		ft_putchar_fd(char c, int fd);
+void		ft_putnbr_fd(int n, int fd);
+void		ft_putstr_fd(char *s, int fd);
+char		**ft_split(char const *s, char c);
+char		*ft_strchr(const char *s, int c);
+int			ft_strcmp(const char *s1, const char *s2);
+char		*ft_strdup(const char *s1);
+char		*ms_strjoin(char const *s1, char const *s2);
+size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t		ft_strlen(const char *s);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strzero(char *s, size_t n);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+long long	ms_atoi(const char *str);
+char		**ms_split(char *s, char c);
 
 //=========== T_CMD ===============
 //t_cmd_1.c
