@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 15:50:33 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:12:30 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,13 +153,14 @@ t_all	g_all;
 
 //=========== BUILTIN ============
 //builtin_1.c
-int		is_builtin(t_cmd *cmd);
+void	execute_builtin(t_cmd *cmd);
 void	execute_env(t_cmd *cmd);
 void	execute_pwd(t_cmd *cmd);
 void	execute_echo(t_cmd *cmd);
 int		send_env_to_father(char **env, int *fd);
 
 //builtin_utils.c
+int		is_builtin(t_cmd *cmd);
 size_t	var_name_len(char *str);
 void	change_var_value(char *str, int *env_index);
 void	put_in_alphabetic_order(char **strs);
@@ -226,10 +227,11 @@ void	perror_void(char *str);
 int		ft_fork(t_cmd *cmd);
 int		execute(t_cmd *cmd_in_global);
 void	execute_child(t_cmd *cmd);
-void	execute_builtin(t_cmd *cmd);
+int		find_good_path(t_cmd *cmd);
 
 //execute_utils.c
-int		find_good_path(t_cmd *cmd);
+int		create_executable_name(t_cmd *cmd);
+int		path_full_written(t_cmd *cmd);
 int		check_if_openable(t_cmd *cmd);
 int		check_if_writable(t_cmd *cmd);
 int		dup_fd(t_cmd *cmd);
