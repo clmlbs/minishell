@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 12:50:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 15:50:33 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <readline/readline.h> 
 #include <readline/history.h>
 #include <sys/types.h>
+#include <errno.h>
 #include <signal.h>
 #include <sys/wait.h>
 #include <dirent.h>

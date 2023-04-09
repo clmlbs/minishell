@@ -6,17 +6,55 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:19:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 13:12:16 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:02:19 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	create_executable_name(t_cmd *cmd)
+{
+	int		total_len;
+	char	*name;
+
+	total_len = ft_strlen(cmd->wd[0]);
+	while (total_len >= 0 && cmd->wd[0][total_len - 1] != '/')
+		total_len--;
+	name = ft_strdup(&(cmd->wd[0][total_len]));
+	if (!name)
+		return (FAILURE);
+	free(cmd->wd[0]);
+	cmd->wd[0] = name;
+	return (SUCCESS);
+}
 
 int	find_good_path(t_cmd *cmd)
 {
 	int		i;
 
 	i = 0;
+	if (ft_strchr(cmd->wd[0], '/'))
+	{
+		if (access(cmd->wd[0], X_OK) == 0)
+		{
+			cmd->good_path = ft_strdup(cmd->wd[0]);
+			if (!cmd->good_path)
+				return (FAILURE);
+			if (create_executable_name(cmd) == FAILURE)
+				return (FAILURE);
+			return (SUCCESS);
+		}
+		else
+		{
+			if (errno == EACCES)
+			{
+				write_error("Minishell: ", cmd->wd[0], ": Permission denied\n");
+				exit(126);
+			}
+			write_error("Minishell: ", cmd->wd[0], ": No such file or directory\n");
+			return (FAILURE);
+		}
+	}
 	while (g_all.all_path[i])
 	{
 		cmd->good_path = ms_strjoin(g_all.all_path[i], cmd->wd[0]);
