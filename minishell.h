@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:24:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:26:03 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct s_all
 	char	**env;
 	char	*tilde;
 	int		nb_cmd;
-	int		*pid; // utile ??
+	int		*pid;
 	int		fd_stdin;
 	int		fd_stdout;
 	int		end[2];

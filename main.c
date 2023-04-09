@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 14:14:28 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:13:37 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,11 +154,15 @@ int	execute_line(void)
 				return (perror_fail("Minishell: pipe()"));
 			if (replace_dollar_question_mark(buf->wd) == FAILURE \
 				|| execute(buf) == FAILURE)
+			{
 				return (FAILURE);
+			}
 			buf = buf->next;
 		}
 	}
 	ft_waitpid(); // ok ici le waitpid ?
+	if (g_all.pid)
+		free(g_all.pid);
 	return (SUCCESS);
 }
 
@@ -174,6 +178,23 @@ void	minishell(char *input)
 		return ;
 }
 
+void	free_everything(void)
+{
+	close(g_all.fd_stdin);
+	close(g_all.fd_stdout);
+	close(g_all.herit[0]);
+	close(g_all.herit[1]);
+	if (g_all.all_path)
+		free_tab_strs(g_all.all_path);
+	if (g_all.env)
+		free_tab_strs(g_all.env);
+	if (g_all.tilde)
+		free(g_all.tilde);
+	if (g_all.pid)
+		free(g_all.pid);
+	// autres trucs a free ?
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
@@ -182,7 +203,6 @@ int	main(int ac, char **av, char **env)
 	init_global(ac, av, env);
 	if (pipe(g_all.herit) < 0)
 		return (perror_fail("Minishell: pipe()"));
-	printf("pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
 		signal(SIGINT, sign_ctrl_c);
@@ -199,9 +219,9 @@ int	main(int ac, char **av, char **env)
 		free(input);
 		g_all.is_first_turn = NO;
 	}
-	close(g_all.fd_stdin);
-	close(g_all.fd_stdout);
+	free_everything();
 	//free les trucs de la globale 
 	// close herit + size
+	//system("leaks minishell");//******
 	return (0);
 }
