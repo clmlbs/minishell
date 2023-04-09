@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 10:27:24 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 10:46:42 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	execute(t_cmd *cmd_in_global)
 		}
 		execute_exit(cmd);
 	}
-	else if (ft_fork(cmd) == FAILURE)
+	if (ft_fork(cmd) == FAILURE)
 	{
 		free_t_cmd(cmd);
 		return (FAILURE);
@@ -122,5 +122,5 @@ void	execute_builtin(t_cmd *cmd)
 	else if (ft_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
 		execute_export(cmd);
 	else
-		exit(FAILURE);
+		exit(FAILURE); // a garder car exit quand fail va passer par la 
 }

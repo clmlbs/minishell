@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 09:44:40 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 11:07:02 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,9 @@ int		check_destination(t_cmd *cmd);
 int		add_newpwd(t_cmd *cmd);
 
 //exit.c
+char	*remove_spaces_tab(char *str);
+int		check_number(char *str, t_cmd *cmd);
+void	exit_negatif(long long code);
 void	execute_exit(t_cmd *cmd);
 
 //unset.c

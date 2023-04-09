@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:11:27 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 09:32:32 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 10:51:18 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long long	ms_atoi(const char *str)
 {
 	int			i;
-	long long	sign;
+	int			sign;
 	long long	total;
 
 	i = 0;
@@ -34,5 +34,5 @@ long long	ms_atoi(const char *str)
 		total = total * 10 + (str[i] - '0');
 		i++;
 	}
-	return (total * sign);
+	return ((long long) total * sign);
 }
