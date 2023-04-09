@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/09 09:31:54 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/09 11:49:24 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS		=	main.c \
 				lexer/token.c \
 				lexer/var_utils.c \
 				lexer/var.c \
+				libft/ft_itoa.c \
 				libft/ft_putnbr_fd.c \
 				libft/ft_putstr_fd.c \
 				libft/ft_split.c \

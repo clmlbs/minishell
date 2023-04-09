@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 18:55:48 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 12:59:04 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,26 @@ int	is_var_exist(char *var, int *index)
 	return (FAILURE);
 }
 
-char	*create_var_value(char *var)
+char	*create_var_value(char *var, int i)
 {
-	int		i;
 	char	*new;
 
-	i = 0;
 	if (is_var_exist(var, &i) == FAILURE)
 	{
+		if (ft_strlen(var) == 1 && !ft_strncmp("?", var, 1))
+		{
+			new = ft_strdup("$?");
+			if (!new)
+				perror("Minishell");
+			if (!new)
+				return (NULL);
+			return (new);
+		}
 		new = (char *)malloc(sizeof(char));
 		if (!new)
-		{
 			perror("Minishell");
+		if (!new)
 			return (NULL);
-		}
 		new[0] = '\0';
 		return (new);
 	}

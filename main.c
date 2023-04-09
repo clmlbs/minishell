@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/08 00:20:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:06:48 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,24 @@ void	ft_waitpid(void)
 	while (i < g_all.nb_cmd) // ca va poser pb si pas de fork pour les builtin
 	{
 		pid = waitpid(g_all.pid[i], &status, 0);
-		// if (pid > 0)
-		// 	printf("Child process %d exited with status %d\n", pid, status);
+		if (pid > 0)
+		{
+			if (WIFEXITED(status))
+			{
+				g_all.status = WEXITSTATUS(status);
+				printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));
+			}
+			else if (WIFSIGNALED(g_all.status))
+			{
+				g_all.status = WTERMSIG(status);
+				printf("Child process %d terminated by signal %d\n", pid, WTERMSIG(status));
+			}
+			// printf("Child process %d exited with status %d\n", pid, g_all.status);
+		}
 		if (pid <= 0)
 		{
 			perror_void("Minishell: waitpid()");
-			exit(1); // code d'erreur ok ? 
+			exit(FAILURE); // code d'erreur ok ? 
 		}
 		i++;
 	}
@@ -83,7 +95,7 @@ int	update_env_after_son(void)
 
 	if (g_all.is_first_turn == NO)
 	{
-		pwd = create_var_value("PWD");
+		pwd = create_var_value("PWD", 0);
 		if (!pwd)
 			return (FAILURE);
 		if (chdir(pwd) == -1)
@@ -94,6 +106,33 @@ int	update_env_after_son(void)
 		}
 		free(pwd);
 	}
+	return (SUCCESS);
+}
+
+int	replace_dollar_question_mark(char **strs)
+{
+	int		i;
+	char	*status;
+
+	i = 0;
+	status = ft_itoa(g_all.status);
+	if (!status)
+		return (FAILURE);
+	while (strs && strs[i])
+	{
+		if (ft_strlen(strs[i]) == 2 && !ft_strncmp(strs[i], "$?", 2))
+		{
+			free(strs[i]);
+			strs[i] = ft_strdup(status);
+			if (!strs[i])
+			{
+				free(status);
+				return (FAILURE);
+			}
+		}
+		i++;
+	}
+	free(status);
 	return (SUCCESS);
 }
 
@@ -113,9 +152,10 @@ int	execute_line(void)
 		{
 			if (pipe(g_all.end) < 0)
 				return (perror_fail("Minishell: pipe()"));
-			if (execute(buf) == FAILURE)
+			if (replace_dollar_question_mark(buf->wd) == FAILURE \
+				|| execute(buf) == FAILURE)
 				return (FAILURE);
-		buf = buf->next;
+			buf = buf->next;
 		}
 	}
 	ft_waitpid(); // ok ici le waitpid ?
@@ -142,7 +182,7 @@ int	main(int ac, char **av, char **env)
 	init_global(ac, av, env);
 	if (pipe(g_all.herit) < 0)
 		return (perror_fail("Minishell: pipe()"));
-	printf("pid:%d\n", getpid());//******
+	printf("pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
 		signal(SIGINT, sign_ctrl_c);

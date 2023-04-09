@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 11:07:02 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 12:50:59 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct s_all
 	int		end[2];
 	int		herit[2];
 	int		is_first_turn;
+	int		status;
 }	t_all;
 
 t_all	g_all;
@@ -253,7 +254,7 @@ void	init_t_updated_token(t_update_token *t);
 //lexer.c
 int		lexer(char *input);
 int		is_var_exist(char *var, int *index);
-char	*create_var_value(char *var);
+char	*create_var_value(char *var, int i);
 int		tokenize_all_steps(void);
 
 //t_lexer_utils.c
@@ -282,6 +283,7 @@ int		create_token_updated(t_lexer *lexer, t_update_token *t, int *index);
 int		update_token(t_lexer *lexer, int *index);
 
 //=========== LIBFT ============
+char		*ft_itoa(int n);
 void		ft_putchar_fd(char c, int fd);
 void		ft_putnbr_fd(int n, int fd);
 void		ft_putstr_fd(char *s, int fd);

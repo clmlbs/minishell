@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/08 00:19:42 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 12:51:21 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_global(int ac, char **av, char **env)
 	g_all.env = copy_strs_plus_one(env);
 	if (!g_all.env)
 		exit(1);// bon status de sortie ? 
-	g_all.tilde = create_var_value("HOME");
+	g_all.tilde = create_var_value("HOME", 0);
 	if (!g_all.tilde)
 		exit(1); // bon statut de sortie ?
 	g_all.nb_cmd = 0;
@@ -43,6 +43,7 @@ void	init_global(int ac, char **av, char **env)
 		exit(1); // bon statut ? 
 	}
 	g_all.is_first_turn = YES;
+	g_all.status = 0;
 	// PENSER A FERMER LES FD !!!
 }
 

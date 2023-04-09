@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 10:46:42 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:07:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	execute(t_cmd *cmd_in_global)
 		if (!cmd->wd[1])
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);
-			exit(0);
+			exit(g_all.status);
 		}
 		execute_exit(cmd);
 	}
@@ -91,7 +91,7 @@ int	execute(t_cmd *cmd_in_global)
 void	execute_child(t_cmd *cmd)
 {
 	if (is_builtin(cmd) == FALSE && find_good_path(cmd) == FAILURE)
-		exit(1); // trouver le bon code
+		exit(127); // trouver le bon code
 	if (cmd->infile_mode == READ && check_if_openable(cmd) == FAILURE)
 		exit(1); // trouver le bon code 
 	if (cmd->outfile_mode != CLASSIC && check_if_writable(cmd) == FAILURE)
@@ -103,7 +103,10 @@ void	execute_child(t_cmd *cmd)
 	else
 	{
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
-			exit(perror_fail("Minishell: execve()"));// trouver le bon code 
+		{
+			perror_fail("Minishell: execve()");
+			exit(127); 
+		}
 	}
 }
 

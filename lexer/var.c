@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 16:58:45 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:00:51 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	create_token_updated(t_lexer *lexer, t_update_token *t, int *index)
 {
 	if (create_var_name(lexer, t) == FAILURE)
 		return (FAILURE);
-	t->var_value = create_var_value(t->var_name);
+	t->var_value = create_var_value(t->var_name, 0);
 	free(t->var_name);
 	if (!(t->var_value))
 	{
