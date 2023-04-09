@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 12:59:04 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:46:45 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_var_exist(char *var, int *index)
 {
 	int	j;
 
-	j = 0;	
+	j = 0;
 	while (g_all.env[*index])
 	{
 		if (!ft_strncmp(g_all.env[*index], var, ft_strlen(var)))
