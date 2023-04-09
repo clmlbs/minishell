@@ -6,11 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:17:27 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 15:23:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:17:39 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../libft.h"
 
 
 char	*ms_strjoin(char const *s1, char const *s2)

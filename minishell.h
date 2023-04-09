@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:12:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:24:20 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <sys/wait.h>
 #include <dirent.h>
 #include <limits.h>
+#include "libft.h"
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -74,11 +75,6 @@
 # define REPLACE 3
 # define APPEND 4
 
-//============ COLORS ==============
-# define WATERMELON "\x1b[38;2;254;127;156m"
-# define ORANGE "\x1b[38;2;255;165;0m"
-# define WHITE "\x1b[0m"
-
 typedef struct s_cmd
 {
 	struct s_cmd	*prev;
@@ -103,14 +99,6 @@ typedef struct s_lexer
 	int				id;
 	struct s_lexer	*next;
 }	t_lexer;
-
-typedef struct s_count
-{
-	unsigned int	count;
-	unsigned int	j;
-	unsigned int	start;
-	size_t			len;
-}	t_count;
 
 typedef struct s_doc
 {
@@ -220,7 +208,6 @@ int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 void	write_error(char *begin, char *middle, char *end);
 void	error_token(t_lexer *lst, int len);
 int		perror_fail(char *str);
-void	perror_void(char *str);
 
 //=========== EXECUTE ============
 //execution.c 
@@ -284,27 +271,6 @@ int		replace_var(void);
 int		create_var_name(t_lexer *lexer, t_update_token *t);
 int		create_token_updated(t_lexer *lexer, t_update_token *t, int *index);
 int		update_token(t_lexer *lexer, int *index);
-
-//=========== LIBFT ============
-char		*ft_itoa(int n);
-void		ft_putchar_fd(char c, int fd);
-void		ft_putnbr_fd(int n, int fd);
-void		ft_putstr_fd(char *s, int fd);
-char		**ft_split(char const *s, char c);
-char		*ft_strchr(const char *s, int c);
-int			ft_strcmp(const char *s1, const char *s2);
-char		*ft_strdup(const char *s1);
-char		*ms_strjoin(char const *s1, char const *s2);
-size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
-size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t		ft_strlen(const char *s);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strtrim(char const *s1, char const *set);
-char		*ft_strzero(char *s, size_t n);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-long long	ms_atoi(const char *str);
-char		**ms_split(char *s, char c);
 
 //=========== T_CMD ===============
 //t_cmd_1.c

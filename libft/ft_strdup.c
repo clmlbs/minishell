@@ -6,11 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:34:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 12:10:49 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:17:33 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../libft.h"
 
 char	*ft_strdup(const char *s1)
 {

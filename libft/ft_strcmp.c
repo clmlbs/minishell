@@ -6,11 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:24:47 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 16:26:40 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:17:27 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../libft.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

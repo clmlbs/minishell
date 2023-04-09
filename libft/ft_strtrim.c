@@ -6,11 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:18:59 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/30 14:18:47 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:18:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../libft.h"
 
 static int	ft_is_present(char const *set, char c)
 {
