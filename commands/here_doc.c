@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 09:15:00 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:39:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	*here_doc(char *keyword, t_doc *doc)
 			free(doc->input);
 			break ;
 		}
-	//	add_history(input); // Je l'ai enlever pour pas fausser l'historique 
 		doc->input_len = ft_strlen(doc->input) + 1;
 		doc->buf_line = (char *)malloc(sizeof(char) * (doc->line_len + doc->input_len + 1));
 		if (!(doc->buf_line))
@@ -70,6 +69,59 @@ char	*here_doc(char *keyword, t_doc *doc)
 	return (NULL);
 }
 
+//========== EN BAS HERE DOC MODIFIE DANS CTRL - C ===========
+
+// char	*here_doc(char *keyword, t_doc *doc)
+// {
+// 	char	str[60];
+
+// 	// attention si on a pas deja 130 et que ca ne marche pas 
+// 	ft_strlcpy(str, "Minishell: warning: here-document delimited by \
+// 		end-of-file", 60);
+// 	while (1)
+// 	{
+// 		if (g_all.status == 130)
+// 		{
+// 			if (doc->input)
+// 				free(doc->input);
+// 			g_all.status = 1;
+// 			return (NULL);
+// 		}
+// 		doc->input = readline("> ");
+// 		// if (doc->input == NULL ||!doc->input[0])
+// 		// {
+// 		// 	ft_putstr_fd(str, STDERR_FILENO);
+// 		// 	write_error("(wanted `", keyword, "')\n");
+// 		// 	break ;
+// 		// }
+// 		if (doc->input == NULL || !ft_strncmp(doc->input, keyword, \
+// 			ft_strlen(keyword)))
+// 		{
+// 			if (doc->input)
+// 				free(doc->input);
+// 			free(doc->input);
+// 			break ;
+// 		}
+// 	//	add_history(input); // Je l'ai enlever pour pas fausser l'historique 
+// 		doc->input_len = ft_strlen(doc->input) + 1;
+// 		doc->buf_line = (char *)malloc(sizeof(char) * (doc->line_len + doc->input_len + 1));
+// 		if (!(doc->buf_line))
+// 		{
+// 			perror_void("Minishell: malloc()");
+// 			return (NULL);
+// 		}
+// 		create_here_doc_line(doc);
+// 	}
+// 	if (doc->line)
+// 	{
+// 		doc->line[doc->line_len - 1] = '\0';
+// 		doc->line[doc->line_len] = '\0';
+// 		return (doc->line);
+// 	}
+// 	return (NULL);
+// }
+
+
 void	create_here_doc_line(t_doc *doc)
 {
 	(doc->buf_line)[0] = '\0';
@@ -82,6 +134,7 @@ void	create_here_doc_line(t_doc *doc)
 	free(doc->line);
 	doc->line = doc->buf_line;
 	free(doc->input);
+	doc->input = NULL;
 }
 
 int	add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd)
@@ -94,7 +147,7 @@ int	add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd)
 		perror_fail("Minishell");
 	if (write(fd[1], "\n", 1) == -1)
 		perror_fail("Minishell");
-	close(fd[1]); // ici c'est ok ? 
+	close(fd[1]); // ici c'est ok ? que si statut = 130 ? et return -1 ?
 	cmd->infile_mode = HERE_DOC;
 	cmd->fd_infile = fd[0];
 	return (SUCCESS);

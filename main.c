@@ -6,24 +6,96 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 14:14:28 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:59:25 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//t_context	g_all;
 
-void	sign_ctrl_c(int sign)
+void	signal_handle(int sign)
 {
-	(void) sign;
+	if (sign == SIGINT)// && pas dans un exec )
+	{
+		g_all.status = 1; // ici doit etre 130 quand dans un prg 
+		// ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		// rl_replace_line("", 0);
+		// rl_on_new_line();
+		printf("\e[2K");
+        rl_on_new_line();
+        rl_redisplay();
+        printf("\n");
+        rl_replace_line("", 0);
+        rl_on_new_line();
+        rl_redisplay();
+	}
+	if (sign == SIGQUIT)
+	{
+		// ok ca ?
+		printf("\e[2K");
+        rl_on_new_line();
+        rl_redisplay();
+	}
 }
+
+// void process_sign(int sign_id)
+// {
+// 	if (!kill(g_all.my_pid, sign_id))
+// 	{
+// 		printf("Dans kill\n");//******
+// 	//	exit(66); // a suppr
+// 		// if (sign_id == SIGQUIT)
+// 		// {
+// 		// 	ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
+// 		// 	g_all.status = 131;
+// 		// }
+// 		// else if (sign_id == SIGINT)
+// 		// {
+// 		// 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+// 		// 	g_all.status = 130;
+// 		// }
+// 	}
+// 	else if (sign_id == SIGINT)
+// 	{
+// 		g_all.status = 1;
+// 		tputs(tgetstr("dl", NULL), 1, ft_putchar);
+// 		rl_replace_line("", 0);
+// 		rl_on_new_line();
+// 		write(STDOUT_FILENO, "", 0);
+// 	}
+// }
+
+// void	signal_handle(int sign_id)
+// {
+// 	if ((sign_id == SIGINT || sign_id == SIGQUIT) && g_all.my_pid != 0) // changer le pid
+// 	{
+// 		//printf("Ici\n");
+// 		process_sign(sign_id);
+// 	}
+// 	// else
+// 	// {
+// 	// 	if (sign_id == SIGINT)
+// 	// 	{
+// 	// 		ft_putchar_fd('\n', STDOUT_FILENO);
+// 	// 		g_all.status = 1;
+// 	// 	}
+// 	// 	else if (sign_id == SIGQUIT)
+// 	// 		ft_putstr_fd("\b\b	\b\b", STDOUT_FILENO);	
+// 	// }
+// }
+
+
+
 
 int	check_line(char *input)
 {
 	if (!input)
 	{
-		printf("exit pas d'input\n"); //fr en sorte qu'il l'affiche sur la mm ligne 
+		// faire un join de input + exit 
+		// enlever le /n de input
+		printf("%s\n", ms_strjoin(input, "exit")); //fr en sorte qu'il l'affiche sur la mm ligne 
+		// faire un truc propre sinon ca ca fait des leaks 
+		// printf("exit pas d'input\n"); //fr en sorte qu'il l'affiche sur la mm ligne 
 		return (FAILURE);
 	}
 	if (input[0] != '\0')
@@ -71,12 +143,12 @@ void	ft_waitpid(void)
 			if (WIFEXITED(status))
 			{
 				g_all.status = WEXITSTATUS(status);
-				printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));//****
+				//printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));//****
 			}
 			else if (WIFSIGNALED(g_all.status))
 			{
 				g_all.status = WTERMSIG(status);
-				printf("Child process %d terminated by signal %d\n", pid, WTERMSIG(status));//****
+				//printf("Child process %d terminated by signal %d\n", pid, WTERMSIG(status));//****
 			}
 			// printf("Child process %d exited with status %d\n", pid, g_all.status);
 		}
@@ -159,19 +231,57 @@ int	execute_line(void)
 		}
 	}
 	ft_waitpid(); // ok ici le waitpid ?
+	if (g_all.pid)
+	{
+		free(g_all.pid);
+		g_all.pid = NULL;
+	}
 	return (SUCCESS);
 }
 
 void	minishell(char *input)
 {
 	if (lexer(input) == FAILURE)
+	{
+		if (g_all.status == 0)
+			g_all.status = 1;
 		return ;
+	}
 	if (parser() == FAILURE)
+	{
+		if (g_all.status == 0)
+			g_all.status = 258;
 		return ;
+	}
 	if (fill_t_cmd() == FAILURE)
+	{
+		if (g_all.status == 0)
+			g_all.status = 1;
 		return ;
+	}
 	if (execute_line() == FAILURE)
+	{
+		if (g_all.status == 0)
+			g_all.status = 1;
 		return ;
+	}
+}
+
+void	free_everything(void)
+{
+	close(g_all.fd_stdin);
+	close(g_all.fd_stdout);
+	close(g_all.herit[0]);
+	close(g_all.herit[1]);
+	if (g_all.all_path)
+		free_tab_strs(g_all.all_path);
+	if (g_all.env)
+		free_tab_strs(g_all.env);
+	if (g_all.tilde)
+		free(g_all.tilde);
+	if (g_all.pid)
+		free(g_all.pid);
+	// autres trucs a free ?
 }
 
 int	main(int ac, char **av, char **env)
@@ -185,7 +295,9 @@ int	main(int ac, char **av, char **env)
 	printf("pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
-		signal(SIGINT, sign_ctrl_c);
+		//system("leaks minishell");
+		signal(SIGINT, signal_handle);
+		signal(SIGINT, SIG_IGN);
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);
 		if (line_ok == FAILURE)
@@ -199,9 +311,12 @@ int	main(int ac, char **av, char **env)
 		free(input);
 		g_all.is_first_turn = NO;
 	}
+	free_everything();
 	close(g_all.fd_stdin);
 	close(g_all.fd_stdout);
 	//free les trucs de la globale 
 	// close herit + size
 	return (0);
 }
+
+
