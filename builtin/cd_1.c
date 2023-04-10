@@ -19,7 +19,6 @@ int	add_var_to_env(char *str)
 	buf = copy_strs_plus_one(g_all.env);
 	if (!buf)
 		return (perror_fail("Minishell: malloc()"));
-	free(buf[tab_strlen(g_all.env)]); // rajouter pr les leaks
 	buf[tab_strlen(g_all.env)] = ft_strdup(str);
 	if (!buf[tab_strlen(g_all.env)])
 		return (perror_fail("Minishell: malloc()"));
@@ -45,14 +44,10 @@ int	add_or_update_var_in_env(char *var_str)
 		else
 		{
 			if (add_var_to_env(var_str) == FAILURE)
-			{
-				free(var); // leaks
 				return (FAILURE);
-			}
 		}
 		j = 0;
 	}
-	free(var); // leaks
 	return (SUCCESS);
 }
 

@@ -6,11 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:35:01 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:17:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:35:41 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../minishell.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 11:08:47 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 15:50:33 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,8 @@
 #include <errno.h>
 #include <signal.h>
 #include <sys/wait.h>
-#include <sys/ioctl.h>
 #include <dirent.h>
 #include <limits.h>
-#include <termios.h>
-#include <sys/ioctl.h>
-#include <signal.h>
-#include "libft.h"
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -79,6 +74,11 @@
 # define REPLACE 3
 # define APPEND 4
 
+//============ COLORS ==============
+# define WATERMELON "\x1b[38;2;254;127;156m"
+# define ORANGE "\x1b[38;2;255;165;0m"
+# define WHITE "\x1b[0m"
+
 typedef struct s_cmd
 {
 	struct s_cmd	*prev;
@@ -103,6 +103,14 @@ typedef struct s_lexer
 	int				id;
 	struct s_lexer	*next;
 }	t_lexer;
+
+typedef struct s_count
+{
+	unsigned int	count;
+	unsigned int	j;
+	unsigned int	start;
+	size_t			len;
+}	t_count;
 
 typedef struct s_doc
 {
@@ -132,8 +140,7 @@ typedef struct s_all
 	char	**env;
 	char	*tilde;
 	int		nb_cmd;
-	pid_t	*pid;
-	pid_t	my_pid;
+	int		*pid; // utile ??
 	int		fd_stdin;
 	int		fd_stdout;
 	int		end[2];
@@ -146,14 +153,13 @@ t_all	g_all;
 
 //=========== BUILTIN ============
 //builtin_1.c
-void	execute_builtin(t_cmd *cmd);
+int		is_builtin(t_cmd *cmd);
 void	execute_env(t_cmd *cmd);
 void	execute_pwd(t_cmd *cmd);
 void	execute_echo(t_cmd *cmd);
 int		send_env_to_father(char **env, int *fd);
 
 //builtin_utils.c
-int		is_builtin(t_cmd *cmd);
 size_t	var_name_len(char *str);
 void	change_var_value(char *str, int *env_index);
 void	put_in_alphabetic_order(char **strs);
@@ -213,17 +219,17 @@ int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 void	write_error(char *begin, char *middle, char *end);
 void	error_token(t_lexer *lst, int len);
 int		perror_fail(char *str);
+void	perror_void(char *str);
 
 //=========== EXECUTE ============
 //execution.c 
 int		ft_fork(t_cmd *cmd);
 int		execute(t_cmd *cmd_in_global);
 void	execute_child(t_cmd *cmd);
-int		find_good_path(t_cmd *cmd);
+void	execute_builtin(t_cmd *cmd);
 
 //execute_utils.c
-int		create_executable_name(t_cmd *cmd);
-int		path_full_written(t_cmd *cmd);
+int		find_good_path(t_cmd *cmd);
 int		check_if_openable(t_cmd *cmd);
 int		check_if_writable(t_cmd *cmd);
 int		dup_fd(t_cmd *cmd);
@@ -237,7 +243,13 @@ void	free_t_lexer(t_lexer *lst);
 void	free_all_lexer(void);
 void	free_all_cmd(void);
 void	free_all_lexer_and_cmd(void);
-void	free_everything(void);
+
+//=========== INIT ============
+void	init_global(int ac, char **av, char **env);
+int		init_env(char **envp);
+int		update_global(void);
+int		ret_upt(char **new_env, int *nb_strs, int return_value);
+void	init_t_updated_token(t_update_token *t);
 
 //=========== LEXER ============
 //lexer.c
@@ -270,7 +282,38 @@ int		replace_var(void);
 int		create_var_name(t_lexer *lexer, t_update_token *t);
 int		create_token_updated(t_lexer *lexer, t_update_token *t, int *index);
 int		update_token(t_lexer *lexer, int *index);
-int		replace_dollar_question_mark(char **strs);
+
+//=========== LIBFT ============
+char		*ft_itoa(int n);
+void		ft_putchar_fd(char c, int fd);
+void		ft_putnbr_fd(int n, int fd);
+void		ft_putstr_fd(char *s, int fd);
+char		**ft_split(char const *s, char c);
+char		*ft_strchr(const char *s, int c);
+int			ft_strcmp(const char *s1, const char *s2);
+char		*ft_strdup(const char *s1);
+char		*ms_strjoin(char const *s1, char const *s2);
+size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t		ft_strlen(const char *s);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strzero(char *s, size_t n);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+long long	ms_atoi(const char *str);
+char		**ms_split(char *s, char c);
+
+//=========== T_CMD ===============
+//t_cmd_1.c
+t_cmd	*cmd_lstlast(t_cmd *lst);
+void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
+t_cmd	*cmd_lstnew(void);
+int		update_strs(char ***strs, char *to_add);
+
+//t_cmd_2.c
+t_cmd	*copy_t_cmd(t_cmd *src);
+int		copy_str_t_cmd(t_cmd *new, t_cmd *src);
 
 //=========== UTILITIES ============
 //lst_utils.c
@@ -318,32 +361,6 @@ void	remove_token(t_lexer *lst);
 int		add_next_str_to_current(t_lexer *current);
 int		parse_same_id(int id_target);
 void	change_id_redir(t_lexer *lst);
-
-//t_cmd_1.c
-t_cmd	*cmd_lstlast(t_cmd *lst);
-void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
-t_cmd	*cmd_lstnew(void);
-int		update_strs(char ***strs, char *to_add);
-
-//t_cmd_2.c
-t_cmd	*copy_t_cmd(t_cmd *src);
-int		copy_str_t_cmd(t_cmd *new, t_cmd *src);
-
-//=========== SET ============
-//init.c
-void	init_global(int ac, char **av, char **env);
-int		init_env(char **envp);
-int		ret_upt(char **new_env, int *nb_strs, int return_value);
-void	init_t_updated_token(t_update_token *t);
-
-//update.c
-int		update_shlvl(void);
-int		update_global(void);
-int		update_env_after_son(void);
-
-//=========== SIGNAL =============
-//void 	process_sign(int sign_id);
-void	signal_handle(int sig);
 
 //=========== MAIN =============
 

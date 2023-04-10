@@ -6,11 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:16:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:17:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../minishell.h"
 
 static t_count	*ft_count_init(void)
 {

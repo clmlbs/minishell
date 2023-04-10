@@ -6,28 +6,30 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 07:43:31 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 08:59:28 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	execute_builtin(t_cmd *cmd)
+int	is_builtin(t_cmd *cmd)
 {
 	if (ft_strlen(cmd->wd[0]) == 2 && !ft_strncmp(cmd->wd[0], "cd", 2))
-		execute_cd(cmd);
+		return (TRUE);
 	else if (ft_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "pwd", 3))
-		execute_pwd(cmd);
+		return (TRUE);
 	else if (ft_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "env", 3))
-		execute_env(cmd);
+		return (TRUE);
 	else if (ft_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "echo", 4))
-		execute_echo(cmd);
+		return (TRUE);
+	else if (ft_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "exit", 4))
+		return (TRUE);
 	else if (ft_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
-		execute_unset(cmd);
+		return (TRUE);
 	else if (ft_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
-		execute_export(cmd);
+		return (TRUE);
 	else
-		exit(FAILURE);
+		return (FALSE);
 }
 
 void	execute_env(t_cmd *cmd)
@@ -58,7 +60,7 @@ void	execute_pwd(t_cmd *cmd)
 	}
 	if (!getcwd(cwd, 1024))
 	{
-		perror("Minishell: getcwd()");
+		perror(ORANGE "Minishell: getcwd()" WHITE);
 		exit(FAILURE);
 	}
 	ft_putstr_fd(cwd, cmd->fd_outfile);

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 13:34:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:04:24 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_fork(t_cmd *cmd)
 		return (perror_fail("Minishell: fork()"));
 	else if (pid == 0)
 	{
-		g_all.my_pid = 0;
 		if (close(g_all.end[0]) < 0)
 			return (perror_fail("Minishell: close()"));
 		if (g_all.nb_cmd != 1 && cmd->position != g_all.nb_cmd)
@@ -40,7 +39,6 @@ int	ft_fork(t_cmd *cmd)
 	}
 	else
 	{
-		g_all.my_pid = pid;
 		g_all.pid[cmd->position - 1] = pid;
 		if (close(g_all.end[1]) < 0)
 			return (perror_fail("Minishell: close()"));
@@ -112,27 +110,20 @@ void	execute_child(t_cmd *cmd)
 	}
 }
 
-int	find_good_path(t_cmd *cmd)
+void	execute_builtin(t_cmd *cmd)
 {
-	int		i;
-
-	i = 0;
-	print_t_cmd(cmd);//******
-	if (ft_strchr(cmd->wd[0], '/'))
-	{
-		if (path_full_written(cmd) == FAILURE)
-			return (FAILURE);
-	}
-	while (g_all.all_path[i])
-	{
-		cmd->good_path = ms_strjoin(g_all.all_path[i], cmd->wd[0]);
-		if (!cmd->good_path)
-			return (FAILURE);
-		if (access(cmd->good_path, X_OK) == 0)
-			return (SUCCESS);
-		free(cmd->good_path);
-		i++;
-	}
-	write_error("Minishell: ", cmd->wd[0], ": command not found\n");
-	return (FAILURE);
+	if (ft_strlen(cmd->wd[0]) == 2 && !ft_strncmp(cmd->wd[0], "cd", 2))
+		execute_cd(cmd);
+	else if (ft_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "pwd", 3))
+		execute_pwd(cmd);
+	else if (ft_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "env", 3))
+		execute_env(cmd);
+	else if (ft_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "echo", 4))
+		execute_echo(cmd);
+	else if (ft_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
+		execute_unset(cmd);
+	else if (ft_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
+		execute_export(cmd);
+	else
+		exit(FAILURE);
 }
