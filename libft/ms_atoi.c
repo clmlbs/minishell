@@ -6,11 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:11:27 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:18:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 10:51:18 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../minishell.h"
 
 long long	ms_atoi(const char *str)
 {
