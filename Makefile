@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/09 16:49:35 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/10 10:47:02 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,13 +27,13 @@ SRCS		=	main.c \
 				execution/execution.c \
 				execution/execute_utils.c \
 				free/free.c \
-				init/init.c \
 				lexer/lexer.c \
 				lexer/t_lexer_utils.c \
 				lexer/token.c \
 				lexer/var_utils.c \
 				lexer/var.c \
 				libft/ft_itoa.c \
+				libft/ft_putchar.c \
 				libft/ft_perror.c \
 				libft/ft_putnbr_fd.c \
 				libft/ft_putstr_fd.c \
@@ -54,8 +54,11 @@ SRCS		=	main.c \
 				parser/parser_utils.c \
 				parser/parser.c \
 				parser/quotes.c \
-				t_cmd/t_cmd_1.c \
-				t_cmd/t_cmd_2.c \
+				parser/t_cmd_1.c \
+				parser/t_cmd_2.c \
+				set/init.c \
+				set/update.c \
+				signal/signal.c \
 				utilities/utilities.c \
 				utilities/utilities_second.c \
 				utilities/lst_utils.c
@@ -63,7 +66,7 @@ SRCS		=	main.c \
 
 HEADERS		=		-I/Users/$(USER)/.brew/opt/readline/include -I include
 
-LIB_PATH	=		-L. -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+LIB_PATH	=		-L. -lreadline -lncurses  -ltermcap -L/Users/$(USER)/.brew/opt/readline/lib
 
 OBJS		= 		$(SRCS:.c=.o)
 

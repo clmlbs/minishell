@@ -6,12 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:19:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:11:54 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:35:54 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-extern t_all g_all;
 
 int	create_executable_name(t_cmd *cmd)
 {
@@ -26,6 +25,7 @@ int	create_executable_name(t_cmd *cmd)
 		return (FAILURE);
 	free(cmd->wd[0]);
 	cmd->wd[0] = name;
+	print_t_cmd(cmd);//*********
 	return (SUCCESS);
 }
 

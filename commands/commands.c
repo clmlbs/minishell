@@ -6,12 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:47:38 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 18:02:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 07:43:31 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-extern t_all g_all;
 
 int	add_token_to_cmd(t_lexer *lexer, t_cmd *cmd)
 {

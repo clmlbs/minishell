@@ -6,12 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 15:34:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 07:43:32 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-extern t_all g_all;
 
 int	isnt_specific(char c)
 {

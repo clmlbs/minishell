@@ -6,12 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:06:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:22:49 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 07:43:31 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-extern t_all g_all;
 
 void	write_error(char *begin, char *middle, char *end)
 {

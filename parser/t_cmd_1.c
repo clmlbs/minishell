@@ -6,12 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:56:04 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 08:18:54 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 07:43:32 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-extern t_all g_all;
 
 t_cmd	*cmd_lstnew(void)
 {

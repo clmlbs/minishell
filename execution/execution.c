@@ -6,12 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:11:58 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:34:59 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-extern t_all g_all;
 
 int	ft_fork(t_cmd *cmd)
 {
@@ -22,6 +21,7 @@ int	ft_fork(t_cmd *cmd)
 		return (perror_fail("Minishell: fork()"));
 	else if (pid == 0)
 	{
+		g_all.my_pid = 0;
 		if (close(g_all.end[0]) < 0)
 			return (perror_fail("Minishell: close()"));
 		if (g_all.nb_cmd != 1 && cmd->position != g_all.nb_cmd)
@@ -40,6 +40,7 @@ int	ft_fork(t_cmd *cmd)
 	}
 	else
 	{
+		g_all.my_pid = pid;
 		g_all.pid[cmd->position - 1] = pid;
 		if (close(g_all.end[1]) < 0)
 			return (perror_fail("Minishell: close()"));
@@ -116,6 +117,7 @@ int	find_good_path(t_cmd *cmd)
 	int		i;
 
 	i = 0;
+	print_t_cmd(cmd);//******
 	if (ft_strchr(cmd->wd[0], '/'))
 	{
 		if (path_full_written(cmd) == FAILURE)

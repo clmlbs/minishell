@@ -6,12 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/06 09:15:00 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 09:19:49 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-extern t_all g_all;
 
 int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 {
@@ -43,9 +42,20 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 
 char	*here_doc(char *keyword, t_doc *doc)
 {
-	char	str[] = "Minishell: warning: here-document delimited by end-of-file ";
-	while (g_all.status != 130)
+	char	str[60];
+
+	// attention si on a pas deja 130 et que ca ne marche pas 
+	ft_strlcpy(str, "Minishell: warning: here-document delimited by \
+		end-of-file", 60);
+	while (1)
 	{
+		if (g_all.status == 130)
+		{
+			if (doc->input)
+				free(doc->input);
+			g_all.status = 1;
+			return (NULL);
+		}
 		doc->input = readline("> ");
 		// if (doc->input == NULL ||!doc->input[0])
 		// {
@@ -90,6 +100,7 @@ void	create_here_doc_line(t_doc *doc)
 	free(doc->line);
 	doc->line = doc->buf_line;
 	free(doc->input);
+	doc->input = NULL;
 }
 
 int	add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd)
