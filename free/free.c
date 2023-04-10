@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 14:12:43 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 07:49:00 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,21 @@ void	free_all_lexer_and_cmd(void)
 	if (!g_all.cmd)
 		exit(FAILURE);
 	g_all.nb_cmd = 0;
+}
+
+void	free_everything(void)
+{
+	close(g_all.fd_stdin);
+	close(g_all.fd_stdout);
+	close(g_all.herit[0]);
+	close(g_all.herit[1]);
+	if (g_all.all_path)
+		free_tab_strs(g_all.all_path);
+	if (g_all.env)
+		free_tab_strs(g_all.env);
+	if (g_all.tilde)
+		free(g_all.tilde);
+	if (g_all.pid)
+		free(g_all.pid);
+	// autres trucs a free ?
 }
