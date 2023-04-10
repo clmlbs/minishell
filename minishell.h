@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:26:03 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:08:47 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@
 #include <errno.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <sys/ioctl.h>
 #include <dirent.h>
 #include <limits.h>
+#include <termios.h>
+#include <sys/ioctl.h>
+#include <signal.h>
 #include "libft.h"
 
 #ifndef MINISHELL_H
@@ -128,7 +132,8 @@ typedef struct s_all
 	char	**env;
 	char	*tilde;
 	int		nb_cmd;
-	int		*pid;
+	pid_t	*pid;
+	pid_t	my_pid;
 	int		fd_stdin;
 	int		fd_stdout;
 	int		end[2];
@@ -232,13 +237,7 @@ void	free_t_lexer(t_lexer *lst);
 void	free_all_lexer(void);
 void	free_all_cmd(void);
 void	free_all_lexer_and_cmd(void);
-
-//=========== INIT ============
-void	init_global(int ac, char **av, char **env);
-int		init_env(char **envp);
-int		update_global(void);
-int		ret_upt(char **new_env, int *nb_strs, int return_value);
-void	init_t_updated_token(t_update_token *t);
+void	free_everything(void);
 
 //=========== LEXER ============
 //lexer.c
@@ -271,17 +270,7 @@ int		replace_var(void);
 int		create_var_name(t_lexer *lexer, t_update_token *t);
 int		create_token_updated(t_lexer *lexer, t_update_token *t, int *index);
 int		update_token(t_lexer *lexer, int *index);
-
-//=========== T_CMD ===============
-//t_cmd_1.c
-t_cmd	*cmd_lstlast(t_cmd *lst);
-void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
-t_cmd	*cmd_lstnew(void);
-int		update_strs(char ***strs, char *to_add);
-
-//t_cmd_2.c
-t_cmd	*copy_t_cmd(t_cmd *src);
-int		copy_str_t_cmd(t_cmd *new, t_cmd *src);
+int		replace_dollar_question_mark(char **strs);
 
 //=========== UTILITIES ============
 //lst_utils.c
@@ -329,6 +318,32 @@ void	remove_token(t_lexer *lst);
 int		add_next_str_to_current(t_lexer *current);
 int		parse_same_id(int id_target);
 void	change_id_redir(t_lexer *lst);
+
+//t_cmd_1.c
+t_cmd	*cmd_lstlast(t_cmd *lst);
+void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
+t_cmd	*cmd_lstnew(void);
+int		update_strs(char ***strs, char *to_add);
+
+//t_cmd_2.c
+t_cmd	*copy_t_cmd(t_cmd *src);
+int		copy_str_t_cmd(t_cmd *new, t_cmd *src);
+
+//=========== SET ============
+//init.c
+void	init_global(int ac, char **av, char **env);
+int		init_env(char **envp);
+int		ret_upt(char **new_env, int *nb_strs, int return_value);
+void	init_t_updated_token(t_update_token *t);
+
+//update.c
+int		update_shlvl(void);
+int		update_global(void);
+int		update_env_after_son(void);
+
+//=========== SIGNAL =============
+//void 	process_sign(int sign_id);
+void	signal_handle(int sig);
 
 //=========== MAIN =============
 

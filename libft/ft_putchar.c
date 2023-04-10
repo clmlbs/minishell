@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_perror.c                                        :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/09 16:23:10 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:23:23 by cleblais         ###   ########.fr       */
+/*   Created: 2023/04/10 10:22:32 by cleblais          #+#    #+#             */
+/*   Updated: 2023/04/10 10:34:12 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void perror_void(char *str)
+int ft_putchar(int c)
 {
-	perror(str);
+	write(STDOUT_FILENO, &c, 1);
+	return (0);
 }

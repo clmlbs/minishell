@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 16:14:10 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:24:26 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 10:38:08 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
 #include <dirent.h>
 #include <limits.h>
 
+
 #ifndef LIBFT_H
 # define LIBFT_H
 
 //============ COLORS ==============
 # define WATERMELON "\x1b[38;2;254;127;156m"
-# define ORANGE "\x1b[38;2;255;165;0m"
 # define WHITE "\x1b[0m"
 
 typedef struct s_count
@@ -41,6 +41,7 @@ typedef struct s_count
 }	t_count;
 
 char		*ft_itoa(int n);
+int 		ft_putchar(int c);
 void		ft_putchar_fd(char c, int fd);
 void		ft_putnbr_fd(int n, int fd);
 void		ft_putstr_fd(char *s, int fd);

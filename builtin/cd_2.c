@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 08:27:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 12:51:16 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 07:43:31 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	add_newpwd(t_cmd *cmd)
 
 	if (!getcwd(cwd, 1024))
 	{
-		perror(ORANGE "Minishell: getcwd()" WHITE);
+		perror("Minishell: getcwd()");
 		exit(FAILURE);
 	}
 	value = ft_strdup(cwd);
