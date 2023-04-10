@@ -6,30 +6,53 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 16:38:39 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:33:44 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// void	signal_main(int signal)
+// {
+// 	(void)signal;
+// 	ft_putstr_fd("\n", STDOUT_FILENO);
+// 	if (g_all.my_pid)
+// 		kill(g_all.my_pid, SIGINT);
+// 	else
+// 	{
+// 		rl_on_new_line();
+// 		rl_replace_line("", 0);
+// 		rl_redisplay();
+// 	}
+// 	g_all.my_pid = 0;
+// }
+
 
 void	signal_main(int signal)
 {
 	if (signal == SIGINT && g_all.where == DAD)
 	{
 		g_all.status = 1;
-		printf("\e[2K");
+		printf("\e[2K"); // to clear the entire line where the cursor is currently located.
         rl_on_new_line();
         rl_redisplay();
         printf("\n");
-        rl_replace_line("", 0);
-        rl_on_new_line();
-        rl_redisplay();
+        rl_replace_line("", 0); //replace the current contents of the Readline input buffer with a new string. 
+        rl_on_new_line(); // to move the cursor to the beginning of a new line.
+        rl_redisplay(); // to update the display of the current line being edited by Readline.
 	}
 	else if (signal == SIGINT && g_all.where == SON)
 	{
 		g_all.status = 130;
 		printf("\n");
 		rl_replace_line("", 0);
+		rl_on_new_line();
+	}
+	else if (signal == SIGINT && g_all.where == HERE_DOC)
+	{
+		g_all.status = 130; // ATTENTION Doit renvoyer 1 la cest pour sortir, normalement ok 
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+        rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 }

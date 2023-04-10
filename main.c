@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 16:36:08 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 17:33:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ int	check_line(char *input)
 {
 	if (!input)
 	{
+		rl_replace_line("", 0); //replace the current contents of the Readline input buffer with a new string. 
+		rl_on_new_line();
+		rl_redisplay();
+		printf("exit\n");
 		// faire un join de input + exit 
 		// enlever le /n de input
-		printf("%s\n", ms_strjoin(input, "exit")); //fr en sorte qu'il l'affiche sur la mm ligne 
+		//printf("%s\n", ms_strjoin(input, "exit")); //fr en sorte qu'il l'affiche sur la mm ligne 
 		// faire un truc propre sinon ca ca fait des leaks 
 		// printf("exit pas d'input\n"); //fr en sorte qu'il l'affiche sur la mm ligne 
 		return (FAILURE);
@@ -76,7 +80,6 @@ void	ft_waitpid(void)
 					g_all.status = WTERMSIG(status);
 				//printf("Child process %d terminated by signal %d\n", pid, WTERMSIG(status));//****
 			}
-			// printf("Child process %d exited with status %d\n", pid, g_all.status);
 		}
 		if (pid <= 0)
 		{

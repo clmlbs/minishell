@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 16:31:39 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:50:11 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_all
 	char	*tilde;
 	int		nb_cmd;
 	int		*pid; // utile ??
+	pid_t	my_pid;
 	int		fd_stdin;
 	int		fd_stdout;
 	int		end[2];
@@ -235,7 +236,6 @@ int		find_good_path(t_cmd *cmd);
 int		check_if_openable(t_cmd *cmd);
 int		check_if_writable(t_cmd *cmd);
 int		dup_fd(t_cmd *cmd);
-
 
 //=========== FREE ============
 //free.c

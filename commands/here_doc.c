@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 14:39:23 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:15:34 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 	if (!input)
 	{
 		free (doc);
+		g_all.status = 1;
 		return (FAILURE);
 	}
 	free(lexer->token);
@@ -42,10 +43,13 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 
 char	*here_doc(char *keyword, t_doc *doc)
 {
-	while (1)
+	while (g_all.status != 130)
 	{
+		g_all.where = HERE_DOC;
 		doc->input = readline("> ");
-		if (doc->input == NULL || !ft_strncmp(doc->input, keyword, \
+		if (doc->input == NULL)
+			return (NULL);
+		if /*(doc->input == NULL || */(!ft_strncmp(doc->input, keyword, \
 			ft_strlen(keyword)))
 		{
 			free(doc->input);
@@ -56,6 +60,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 		if (!(doc->buf_line))
 		{
 			perror_void("Minishell: malloc()");
+			g_all.where = SON;
 			return (NULL);
 		}
 		create_here_doc_line(doc);
@@ -66,6 +71,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 		doc->line[doc->line_len] = '\0';
 		return (doc->line);
 	}
+	g_all.where = SON;
 	return (NULL);
 }
 
