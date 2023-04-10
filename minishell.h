@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 16:07:34 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:31:39 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <sys/wait.h>
 #include <dirent.h>
 #include <limits.h>
+#include <sys/ioctl.h>
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -147,6 +148,7 @@ typedef struct s_all
 	int		herit[2];
 	int		is_first_turn;
 	int		status;
+	int		where;
 }	t_all;
 
 t_all	g_all;
@@ -365,7 +367,6 @@ void	change_id_redir(t_lexer *lst);
 //=========== SIGNAL ===========
 //signal.c
 void	signal_main(int signal);
-void	signal_handle(int signal);
 
 //=========== MAIN =============
 

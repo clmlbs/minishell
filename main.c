@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 16:04:43 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:36:08 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	ft_waitpid(void)
 			}
 			else if (WIFSIGNALED(g_all.status))
 			{
-				g_all.status = WTERMSIG(status);
+				if (g_all.status != 130)
+					g_all.status = WTERMSIG(status);
 				//printf("Child process %d terminated by signal %d\n", pid, WTERMSIG(status));//****
 			}
 			// printf("Child process %d exited with status %d\n", pid, g_all.status);
@@ -161,6 +162,7 @@ int	execute_line(void)
 		free(g_all.pid);
 		g_all.pid = NULL;
 	}
+	g_all.where = DAD;
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 16:08:31 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:38:39 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	signal_main(int signal)
 {
-	if (signal == SIGINT)
+	if (signal == SIGINT && g_all.where == DAD)
 	{
 		g_all.status = 1;
 		printf("\e[2K");
@@ -24,6 +24,13 @@ void	signal_main(int signal)
         rl_replace_line("", 0);
         rl_on_new_line();
         rl_redisplay();
+	}
+	else if (signal == SIGINT && g_all.where == SON)
+	{
+		g_all.status = 130;
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
 	}
 }
 

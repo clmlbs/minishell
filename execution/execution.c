@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 16:07:50 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:32:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_fork(t_cmd *cmd)
 {
 	pid_t	pid;
 
+	g_all.where = SON;
 	pid = fork();
 	if (pid < 0)
 		return (perror_fail("Minishell: fork()"));
