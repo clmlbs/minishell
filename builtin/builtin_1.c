@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 07:43:31 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:10:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	execute_pwd(t_cmd *cmd)
 	}
 	if (!getcwd(cwd, 1024))
 	{
-		perror("Minishell: getcwd()");
+		perror(ORANGE "Minishell: getcwd()" WHITE);
 		exit(FAILURE);
 	}
 	ft_putstr_fd(cwd, cmd->fd_outfile);

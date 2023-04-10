@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 07:48:25 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:00:51 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,32 +97,5 @@ int	update_token(t_lexer *lexer, int *index)
 		return (FAILURE);
 	lexer->save = lexer->token;
 	lexer->token = t.token_updated;
-	return (SUCCESS);
-}
-
-int	replace_dollar_question_mark(char **strs)
-{
-	int		i;
-	char	*status;
-
-	i = 0;
-	status = ft_itoa(g_all.status);
-	if (!status)
-		return (FAILURE);
-	while (strs && strs[i])
-	{
-		if (ft_strlen(strs[i]) == 2 && !ft_strncmp(strs[i], "$?", 2))
-		{
-			free(strs[i]);
-			strs[i] = ft_strdup(status);
-			if (!strs[i])
-			{
-				free(status);
-				return (FAILURE);
-			}
-		}
-		i++;
-	}
-	free(status);
 	return (SUCCESS);
 }
