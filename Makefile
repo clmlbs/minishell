@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/09 11:49:24 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/10 15:13:27 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS		=	main.c \
 				parser/parser_utils.c \
 				parser/parser.c \
 				parser/quotes.c \
+				signal/signal.c \
 				t_cmd/t_cmd_1.c \
 				t_cmd/t_cmd_2.c \
 				utilities/utilities.c \

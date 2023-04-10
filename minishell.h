@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 14:58:07 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:07:34 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ typedef struct s_all
 	char	*tilde;
 	int		nb_cmd;
 	int		*pid; // utile ??
-	pid_t	my_pid;
 	int		fd_stdin;
 	int		fd_stdout;
 	int		end[2];
@@ -362,6 +361,11 @@ void	remove_token(t_lexer *lst);
 int		add_next_str_to_current(t_lexer *current);
 int		parse_same_id(int id_target);
 void	change_id_redir(t_lexer *lst);
+
+//=========== SIGNAL ===========
+//signal.c
+void	signal_main(int signal);
+void	signal_handle(int signal);
 
 //=========== MAIN =============
 

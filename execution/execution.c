@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 14:58:55 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:07:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_fork(t_cmd *cmd)
 		return (perror_fail("Minishell: fork()"));
 	else if (pid == 0)
 	{
-		g_all.my_pid = 0;
 		if (close(g_all.end[0]) < 0)
 			return (perror_fail("Minishell: close()"));
 		if (g_all.nb_cmd != 1 && cmd->position != g_all.nb_cmd)
@@ -40,7 +39,6 @@ int	ft_fork(t_cmd *cmd)
 	}
 	else
 	{
-		g_all.my_pid = pid;
 		g_all.pid[cmd->position - 1] = pid;
 		if (close(g_all.end[1]) < 0)
 			return (perror_fail("Minishell: close()"));
