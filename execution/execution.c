@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:33:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_fork(t_cmd *cmd)
 	}
 	else
 	{
-		g_all.where = DAD;
 		//g_all.my_pid = pid;
 		g_all.pid[cmd->position - 1] = pid;
 		if (close(g_all.end[1]) < 0)

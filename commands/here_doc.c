@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:16:10 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 	if (pid < 0)
 	{
 		perror("Minishell: fork()");
+		g_all.where = DAD;
 		return (NULL);
 	}
 	else if (pid == 0)
@@ -67,6 +68,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 		g_all.my_pid = 0;
 		close(end[0]);
 		line = here_doc_son(keyword, doc);
+		g_all.where = DAD;
 		len = ms_strlen(line) + 1;
 		if (write(end[1], &len, sizeof(size_t)) == -1)
 			perror("Minishell: write()");
@@ -85,6 +87,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 		{
 			perror("Minishell: malloc()");
 			close(end[0]);
+			g_all.where = DAD;
 			return (NULL);
 		}
 		read(end[0], line, len);
@@ -123,7 +126,6 @@ char	*here_doc_son(char *keyword, t_doc *doc)
 		doc->line[doc->line_len] = '\0';
 		return (doc->line);
 	}
-	g_all.where = DAD;
 	return (NULL);
 }
 

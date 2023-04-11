@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 12:45:34 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:33:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	signal_main(int signal)
 {
 	if (signal == SIGINT && g_all.where == DAD)
 	{
+		//printf("DANS DAD\n");//*****
 		g_all.status = 1;
 		printf("\e[2K"); // to clear the entire line where the cursor is currently located.
         rl_on_new_line();
@@ -43,6 +44,7 @@ void	signal_main(int signal)
 	}
 	else if (signal == SIGINT && g_all.where == SON)
 	{
+		//printf("DANS SON\n");//*******
 		g_all.status = 130;
 		printf("\n");
 		rl_replace_line("", 0);
@@ -50,23 +52,15 @@ void	signal_main(int signal)
 	}
 	else if (signal == SIGINT && g_all.where == HERE_DOC)
 	{
-		//g_all.status = 130; // ATTENTION Doit renvoyer 1 la cest pour sortir, normalement ok 
-		// ioctl(STDIN_FILENO, TIOCSTI, "\n");
-        // rl_replace_line("", 0);
-		// rl_on_new_line();
-		// (void)signal;
-		// write(1, "\n", 1);
-		// printf("my_pid:%d\n", g_all.my_pid);//*****
+		//printf("DANS HEREDOC\n");//******
+		(void)signal;
 		if (g_all.my_pid == 0)
 			exit(130);
 		else
 		{
-
-			//==== ca presque ok yq aue le chqpeau ===
 			ft_putstr_fd("\b\b  \b\b", 1);
 			rl_redisplay();
 			printf("\n");
-			// ok dans lautre sens aussi 
 		}
 		g_all.status = 130; // ou 1 ?
 	}
