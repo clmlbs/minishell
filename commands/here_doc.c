@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 13:16:10 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:28:59 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 	if (!input || g_all.status == 130)
 	{
 		free (doc);
+		printf("status:%d\n", g_all.status);//*****
+		if (g_all.status == 0)
+			return (SUCCESS);
 		g_all.status = 1;
 		return (FAILURE);
 	}
@@ -65,10 +68,29 @@ char	*here_doc(char *keyword, t_doc *doc)
 	}
 	else if (pid == 0)
 	{
+		//======= MARCHE ==========
+		// g_all.my_pid = 0;
+		// close(end[0]);
+		// line = here_doc_son(keyword, doc);
+		// g_all.where = DAD;
+		// if (!line)
+		// 	exit(FAILURE); // OK ca pour le ctl d ? 
+		// len = ms_strlen(line) + 1;
+		// if (write(end[1], &len, sizeof(size_t)) == -1)
+		// 	perror("Minishell: write()");
+		// else if (write(end[1], line, len) == -1)
+		// 	perror("Minishell: write()");
+		// exit(SUCCESS);
+
 		g_all.my_pid = 0;
 		close(end[0]);
 		line = here_doc_son(keyword, doc);
 		g_all.where = DAD;
+		if (!line)
+		{	
+			line = (char *)malloc(sizeof(char));
+			line[0] = '\0';
+		}
 		len = ms_strlen(line) + 1;
 		if (write(end[1], &len, sizeof(size_t)) == -1)
 			perror("Minishell: write()");
@@ -82,17 +104,22 @@ char	*here_doc(char *keyword, t_doc *doc)
 		len = 0;
 		close(end[1]);
 		read(end[0], &len, sizeof(size_t));
-		line = (char *)malloc(len);
+		g_all.where = DAD;
+		if (len == 0)
+		{
+			close(end[0]);
+			return (NULL);
+		}
+		else
+			line = (char *)malloc(len);
 		if (!line)
 		{
-			perror("Minishell: malloc()");
 			close(end[0]);
-			g_all.where = DAD;
+			perror("Minishell: malloc()");
 			return (NULL);
 		}
 		read(end[0], line, len);
 		close(end[0]);
-		g_all.where = DAD;
 		return(line);
 	}
 }
