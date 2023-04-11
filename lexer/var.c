@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 13:00:51 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	create_token_updated(t_lexer *lexer, t_update_token *t, int *index)
 	free(t->var_value);
 	if (!(t->begin_and_value))
 		return (FAILURE);
-	(*index) = ft_strlen(t->begin_and_value);
+	(*index) = ms_strlen(t->begin_and_value);
 	t->token_updated = ms_strjoin(t->begin_and_value, \
-		ft_substr(lexer->token, t->i, ft_strlen(lexer->token) - t->i));
+		ft_substr(lexer->token, t->i, ms_strlen(lexer->token) - t->i));
 	free(t->begin_and_value);
 	if (!(t->token_updated))
 		return (FAILURE);

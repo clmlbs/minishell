@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 14:32:40 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	is_builtin(t_cmd *cmd)
 {
-	if (ft_strlen(cmd->wd[0]) == 2 && !ft_strncmp(cmd->wd[0], "cd", 2))
+	if (ms_strlen(cmd->wd[0]) == 2 && !ft_strncmp(cmd->wd[0], "cd", 2))
 		return (TRUE);
-	else if (ft_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "pwd", 3))
+	else if (ms_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "pwd", 3))
 		return (TRUE);
-	else if (ft_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "env", 3))
+	else if (ms_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "env", 3))
 		return (TRUE);
-	else if (ft_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "echo", 4))
+	else if (ms_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "echo", 4))
 		return (TRUE);
-	else if (ft_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "exit", 4))
+	else if (ms_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "exit", 4))
 		return (TRUE);
-	else if (ft_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
+	else if (ms_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
 		return (TRUE);
-	else if (ft_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
+	else if (ms_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
 		return (TRUE);
 	else
 		return (FALSE);
@@ -77,7 +77,7 @@ void	execute_echo(t_cmd *cmd)
 		ft_putstr_fd("\n", cmd->fd_outfile);
 		exit(SUCCESS);
 	}
-	else if (ft_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2))
+	else if (ms_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2))
 	{
 		if (cmd->wd[2] == NULL)
 			exit(SUCCESS) ;
@@ -91,7 +91,7 @@ void	execute_echo(t_cmd *cmd)
 		ft_putstr_fd(" ", cmd->fd_outfile);
 	}
 	ft_putstr_fd(cmd->wd[i], cmd->fd_outfile);
-	if (!(ft_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2)))
+	if (!(ms_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2)))
 		ft_putstr_fd("\n", cmd->fd_outfile);
 	exit(SUCCESS);
 }
@@ -110,7 +110,7 @@ int	send_env_to_father(char **env, int *fd)
 	i = 0;
 	while (env[i])
 	{
-		len = ft_strlen(env[i]) + 1;
+		len = ms_strlen(env[i]) + 1;
 		if (write(fd[1], &len, sizeof(size_t)) == -1)
 			return (perror_fail("Minishell: write()"));
 		if (write(fd[1], env[i], len) == -1)

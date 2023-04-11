@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:17:36 by cleblais          #+#    #+#             */
-/*   Updated: 2023/03/31 09:32:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 
 	i = 0;
 	if (dstsize == 0)
-		return (ft_strlen(src));
-	dstlen = ft_strlen(dst);
+		return (ms_strlen(src));
+	dstlen = ms_strlen(dst);
 	if (dstlen > dstsize)
-		return (ft_strlen(src) + dstsize);
+		return (ms_strlen(src) + dstsize);
 	while (src[i] && (dstlen + i) < dstsize - 1)
 	{
 		dst[dstlen + i] = src[i];
 		i++;
 	}
 	dst[dstlen + i] = '\0';
-	return (dstlen + ft_strlen(src));
+	return (dstlen + ms_strlen(src));
 }

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:19:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 16:02:19 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	create_executable_name(t_cmd *cmd)
 	int		total_len;
 	char	*name;
 
-	total_len = ft_strlen(cmd->wd[0]);
+	total_len = ms_strlen(cmd->wd[0]);
 	while (total_len >= 0 && cmd->wd[0][total_len - 1] != '/')
 		total_len--;
 	name = ft_strdup(&(cmd->wd[0][total_len]));

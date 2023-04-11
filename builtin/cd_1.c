@@ -77,13 +77,13 @@ int	add_oldpwd(t_cmd *cmd)
 int	replace_path(t_cmd *cmd)
 {
 	if (!cmd->wd[1] || (!ft_strcmp(cmd->wd[1], "--") && \
-		ft_strlen(cmd->wd[1]) == 2))
+		ms_strlen(cmd->wd[1]) == 2))
 		return (replace_home(cmd));
-	if (!ft_strcmp(cmd->wd[1], "~") && ft_strlen(cmd->wd[1]) == 1)
+	if (!ft_strcmp(cmd->wd[1], "~") && ms_strlen(cmd->wd[1]) == 1)
 		return (replace_tilde(cmd));
-	if (!ft_strcmp(cmd->wd[1], "-") && ft_strlen(cmd->wd[1]) == 1)
+	if (!ft_strcmp(cmd->wd[1], "-") && ms_strlen(cmd->wd[1]) == 1)
 		return (replace_oldpwd(cmd));
-	if (cmd->wd[1][0] == '-' && ft_strlen(cmd->wd[1]) != 1)
+	if (cmd->wd[1][0] == '-' && ms_strlen(cmd->wd[1]) != 1)
 	{
 		ft_putstr_fd("Minishell: cd: ", 2);
 		ft_putstr_fd(cmd->wd[1], 2);

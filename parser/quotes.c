@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:12:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 10:34:27 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	remove_quotes(t_lexer *lst)
 	int		len;
 	char	*new;
 
-	len = ft_strlen(lst->token);
+	len = ms_strlen(lst->token);
 	new = ft_substr(lst->token, 1, len - 2);
 	if (!new)
 		return (FAILURE);

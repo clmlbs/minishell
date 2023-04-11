@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 10:47:51 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/01 11:35:58 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int	parse_same_id(int id_target)
 
 void	change_id_redir(t_lexer *lst)
 {
-	if (lst->id == REDIR_IN && ft_strlen(lst->token) == 1)
+	if (lst->id == REDIR_IN && ms_strlen(lst->token) == 1)
 		lst->id = SIMPLE_REDIR_IN;
-	else if (lst->id == REDIR_IN && ft_strlen(lst->token) == 2)
+	else if (lst->id == REDIR_IN && ms_strlen(lst->token) == 2)
 		lst->id = DOUBLE_REDIR_IN;
-	else if (lst->id == REDIR_OUT && ft_strlen(lst->token) == 1)
+	else if (lst->id == REDIR_OUT && ms_strlen(lst->token) == 1)
 		lst->id = SIMPLE_REDIR_OUT;
 	else
 		lst->id = DOUBLE_REDIR_OUT;

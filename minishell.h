@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 18:50:11 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ int		fill_t_cmd(void);
 //here_doc.c
 int		add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd);
 char	*here_doc(char *keyword, t_doc *doc);
+char	*here_doc_son(char *keyword, t_doc *doc);
 void	create_here_doc_line(t_doc *doc);
 int		add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd);
 
@@ -297,7 +298,7 @@ char		*ft_strdup(const char *s1);
 char		*ms_strjoin(char const *s1, char const *s2);
 size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t		ft_strlen(const char *s);
+size_t		ms_strlen(const char *s);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strtrim(char const *s1, char const *set);

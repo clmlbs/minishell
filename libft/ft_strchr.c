@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:17:01 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 11:08:14 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strchr(const char *s, int c)
 	if (!s)
 		return (NULL);
 	if (c == 0)
-		return (str + ft_strlen(s));
+		return (str + ms_strlen(s));
 	while (str[i])
 	{
 		if (str[i] == uc_c)

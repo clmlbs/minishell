@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/10 15:13:27 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRCS		=	main.c \
 				libft/ft_strdup.c \
 				libft/ft_strlcat.c \
 				libft/ft_strlcpy.c \
-				libft/ft_strlen.c \
+				libft/ms_strlen.c \
 				libft/ft_strncmp.c \
 				libft/ft_strtrim.c \
 				libft/ft_strzero.c \

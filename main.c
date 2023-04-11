@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 17:33:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	replace_dollar_question_mark(char **strs)
 		return (FAILURE);
 	while (strs && strs[i])
 	{
-		if (ft_strlen(strs[i]) == 2 && !ft_strncmp(strs[i], "$?", 2))
+		if (ms_strlen(strs[i]) == 2 && !ft_strncmp(strs[i], "$?", 2))
 		{
 			free(strs[i]);
 			strs[i] = ft_strdup(status);
@@ -165,7 +165,7 @@ int	execute_line(void)
 		free(g_all.pid);
 		g_all.pid = NULL;
 	}
-	g_all.where = DAD;
+	//g_all.where = DAD;
 	return (SUCCESS);
 }
 

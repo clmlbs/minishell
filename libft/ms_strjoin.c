@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:17:27 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 15:23:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ char	*ms_strjoin(char const *s1, char const *s2)
 		buf[0] = '\0';
 		s1 = buf;
 	}
-	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	len = ms_strlen(s1) + ms_strlen(s2) + 1;
 	str = (char *)malloc(sizeof(*str) * len);
 	if (!str)
 	{
 		perror_void("Minishell: malloc()");
 		return (NULL);
 	}
-	ft_strlcpy(str, s1, ft_strlen(s1) + 1);
-	ft_strlcat(str, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	ft_strlcpy(str, s1, ms_strlen(s1) + 1);
+	ft_strlcat(str, s2, ms_strlen(s1) + ms_strlen(s2) + 1);
 	return (str);
 }

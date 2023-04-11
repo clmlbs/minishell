@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 08:59:54 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 11:09:36 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	execute_exit(t_cmd *cmd)
 	char		*str;
 
 	str = remove_spaces_tab(cmd->wd[1]);
-	if (ft_strlen(str) > 20 || check_number(str, cmd) == FAILURE)
+	if (ms_strlen(str) > 20 || check_number(str, cmd) == FAILURE)
 	{
 		ft_putstr_fd("exit\nMinishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(cmd->wd[1], STDERR_FILENO);

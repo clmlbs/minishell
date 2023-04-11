@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 19:15:34 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 	doc->line_len = 0;
 	doc->input_len = 0;
 	input = here_doc(lexer->token, doc);
-	if (!input)
+	if (!input || g_all.status == 130)
 	{
 		free (doc);
 		g_all.status = 1;
@@ -43,24 +43,76 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 
 char	*here_doc(char *keyword, t_doc *doc)
 {
-	while (g_all.status != 130)
+	pid_t	pid;
+	int		end[2];
+	char	*line;
+	size_t	len;
+	
+	line = NULL;
+	len = 0;
+	g_all.where = HERE_DOC;
+	if (pipe(end) == -1)
 	{
-		g_all.where = HERE_DOC;
+		perror("Minishell: pipe()");
+		return (NULL);
+	}
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("Minishell: fork()");
+		return (NULL);
+	}
+	else if (pid == 0)
+	{
+		g_all.my_pid = 0;
+		close(end[0]);
+		line = here_doc_son(keyword, doc);
+		len = ms_strlen(line) + 1;
+		if (write(end[1], &len, sizeof(size_t)) == -1)
+			perror("Minishell: write()");
+		else if (write(end[1], line, len) == -1)
+			perror("Minishell: write()");
+		exit(SUCCESS);
+	}
+	else
+	{
+		g_all.my_pid = pid;
+		len = 0;
+		close(end[1]);
+		read(end[0], &len, sizeof(size_t));
+		line = (char *)malloc(len);
+		if (!line)
+		{
+			perror("Minishell: malloc()");
+			close(end[0]);
+			return (NULL);
+		}
+		read(end[0], line, len);
+		close(end[0]);
+		g_all.where = DAD;
+		return(line);
+	}
+}
+
+char	*here_doc_son(char *keyword, t_doc *doc)
+{
+	while (1)
+	{
 		doc->input = readline("> ");
 		if (doc->input == NULL)
 			return (NULL);
 		if /*(doc->input == NULL || */(!ft_strncmp(doc->input, keyword, \
-			ft_strlen(keyword)))
+			ms_strlen(keyword)))
 		{
 			free(doc->input);
 			break ;
 		}
-		doc->input_len = ft_strlen(doc->input) + 1;
+		doc->input_len = ms_strlen(doc->input) + 1;
 		doc->buf_line = (char *)malloc(sizeof(char) * (doc->line_len + doc->input_len + 1));
 		if (!(doc->buf_line))
 		{
 			perror_void("Minishell: malloc()");
-			g_all.where = SON;
+			g_all.where = DAD;
 			return (NULL);
 		}
 		create_here_doc_line(doc);
@@ -71,62 +123,9 @@ char	*here_doc(char *keyword, t_doc *doc)
 		doc->line[doc->line_len] = '\0';
 		return (doc->line);
 	}
-	g_all.where = SON;
+	g_all.where = DAD;
 	return (NULL);
 }
-
-//========== EN BAS HERE DOC MODIFIE DANS CTRL - C ===========
-
-// char	*here_doc(char *keyword, t_doc *doc)
-// {
-// 	char	str[60];
-
-// 	// attention si on a pas deja 130 et que ca ne marche pas 
-// 	ft_strlcpy(str, "Minishell: warning: here-document delimited by \
-// 		end-of-file", 60);
-// 	while (1)
-// 	{
-// 		if (g_all.status == 130)
-// 		{
-// 			if (doc->input)
-// 				free(doc->input);
-// 			g_all.status = 1;
-// 			return (NULL);
-// 		}
-// 		doc->input = readline("> ");
-// 		// if (doc->input == NULL ||!doc->input[0])
-// 		// {
-// 		// 	ft_putstr_fd(str, STDERR_FILENO);
-// 		// 	write_error("(wanted `", keyword, "')\n");
-// 		// 	break ;
-// 		// }
-// 		if (doc->input == NULL || !ft_strncmp(doc->input, keyword, \
-// 			ft_strlen(keyword)))
-// 		{
-// 			if (doc->input)
-// 				free(doc->input);
-// 			free(doc->input);
-// 			break ;
-// 		}
-// 	//	add_history(input); // Je l'ai enlever pour pas fausser l'historique 
-// 		doc->input_len = ft_strlen(doc->input) + 1;
-// 		doc->buf_line = (char *)malloc(sizeof(char) * (doc->line_len + doc->input_len + 1));
-// 		if (!(doc->buf_line))
-// 		{
-// 			perror_void("Minishell: malloc()");
-// 			return (NULL);
-// 		}
-// 		create_here_doc_line(doc);
-// 	}
-// 	if (doc->line)
-// 	{
-// 		doc->line[doc->line_len - 1] = '\0';
-// 		doc->line[doc->line_len] = '\0';
-// 		return (doc->line);
-// 	}
-// 	return (NULL);
-// }
-
 
 void	create_here_doc_line(t_doc *doc)
 {
@@ -149,7 +148,7 @@ int	add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd)
 
 	if (pipe(fd) == -1)
 		perror_fail("Minishell");
-	if (write(fd[1], lexer->token, ft_strlen(lexer->token)) == -1)
+	if (write(fd[1], lexer->token, ms_strlen(lexer->token)) == -1)
 		perror_fail("Minishell");
 	if (write(fd[1], "\n", 1) == -1)
 		perror_fail("Minishell");

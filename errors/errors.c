@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:06:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 14:40:45 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	write_error(char *begin, char *middle, char *end)
 {
-	write(2, begin, ft_strlen(begin));
-	write(2, middle, ft_strlen(middle));
-	write(2, end, ft_strlen(end));
+	write(2, begin, ms_strlen(begin));
+	write(2, middle, ms_strlen(middle));
+	write(2, end, ms_strlen(end));
 }
 
 void	error_token(t_lexer *lst, int len)

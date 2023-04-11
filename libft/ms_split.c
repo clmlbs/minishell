@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:16:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/03 14:46:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ char	*ms_substr(char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	if (ft_strlen(s) == 0)
+	if (ms_strlen(s) == 0)
 		len = 0;
-	if (len > ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
-	if (start > ft_strlen(s) - 1)
+	if (len > ms_strlen(s) - start)
+		len = ms_strlen(s) - start;
+	if (start > ms_strlen(s) - 1)
 		len = 0;
 	str = (char *)malloc(sizeof(*str) * (len + 2));
 	if (!str)

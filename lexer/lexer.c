@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 14:43:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	is_var_exist(char *var, int *index)
 	j = 0;
 	while (g_all.env[*index])
 	{
-		if (!ft_strncmp(g_all.env[*index], var, ft_strlen(var)))
+		if (!ft_strncmp(g_all.env[*index], var, ms_strlen(var)))
 		{
 			while (g_all.env[*index][j] && g_all.env[*index][j] != '=')
 				j++;
-			if (j == ft_strlen(var))
+			if (j == ms_strlen(var))
 				return (SUCCESS);
 			j = 0;
 		}
@@ -61,7 +61,7 @@ char	*create_var_value(char *var, int i)
 
 	if (is_var_exist(var, &i) == FAILURE)
 	{
-		if (ft_strlen(var) == 1 && !ft_strncmp("?", var, 1))
+		if (ms_strlen(var) == 1 && !ft_strncmp("?", var, 1))
 		{
 			new = ft_strdup("$?");
 			if (!new)
@@ -78,7 +78,7 @@ char	*create_var_value(char *var, int i)
 		new[0] = '\0';
 		return (new);
 	}
-	new = ft_strdup(g_all.env[i] + ft_strlen(var) + 1);
+	new = ft_strdup(g_all.env[i] + ms_strlen(var) + 1);
 	if (!new)
 		return (NULL);
 	return (new);
