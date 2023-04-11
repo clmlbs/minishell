@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 13:33:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:46:31 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	signal_main(int signal)
 			exit(130);
 		else
 		{
-			ft_putstr_fd("\b\b  \b\b", 1);
+			//ft_putstr_fd("\b\b  \b\b", 1);
 			rl_redisplay();
 			printf("\n");
 		}

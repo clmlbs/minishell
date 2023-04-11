@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 13:34:12 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:45:45 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,11 +214,24 @@ void	free_everything(void)
 	// autres trucs a free ?
 }
 
+void	echo_ctl(int n)
+{
+	struct termios	term;
+	tcgetattr(0, &term);
+	if (n)
+		term.c_lflag |= ECHOCTL;
+	else
+		term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &term);
+}
+
+
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
 	int			line_ok;
 
+	echo_ctl(0);
 	init_global(ac, av, env);
 	if (pipe(g_all.herit) < 0)
 		return (perror_fail("Minishell: pipe()"));
