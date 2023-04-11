@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 14:53:31 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:51:36 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,8 @@ int	execute_line(void)
 	buf = g_all.cmd;
 	while (buf)
 	{
-		if (g_all.is_first_turn == NO && update_global() == FAILURE)
+		if (g_all.is_first_turn == NO &&  isatty(STDIN_FILENO) \
+			&& update_global() == FAILURE)
 			return (FAILURE);
 		else
 		{
