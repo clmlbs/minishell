@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 16:28:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:20:13 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 	if (!input || g_all.status == 130)
 	{
 		free (doc);
-		printf("status:%d\n", g_all.status);//*****
-		if (g_all.status == 0)
-			return (SUCCESS);
 		g_all.status = 1;
 		return (FAILURE);
 	}
+	if (input[0] == '\0')
+		printf("\033[A\033[A\r> ");
 	free(lexer->token);
 	lexer->token = input;
 	free(doc);//normalement pas besoin de free chaque truc car deja fait 
