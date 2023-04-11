@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 16:31:35 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:35:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	signal_main(int signal)
 	{
 		//printf("DANS SON\n");//*******
 		g_all.status = 130;
-		printf("^C\n");
+		printf("\n");
+		//printf("^C\n"); pas besoin puisque linterupteur est reswitch avant exec 
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 15:51:36 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:41:34 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,19 +226,19 @@ void	echo_ctl(int n)
 	tcsetattr(0, TCSANOW, &term);
 }
 
-
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
 	int			line_ok;
 
-	echo_ctl(0);
+	//echo_ctl(0);
 	init_global(ac, av, env);
 	if (pipe(g_all.herit) < 0)
 		return (perror_fail("Minishell: pipe()"));
 	printf("pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
+		echo_ctl(0);
 		signal(SIGINT, signal_main);
 		signal(SIGQUIT, SIG_IGN);
 		//system("leaks minishell");

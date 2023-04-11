@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 14:52:44 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:39:39 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	execute_child(t_cmd *cmd)
 		execute_builtin(cmd);
 	else
 	{
+		echo_ctl(1); // ATTENTION PENSER A ENELVER SI PAS BON
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
 		{
 			perror("Minishell: execve()");
