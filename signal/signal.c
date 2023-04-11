@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 13:46:31 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:53:09 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	signal_main(int signal)
 	{
 		//printf("DANS SON\n");//*******
 		g_all.status = 130;
-		printf("\n");
+		printf("^C\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
