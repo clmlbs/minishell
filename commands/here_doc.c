@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 18:57:17 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:08:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 		g_all.status = 1;
 		return (FAILURE);
 	}
-	// if (input[0] == '\0')
-	// 	printf("\033[A\033[A\r> "); remettre ?
+	if (input[0] == '\0')
+		printf("\033[A\033[A\r> "); //remettre ?
 	free(lexer->token);
 	lexer->token = input;
 	free(doc);//normalement pas besoin de free chaque truc car deja fait 
@@ -49,7 +49,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 	int		end[2];
 	char	*line;
 	size_t	len;
-	
+
 	line = NULL;
 	len = 0;
 	g_all.where = HERE_DOC;
@@ -148,12 +148,14 @@ char	*here_doc_son(char *keyword, t_doc *doc)
 		}
 		create_here_doc_line(doc);
 	}
-	if (doc->input == NULL)
-		printf("\033[A\033[A\r> ");
 	if (doc->line)
 	{
 		doc->line[doc->line_len - 1] = '\0';
 		doc->line[doc->line_len] = '\0';
+		if (doc->input == NULL)
+		{	
+			printf("\033[A> "); // ok ca ? pour le ctrl d 
+		}
 		return (doc->line);
 	}
 	return (NULL);
