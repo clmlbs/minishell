@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 12:21:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/11 12:45:34 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,12 @@ void	signal_main(int signal)
 			exit(130);
 		else
 		{
-			//printf("\e[2K");
-			//rl_on_new_line();
+
+			//==== ca presque ok yq aue le chqpeau ===
+			ft_putstr_fd("\b\b  \b\b", 1);
 			rl_redisplay();
 			printf("\n");
-			//rl_replace_line("", 0);
-			// rl_on_new_line();
-			// rl_redisplay();
-			
-			// printf("\n");
-			// rl_replace_line("", 0);
-			// rl_on_new_line();
+			// ok dans lautre sens aussi 
 		}
 		g_all.status = 130; // ou 1 ?
 	}
