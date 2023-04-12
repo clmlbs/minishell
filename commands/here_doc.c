@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 19:31:08 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 09:04:56 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 	line = NULL;
 	len = 0;
 	g_all.where = HERE_DOC;
-	signal(SIGQUIT, signal_main);
+	signal(SIGQUIT, signal_handle);
 	if (pipe(end) == -1)
 	{
 		perror("Minishell: pipe()");

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 08:18:16 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 09:04:56 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,8 +240,8 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		echo_ctl(0);
-		signal(SIGINT, signal_main);
-		signal(SIGQUIT, signal_main);
+		signal(SIGINT, signal_handle);
+		signal(SIGQUIT, signal_handle);
 		//system("leaks minishell");
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);
