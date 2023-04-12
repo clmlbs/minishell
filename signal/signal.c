@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 08:56:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 09:03:20 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,19 @@ void	signal_sigint(void)
 
 void	signal_sigquit(void)
 {
-	if (g_all.where == DAD)
+	if (g_all.where == DAD || g_all.where = HERE_DOC)
 	{
 		rl_on_new_line();
 		rl_redisplay();
 	}
 	if (g_all.where == SON)
 	{
-		if (g_all.my_pid == 0)
-		{
-			printf("Quit: 3\n");
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			g_all.status = 131;
-		}
+		printf("Quit: 3\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		g_all.status = 131;
 	}
 }
-
-
 
 void	signal_main(int signal)
 {
