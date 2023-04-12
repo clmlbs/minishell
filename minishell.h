@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 18:30:42 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 08:45:24 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,6 +368,8 @@ void	change_id_redir(t_lexer *lst);
 
 //=========== SIGNAL ===========
 //signal.c
+void	signal_sigint(void);
+void	signal_sigquit(void);
 void	signal_main(int signal);
 
 //=========== MAIN =============

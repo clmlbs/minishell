@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 19:37:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 08:56:30 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@
 // 	g_all.my_pid = 0;
 // }
 
-
 void	signal_sigint(void)
 {
 	if (g_all.where == DAD)
 	{
-		//printf("DANS DAD\n");//*****
 		g_all.status = 1;
 		printf("\e[2K"); // to clear the entire line where the cursor is currently located.
         rl_on_new_line();
@@ -44,22 +42,18 @@ void	signal_sigint(void)
 	}
 	else if (g_all.where == SON)
 	{
-		//printf("DANS SON\n");//*******
 		g_all.status = 130;
 		printf("\n");
-		//printf("^C\n"); pas besoin puisque linterupteur est reswitch avant exec 
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 	else if (g_all.where == HERE_DOC)
 	{
-		//printf("DANS HEREDOC\n");//******
 		(void)signal;
 		if (g_all.my_pid == 0)
 			exit(130);
 		else
 		{
-			//ft_putstr_fd("\b\b  \b\b", 1);
 			rl_redisplay();
 			printf("\n");
 		}
@@ -71,13 +65,18 @@ void	signal_sigquit(void)
 {
 	if (g_all.where == DAD)
 	{
-		signal(SIGQUIT, SIG_IGN);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	if (g_all.where == SON)
 	{
-		printf("Quit: 3\n");
-		rl_redisplay();
-		g_all.status = 131;
+		if (g_all.my_pid == 0)
+		{
+			printf("Quit: 3\n");
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			g_all.status = 131;
+		}
 	}
 }
 

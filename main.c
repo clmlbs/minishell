@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 19:30:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 08:18:16 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void	ft_waitpid(void)
 			}
 			else if (WIFSIGNALED(g_all.status))
 			{
-				if (g_all.status != 130)
-					g_all.status = WTERMSIG(status);
+				//=== Laisse comme ca, sans rien faire ? ===
+				// if (g_all.status != 130)
+				// 	g_all.status = WTERMSIG(status); 
 				//printf("Child process %d terminated by signal %d\n", pid, WTERMSIG(status));//****
 			}
 		}
