@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 09:04:56 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 12:51:37 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@
 # define HERE_DOC 2
 # define REPLACE 3
 # define APPEND 4
+
+# define PROCESS 0
+# define EXECUTION 3
 
 //============ COLORS ==============
 # define WATERMELON "\x1b[38;2;254;127;156m"

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 10:23:22 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:49:21 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	signal_sigint(void)
 {
-	if (g_all.where == DAD)
+	if (g_all.where == PROCESS)
 	{
 		g_all.status = 1;
 		//printf("\e[2K");
@@ -25,7 +25,7 @@ void	signal_sigint(void)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	else if (g_all.where == SON)
+	else if (g_all.where == EXECUTION)
 	{
 		g_all.status = 130;
 		printf("\n");
@@ -48,16 +48,16 @@ void	signal_sigint(void)
 
 void	signal_sigquit(void)
 {
-	if (g_all.where == DAD)
+	if (g_all.where == PROCESS)
 	{
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (g_all.where == SON)
+	if (g_all.where == EXECUTION)
 	{
 		printf("Quit: 3\n");
 		rl_replace_line("", 0);
-		rl_on_new_line();
+		rl_on_new_line();	
 		g_all.status = 131;
 	}
 	if (g_all.where == HERE_DOC)

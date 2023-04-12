@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:03:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 09:04:56 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:45:05 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ int	add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd)
 		g_all.status = 1;
 		return (FAILURE);
 	}
-	if (input[0] == '\0')
-		printf("\033[A\033[A\r> "); //remettre ?
+	// if (input[0] == '\0')
+	// {
+		//rl_on_new_line();
+		// rl_redisplay();
+		//printf("\033[A\033[A\r> "); //remettre ?
+	// }
 	free(lexer->token);
 	lexer->token = input;
 	free(doc);//normalement pas besoin de free chaque truc car deja fait 
@@ -53,7 +57,6 @@ char	*here_doc(char *keyword, t_doc *doc)
 	line = NULL;
 	len = 0;
 	g_all.where = HERE_DOC;
-	signal(SIGQUIT, signal_handle);
 	if (pipe(end) == -1)
 	{
 		perror("Minishell: pipe()");
@@ -63,7 +66,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 	if (pid < 0)
 	{
 		perror("Minishell: fork()");
-		g_all.where = DAD;
+		g_all.where = PROCESS;
 		return (NULL);
 	}
 	else if (pid == 0)
@@ -72,7 +75,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 		// g_all.my_pid = 0;
 		// close(end[0]);
 		// line = here_doc_son(keyword, doc);
-		// g_all.where = DAD;
+		// g_all.where = PROCESS;
 		// if (!line)
 		// 	exit(FAILURE); // OK ca pour le ctl d ? 
 		// len = ms_strlen(line) + 1;
@@ -85,7 +88,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 		g_all.my_pid = 0;
 		close(end[0]);
 		line = here_doc_son(keyword, doc);
-		g_all.where = DAD;
+		g_all.where = PROCESS;
 		if (!line)
 		{	
 			line = (char *)malloc(sizeof(char));
@@ -104,7 +107,7 @@ char	*here_doc(char *keyword, t_doc *doc)
 		len = 0;
 		close(end[1]);
 		read(end[0], &len, sizeof(size_t));
-		g_all.where = DAD;
+		g_all.where = PROCESS;
 		if (len == 0)
 		{
 			close(end[0]);
@@ -142,7 +145,7 @@ char	*here_doc_son(char *keyword, t_doc *doc)
 		if (!(doc->buf_line))
 		{
 			perror_void("Minishell: malloc()");
-			g_all.where = DAD;
+			g_all.where = PROCESS;
 			if (doc->input)
 				free(doc->input);
 			return (NULL);

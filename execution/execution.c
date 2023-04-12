@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 09:50:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:47:25 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ int	ft_fork(t_cmd *cmd)
 {
 	pid_t	pid;
 
-	g_all.where = SON;
+	g_all.where = EXECUTION;
 	pid = fork();
 	if (pid < 0)
 		return (perror_fail("Minishell: fork()"));
 	else if (pid == 0)
 	{
-		//g_all.my_pid = pid;
+		//signal(SIGQUIT, signal_handle); Normalement osef puisque cest le fils 
+		g_all.my_pid = 0;
 		if (close(g_all.end[0]) < 0)
 			return (perror_fail("Minishell: close()"));
 		if (g_all.nb_cmd != 1 && cmd->position != g_all.nb_cmd)
@@ -41,7 +42,15 @@ int	ft_fork(t_cmd *cmd)
 	}
 	else
 	{
-		//g_all.my_pid = pid;
+		// if (pid != getpid())
+		// {
+			struct sigaction sa;
+            sa.sa_handler = SIG_IGN;
+            sigemptyset(&sa.sa_mask);
+            sa.sa_flags = 0;
+            sigaction(SIGQUIT, &sa, NULL);
+		// }
+		g_all.my_pid = pid;
 		g_all.pid[cmd->position - 1] = pid;
 		if (close(g_all.end[1]) < 0)
 			return (perror_fail("Minishell: close()"));
@@ -106,6 +115,8 @@ void	execute_child(t_cmd *cmd)
 	else
 	{
 		echo_ctl(1); // ATTENTION PENSER A ENELVER SI PAS BON
+		if (!cmd->wd || !cmd->wd[0])
+			exit(0);
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
 		{
 			perror("Minishell: execve()");

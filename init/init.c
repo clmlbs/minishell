@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 08:45:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:57:12 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	init_global(int ac, char **av, char **env)
 	g_all.nb_cmd = 0;
 	g_all.pid = NULL;
 	g_all.my_pid = 0;// ok ?
-	g_all.where = DAD;
+	g_all.where = PROCESS;
 	g_all.fd_stdin = dup(STDIN_FILENO);
 	g_all.fd_stdout = dup(STDOUT_FILENO);
 	if (g_all.fd_stdin == -1 || g_all.fd_stdout == -1)
