@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 09:04:56 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:12:56 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,42 @@ int	check_line(char *input)
 // 		{
 // 			perror_void("Minishell: waitpid()");
 // 			exit(1); // code d'erreur ok ? 
+// 		}
+// 		i++;
+// 	}
+// }
+
+//======= WAITPID POUR LE SEGFAULT ======
+// void	ft_waitpid(void)
+// {
+// 	int	i;
+// 	int	pid;
+// 	int	status;
+
+// 	i = 0;
+// 	while (i < g_all.nb_cmd) // ca va poser pb si pas de fork pour les builtin
+// 	{
+// 		pid = waitpid(g_all.pid[i], &status, 0);
+// 		if (pid > 0)
+// 		{
+// 			if (WIFEXITED(status))
+// 			{
+// 				g_all.status = WEXITSTATUS(status);
+// 				//printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));//****
+// 			}
+// 			else if (WIFSIGNALED(status))
+// 			{
+// 				g_all.status = 128 + WTERMSIG(status);
+// 				if (WTERMSIG(status) == SIGSEGV)
+// 				{
+// 					ft_putstr_fd("Segmentation fault: 11\n", STDERR_FILENO);
+// 				}
+// 			}
+// 		}
+// 		if (pid <= 0)
+// 		{
+// 			perror_void("Minishell: waitpid()");
+// 			exit(FAILURE); // code d'erreur ok ? 
 // 		}
 // 		i++;
 // 	}
@@ -226,6 +262,7 @@ void	echo_ctl(int n)
 		term.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &term);
 }
+
 
 int	main(int ac, char **av, char **env)
 {
