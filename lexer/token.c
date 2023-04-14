@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:33 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 10:44:10 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 10:58:42 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int	init_id(char c)
 		result = assign_id_to_char(c, SIMPLE_QUOTE);
 	else if (c == '\"')
 		result = assign_id_to_char(c, DOUBLE_QUOTE);
-	else if (c >= 33 && c <= 126)
+	else if (is_special_char(c) == TRUE)
+		result = assign_id_to_char(c, CHAR_SPE);
+	else if (ft_isalnum(c) == TRUE)
 		result = assign_id_to_char(c, WORD);
 	else
 		return (FAILURE);
@@ -75,7 +77,12 @@ int	tokenize_words(int id_target, int id_compare)
 			}
 			while (buf->next && (buf->next->id == id_compare))
 			{
-				if (add_next_char_to_current(buf) == FAILURE)
+				if (buf->next->token)
+				{
+					if (add_next_str_to_current(buf) == FAILURE)
+						return (FAILURE);
+				}
+				else if (add_next_char_to_current(buf) == FAILURE)
 					return (FAILURE);
 			}
 		}

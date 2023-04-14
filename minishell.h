@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 12:51:37 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:46:34 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 
 //=========== TOKENS ============
 # define WORD 0
+# define CHAR_SPE 1
 # define BACKSLASH_N 2
 # define WHITESPACE 32
 
@@ -84,6 +85,7 @@
 # define ORANGE "\x1b[38;2;255;165;0m"
 # define WHITE "\x1b[0m"
 
+//============ STRUCTURES ================
 typedef struct s_cmd
 {
 	struct s_cmd	*prev;
@@ -335,6 +337,7 @@ int		is_var(char c);
 int		is_redir_or_pipe(char c);
 int		is_quote(char c);
 int		is_space(char c);
+int		is_special_char(char c);
 int		is_special_char_or_numeric(char c);
 int		ft_isalnum(int c);
 

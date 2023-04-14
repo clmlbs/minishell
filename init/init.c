@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 10:57:12 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:27:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ int	update_shlvl(void)
 	if (!str_joined)
 		return (FAILURE);
 	if (add_or_update_var_in_env(str_joined) == FAILURE)
+	{
+		free(str_joined);
 		return (FAILURE);
+	}
+	free(str_joined);
 	return (SUCCESS);
 }
 

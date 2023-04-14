@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 15:28:06 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:55:01 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,10 @@ int	check_line(char *input)
 {
 	if (!input)
 	{
-		rl_replace_line("", 0); //replace the current contents of the Readline input buffer with a new string. 
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		printf("exit\n");
-		// faire un join de input + exit 
-		// enlever le /n de input
-		//printf("%s\n", ms_strjoin(input, "exit")); //fr en sorte qu'il l'affiche sur la mm ligne 
-		// faire un truc propre sinon ca ca fait des leaks 
-		// printf("exit pas d'input\n"); //fr en sorte qu'il l'affiche sur la mm ligne 
 		return (FAILURE);
 	}
 	if (input[0] != '\0')
@@ -36,28 +31,6 @@ int	check_line(char *input)
 		return (EMPTY);
 }
 
-// void	ft_waitpid(void)
-// {
-// 	int	i;
-// 	int	pid;
-// 	int	status;
-
-// 	i = 0;
-// 	while (i < g_all.nb_cmd) // ca va poser pb si pas de fork pour les builtin
-// 	{
-// 		pid = waitpid(g_all.pid[i], &status, 0);
-// 		if (pid > 0)
-// 			printf("Child process %d exited with status %d\n", pid, status);
-// 		if (pid <= 0)
-// 		{
-// 			perror_void("Minishell: waitpid()");
-// 			exit(1); // code d'erreur ok ? 
-// 		}
-// 		i++;
-// 	}
-// }
-
-//======= WAITPID POUR LE SEGFAULT ======
 void	ft_waitpid(void)
 {
 	int	i;
@@ -71,10 +44,7 @@ void	ft_waitpid(void)
 		if (pid > 0)
 		{
 			if (WIFEXITED(status))
-			{
 				g_all.status = WEXITSTATUS(status);
-				//printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));//****
-			}
 			else if (WIFSIGNALED(status))
 			{
 				g_all.status = 128 + WTERMSIG(status);
@@ -99,41 +69,6 @@ void	ft_waitpid(void)
 		i++;
 	}
 }
-
-//======== ANCIEN AVANT LE SIGSEGV ==========
-// void	ft_waitpid(void)
-// {
-// 	int	i;
-// 	int	pid;
-// 	int	status;
-
-// 	i = 0;
-// 	while (i < g_all.nb_cmd) // ca va poser pb si pas de fork pour les builtin
-// 	{
-// 		pid = waitpid(g_all.pid[i], &status, 0);
-// 		if (pid > 0)
-// 		{
-// 			if (WIFEXITED(status))
-// 			{
-// 				g_all.status = WEXITSTATUS(status);
-// 				//printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));//****
-// 			}
-// 			else if (WIFSIGNALED(g_all.status))
-// 			{
-// 				//=== Laisse comme ca, sans rien faire ? ===
-// 				// if (g_all.status != 130)
-// 				// 	g_all.status = WTERMSIG(status); 
-// 				//printf("Child process %d terminated by signal %d\n", pid, WTERMSIG(status));//****
-// 			}
-// 		}
-// 		if (pid <= 0)
-// 		{
-// 			perror_void("Minishell: waitpid()");
-// 			exit(FAILURE); // code d'erreur ok ? 
-// 		}
-// 		i++;
-// 	}
-// }
 
 int	update_env_after_son(void)
 {
@@ -277,7 +212,6 @@ int	main(int ac, char **av, char **env)
 	char		*input;
 	int			line_ok;
 
-	//echo_ctl(0);
 	init_global(ac, av, env);
 	if (pipe(g_all.herit) < 0)
 		return (perror_fail("Minishell: pipe()"));

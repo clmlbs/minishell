@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:00:12 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	lexer(char *input)
 	g_all.lexer = lex_lstnew();
 	if (!g_all.lexer)
 		return (FAILURE);
-	//printf("input:%s\n", input);//*****
 	while (input[i])
 	{
 		if (init_id(input[i]) == FAILURE)
@@ -84,23 +83,41 @@ char	*create_var_value(char *var, int i)
 	return (new);
 }
 
+void	update_id_spe_char(void)
+{
+	t_lexer *buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == CHAR_SPE)
+			buf->id = WORD;
+		buf = buf->next;
+	}
+}
+
 int	tokenize_all_steps(void)
 {
-	if (tokenize_quotes(NO, 0) == FAILURE) // verif si ok
+	if (tokenize_quotes(NO, 0) == FAILURE)
 		return (FAILURE);
 	if (tokenize_words(VAR, WORD) == FAILURE)
 		return (FAILURE);
 	update_id_var();
 	if (replace_var() == FAILURE)
 		return (FAILURE);
+	update_id_spe_char();
+	//print_t_lexer();//*******
+	//printf("\n");//********
 	if (tokenize_words(WORD, WORD) == FAILURE)
 		return (FAILURE);
+	//print_t_lexer();//*******
+	//printf("\n");//********
 	if (tokenize_words(PIPE, PIPE) == FAILURE)
 		return (FAILURE);
 	if (tokenize_words(REDIR_IN, REDIR_IN) == FAILURE)
 		return (FAILURE);
 	if (tokenize_words(REDIR_OUT, REDIR_OUT) == FAILURE)
 		return (FAILURE);
-	//print_t_lexer();//******************
+	//print_t_lexer();//*******
 	return (SUCCESS);
 }

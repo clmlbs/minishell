@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 15:34:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:46:06 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,22 @@ int	is_special_char_or_numeric(char c)
 	return (FALSE);
 }
 
+int	is_special_char(char c)
+{
+	if (c == '!' || c == '#' || c == '%' || c == '&')
+		return (TRUE);
+	if (c >= '(' && c <= '/')
+		return (TRUE);
+	if (c == ':' || c == ';' || c == '=')
+		return (TRUE);
+	if (c >= '?' && c <= '@')
+		return (TRUE);
+	if (c >= '[' && c <= '`')
+		return (TRUE);
+	if (c == '{' || c == '}' || c == '~')
+		return (TRUE);
+	return (FALSE);
+}
 int	ft_isalnum(int c)
 {
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
