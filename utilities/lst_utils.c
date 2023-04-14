@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:17:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 12:14:46 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:14:25 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,5 @@ void	print_t_lexer(void)
 		ft_putstr_fd("\n", 2);
 		buf = buf->next;
 	}
+	ft_putstr_fd("\n", 2);
 }

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:43:04 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/04 15:25:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 15:24:22 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	add_next_char_to_current(t_lexer *current)
 	}
 	else
 		current->next = NULL;
-	free_t_lexer(buf_to_suppr);
+	free_one_lst_lexer(buf_to_suppr);
 	return (SUCCESS);
 }
 
@@ -64,23 +64,24 @@ void	remove_token(t_lexer *lst)
 	t_lexer	*buf;
 
 	if (!lst->prev && !lst->next)
-		free_t_lexer(lst);
+		free_one_lst_lexer(lst);
 	else if (!lst->next)
 	{
 		lst->prev->next = NULL;
-		free_t_lexer(lst);
+		free_one_lst_lexer(lst);
 	}
 	else if (!lst->prev)
 	{
 		buf = lst->next;
-		free_t_lexer(lst);
-		lst = buf;
+		buf->prev = NULL;
+		free_one_lst_lexer(lst);
+		g_all.lexer = buf;
 	}
 	else
 	{
 		buf = lst->prev;
 		buf->next = lst->next;
 		buf->next->prev = buf;
-		free_t_lexer(lst);
+		free_one_lst_lexer(lst);
 	}
 }

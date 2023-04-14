@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:33 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 10:58:42 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:37:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	assign_id_to_char(char c, int id)
 	new->id = id;
 	if (g_all.lexer->c == 0)
 	{
-		free_t_lexer(g_all.lexer);
+		free_one_lst_lexer(g_all.lexer);
 		g_all.lexer = new;
 	}
 	else

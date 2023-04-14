@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 14:12:43 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:45:40 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	free_tab_strs(char **str)
 	{
 		while (str[i])
 		{
-			free (str[i]);
+			free(str[i]);
 			i++;
 		}
 		free(str[i]);
-		free (str);
+		free(str);
 	}
 }
 
-void	free_t_lexer(t_lexer *lst)
+void	free_one_lst_lexer(t_lexer *lst)
 {
 	if (!lst)
 		return ;
@@ -41,24 +41,39 @@ void	free_t_lexer(t_lexer *lst)
 	lst = NULL;//mettre ou pas ca ? 
 }
 
+
 void	free_all_lexer(void)
 {
 	t_lexer	*buf;
 	t_lexer	*lx;
 
 	lx = g_all.lexer;
-	if (lx)
+	while (lx)
 	{
-		while (lx)
-		{
-			buf = lx->next;
-			if (lx->token)
-				free(lx->token);
-			free(lx);
-			lx = buf;
-		}
+		buf = lx->next;
+		free_one_lst_lexer(lx);
+		lx = buf;
 	}
 }
+
+// void	free_all_lexer(void)
+// {
+// 	t_lexer	*buf;
+// 	t_lexer	*lx;
+
+// 	lx = g_all.lexer;
+// 	if (lx)
+// 	{
+// 		while (lx)
+// 		{
+// 			buf = lx->next;
+// 			if (lx->token)
+// 				free(lx->token);
+// 			free(lx);
+// 			lx = buf;
+// 		}
+// 	}
+// }
 
 void	free_t_cmd(t_cmd *cmd)
 {
