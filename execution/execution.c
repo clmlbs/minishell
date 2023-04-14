@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 14:47:25 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:19:35 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,24 @@ int	execute(t_cmd *cmd_in_global)
 	return (SUCCESS);
 }
 
+void	check_points(t_cmd *cmd)
+{
+	if (!cmd->wd[1])
+	{
+		if (!ft_strcmp(cmd->wd[0], ".") && ms_strlen(cmd->wd[0]) == 1)
+		{
+			ft_putstr_fd("Minishell: .: filename argument required\n", 2);
+			ft_putstr_fd(".: usage: . filename [arguments]\n", 2);
+			exit(2);
+		}
+		if (!ft_strcmp(cmd->wd[0], "..") && ms_strlen(cmd->wd[0]) == 2)
+		{
+			ft_putstr_fd("Minishell: ..: command not found\n", 2);
+			exit(127);
+		}
+	}
+}
+
 void	execute_child(t_cmd *cmd)
 {
 	if (is_builtin(cmd) == FALSE && find_good_path(cmd) == FAILURE)
@@ -114,9 +132,10 @@ void	execute_child(t_cmd *cmd)
 		execute_builtin(cmd);
 	else
 	{
-		echo_ctl(1); // ATTENTION PENSER A ENELVER SI PAS BON
+		echo_ctl(1);
 		if (!cmd->wd || !cmd->wd[0])
 			exit(0);
+		check_points(cmd);
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
 		{
 			perror("Minishell: execve()");
