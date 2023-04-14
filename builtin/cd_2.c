@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 08:27:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/10 14:35:45 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:54:41 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	replace_home(t_cmd *cmd)
 {
 	char 	*var;
 	
-	var = create_var_value("HOME", 0);
+	var = create_var_value("HOME");
 	if (!var)
 		return (FAILURE);
 	if (!var[0])
@@ -46,7 +46,7 @@ int	replace_oldpwd(t_cmd *cmd)
 {
 	char *var;
 
-	var = create_var_value("OLDPWD", 0);
+	var = create_var_value("OLDPWD");
 	if (!var)
 		return (FAILURE);
 	if (!var[0])

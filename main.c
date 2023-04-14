@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 16:29:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:54:26 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	update_env_after_son(void)
 
 	if (g_all.is_first_turn == NO)
 	{
-		pwd = create_var_value("PWD", 0);
+		pwd = create_var_value("PWD");
 		if (!pwd)
 			return (FAILURE);
 		if (chdir(pwd) == -1)

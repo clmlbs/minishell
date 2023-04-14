@@ -61,7 +61,7 @@ int	add_oldpwd(t_cmd *cmd)
 	char	*value;
 	char	*var;
 
-	value = create_var_value("PWD", 0);
+	value = create_var_value("PWD");
 	if (!value)
 		return (FAILURE);
 	var = ms_strjoin("OLDPWD=", value);

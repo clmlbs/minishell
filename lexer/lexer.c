@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 11:02:22 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:10:29 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,30 @@ int	is_var_exist(char *var, int *index)
 	return (FAILURE);
 }
 
-char	*create_var_value(char *var, int i)
+char *var_is_exit_status(void)
 {
 	char	*new;
 
+	new = ft_itoa(g_all.status);
+	if (!new)
+	{
+		perror("Minishell");
+		return (NULL);
+	}
+	printf("new:%s\n", new);//******
+	return (new);
+}
+
+char	*create_var_value(char *var)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
 	if (is_var_exist(var, &i) == FAILURE)
 	{
 		if (ms_strlen(var) == 1 && !ft_strncmp("?", var, 1))
-		{
-			new = ft_strdup("$?");
-			if (!new)
-				perror("Minishell");
-			if (!new)
-				return (NULL);
-			return (new);
-		}
+			return (var_is_exit_status());
 		new = (char *)malloc(sizeof(char));
 		if (!new)
 			perror("Minishell");
@@ -96,15 +105,37 @@ void	update_id_spe_char(void)
 	}
 }
 
+int	tokenize_exit_status_var(void)
+{
+	t_lexer *buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == VAR && ms_strlen(buf->token) == 1 && buf->next \
+			&& buf->next->c == '?' && buf->next->token == NULL)
+		{
+			if (add_next_char_to_current(buf) == FAILURE)
+					return (FAILURE);	
+		}
+		buf = buf->next;
+	}
+	return (SUCCESS);
+}
+
 int	tokenize_all_steps(void)
 {
 	if (tokenize_quotes(NO, 0) == FAILURE)
 		return (FAILURE);
 	if (tokenize_words(VAR, WORD) == FAILURE)
 		return (FAILURE);
+	if (tokenize_exit_status_var() == FAILURE)
+		return (FAILURE);
 	update_id_var();
+	//print_t_lexer();//********
 	if (replace_var() == FAILURE)
 		return (FAILURE);
+	//print_t_lexer();//********
 	update_id_spe_char();
 	if (tokenize_words(WORD, WORD) == FAILURE)
 		return (FAILURE);

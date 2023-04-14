@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 13:41:47 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:54:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	update_shlvl(void)
 	shlvl = ft_strdup("SHLVL");
 	if (!shlvl)
 		return (FAILURE);
-	value_str = create_var_value(shlvl, 0);
+	value_str = create_var_value(shlvl);
 	if (!value_str)
 		return (FAILURE);
 	free(shlvl);
@@ -65,7 +65,7 @@ void	init_global(int ac, char **av, char **env)
 		exit(FAILURE); 
 	if (update_shlvl() == FAILURE)
 		exit(FAILURE);
-	g_all.tilde = create_var_value("HOME", 0);
+	g_all.tilde = create_var_value("HOME");
 	if (!g_all.tilde)
 		exit(FAILURE);
 	g_all.nb_cmd = 0;

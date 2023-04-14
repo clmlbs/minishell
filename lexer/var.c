@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:10:17 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,28 @@ int	replace_var(void)
 	return (SUCCESS);
 }
 
+int	update_token(t_lexer *lexer, int *index)
+{
+	t_update_token	t;
+
+	print_t_lexer();//********
+	init_t_updated_token(&t);
+	if (add_until_dollar(&(t.str_begin), &(t.i), *index, lexer) == FAILURE)
+		return (FAILURE);
+	(t.i)++;
+	t.begin = t.i;
+	if (!lexer->token[t.i] || is_space(lexer->token[t.i]) == TRUE)
+		return(end_of_token(&(t.str_begin), lexer, index));
+	if (lexer->token[t.i] == '\"' && !(lexer->token[t.i + 1]))
+		return(end_of_token_in_quotes(&(t.str_begin), lexer, index, &(t.i)));
+	go_until_end_of_var(lexer, &(t.i));
+	if (create_token_updated(lexer, &t, index) == FAILURE)
+		return (FAILURE);
+	lexer->save = lexer->token;
+	lexer->token = t.token_updated;
+	return (SUCCESS);
+}
+
 int	create_var_name(t_lexer *lexer, t_update_token *t)
 {
 	t->var_name = ft_substr(lexer->token, t->begin, t->i - t->begin);
@@ -58,7 +80,7 @@ int	create_token_updated(t_lexer *lexer, t_update_token *t, int *index)
 {
 	if (create_var_name(lexer, t) == FAILURE)
 		return (FAILURE);
-	t->var_value = create_var_value(t->var_name, 0);
+	t->var_value = create_var_value(t->var_name);
 	free(t->var_name);
 	if (!(t->var_value))
 	{
@@ -76,26 +98,5 @@ int	create_token_updated(t_lexer *lexer, t_update_token *t, int *index)
 	free(t->begin_and_value);
 	if (!(t->token_updated))
 		return (FAILURE);
-	return (SUCCESS);
-}
-
-int	update_token(t_lexer *lexer, int *index)
-{
-	t_update_token	t;
-	
-	init_t_updated_token(&t);
-	if (add_until_dollar(&(t.str_begin), &(t.i), *index, lexer) == FAILURE)
-		return (FAILURE);
-	(t.i)++;
-	t.begin = t.i;
-	if (!lexer->token[t.i] || is_space(lexer->token[t.i]) == TRUE)
-		return(end_of_token(&(t.str_begin), lexer, index));
-	if (lexer->token[t.i] == '\"' && !(lexer->token[t.i + 1]))
-		return(end_of_token_in_quotes(&(t.str_begin), lexer, index, &(t.i)));
-	go_until_end_of_var(lexer, &(t.i));
-	if (create_token_updated(lexer, &t, index) == FAILURE)
-		return (FAILURE);
-	lexer->save = lexer->token;
-	lexer->token = t.token_updated;
 	return (SUCCESS);
 }
