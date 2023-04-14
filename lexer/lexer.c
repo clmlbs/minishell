@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 11:00:12 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:02:22 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,8 @@ int	tokenize_all_steps(void)
 	if (replace_var() == FAILURE)
 		return (FAILURE);
 	update_id_spe_char();
-	//print_t_lexer();//*******
-	//printf("\n");//********
 	if (tokenize_words(WORD, WORD) == FAILURE)
 		return (FAILURE);
-	//print_t_lexer();//*******
-	//printf("\n");//********
 	if (tokenize_words(PIPE, PIPE) == FAILURE)
 		return (FAILURE);
 	if (tokenize_words(REDIR_IN, REDIR_IN) == FAILURE)

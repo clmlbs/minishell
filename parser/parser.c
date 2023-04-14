@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:57:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,90 @@ void	key_word_contain_dollar(void)
 	}
 }
 
+int	check_pipes_begin(void)
+{
+	t_lexer *buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->prev == NULL && buf->id == PIPE)
+		{
+			write_error("Minishell: syntax error near unexpected ", \
+			"token `|'", "\n");
+			return (FAILURE);
+		}
+		buf = buf->next;
+	}
+	buf = lex_lstlast(g_all.lexer);
+	if (buf->id == PIPE)
+	{
+		write_error("Minishell: syntax error near unexpected ", \
+			"token `|'", "\n");
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+int	nb_same_char_in_token(int id_target)
+{
+	t_lexer *buf;
+	int		nb;
+	
+	nb = 0;
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == id_target)
+			nb++;
+		buf = buf->next;
+	}
+	return (nb);
+}
+
+int	parse_redir(void)
+{
+	int		nb_redir_in;
+	int		nb_redir_out;
+
+	if (parse_same_id(REDIR_IN) == FAILURE || \
+		parse_same_id(REDIR_OUT) == FAILURE)
+	nb_redir_in = nb_same_char_in_token(REDIR_IN);
+	nb_redir_out = nb_same_char_in_token(REDIR_OUT);
+	remove_spaces();
+	if (parse_same_id(REDIR_IN) == 1 || parse_same_id(REDIR_OUT) == FAILURE)
+		return (FAILURE);
+	if (nb_redir_in != nb_same_char_in_token(REDIR_IN))
+	{
+		write_error("Minishell: syntax error near unexpected token ", \
+			"`<'", "\n");
+		return (FAILURE);
+	}
+	if (nb_redir_out != nb_same_char_in_token(REDIR_OUT))
+	{
+		write_error("Minishell: syntax error near unexpected token ", \
+			"`>'", "\n");
+		return (FAILURE);
+	}
+	if (check_redir() == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 int	parser(void)
 {
 	if (are_quotes_even() == FAILURE)
 		return (FAILURE);
 	if (parse_same_id(WORD) == FAILURE)
 		return (FAILURE);
-	remove_spaces(); 
-	if (parse_same_id(PIPE) == FAILURE || check_pipes() == FAILURE)
+	if (parse_redir() == FAILURE)
 		return (FAILURE);
-	if (parse_same_id(REDIR_IN) == FAILURE ||
-		parse_same_id(REDIR_OUT) == FAILURE || check_redir() == FAILURE)
+	if (parse_same_id(PIPE) == FAILURE || check_pipes() == FAILURE)
 		return (FAILURE);
 	if (parse_token_after_redir() == FAILURE)
 		return (FAILURE);
 	key_word_contain_dollar();
+	if (check_pipes_begin() == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }

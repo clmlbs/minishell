@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 16:46:34 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:46:04 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,6 +359,9 @@ t_lexer	*add_var_env(char *token);
 int		check_pipes(void);
 int		check_redir(void);
 int		parse_token_after_redir(void);
+int		check_pipes_begin(void);
+int		nb_same_char_in_token(int id_target);
+int		parse_redir(void);
 int		parser(void);
 
 //quotes.c
