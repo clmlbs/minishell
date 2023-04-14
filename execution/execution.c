@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 17:41:01 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 20:29:13 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_fork(t_cmd *cmd)
 		return (perror_fail("Minishell: fork()"));
 	else if (pid == 0)
 	{
-		//signal(SIGQUIT, signal_handle); Normalement osef puisque cest le fils 
 		g_all.my_pid = 0;
 		if (close(g_all.end[0]) < 0)
 			return (perror_fail("Minishell: close()"));
@@ -42,14 +41,11 @@ int	ft_fork(t_cmd *cmd)
 	}
 	else
 	{
-		// if (pid != getpid())
-		// {
-			struct sigaction sa;
-            sa.sa_handler = SIG_IGN;
-            sigemptyset(&sa.sa_mask);
-            sa.sa_flags = 0;
-            sigaction(SIGQUIT, &sa, NULL);
-		// }
+		struct sigaction sa;
+		sa.sa_handler = SIG_IGN;
+		sigemptyset(&sa.sa_mask);
+		sa.sa_flags = 0;
+		sigaction(SIGQUIT, &sa, NULL);
 		g_all.my_pid = pid;
 		g_all.pid[cmd->position - 1] = pid;
 		if (close(g_all.end[1]) < 0)
@@ -118,6 +114,30 @@ void	check_points(t_cmd *cmd)
 	}
 }
 
+void	cmd_null(t_cmd *cmd)
+{
+	int		cmd_nb;
+	t_lexer	*buf;
+
+	cmd_nb = 1;
+	buf = g_all.lexer;
+	while (buf && cmd_nb != cmd->position)
+	{	
+		if (buf->id == PIPE)
+			cmd_nb++;
+		buf = buf->next;
+	}
+	if (buf && buf->c == '$')
+		exit(0);
+	if (buf && (buf->c == '\'' || buf->c == '\"'))
+	{
+		write_error("Minishell: : command not ", "found", "\n");
+		exit(127);
+	}
+	else
+		exit(1);
+}
+
 void	execute_child(t_cmd *cmd)
 {
 	if (is_builtin(cmd) == FALSE && find_good_path(cmd) == FAILURE)
@@ -133,13 +153,15 @@ void	execute_child(t_cmd *cmd)
 	else
 	{
 		echo_ctl(1);
-		if (!cmd->wd || !cmd->wd[0])
+		if (!cmd->wd)
 			exit(0);
+		if (!cmd->wd[0][0])
+			cmd_null(cmd);
 		check_points(cmd);
 		if (execve(cmd->good_path, cmd->wd, g_all.env) == -1)
 		{
 			perror("Minishell: execve()");
-			exit(127); 
+			exit(127);
 		}
 	}
 }
