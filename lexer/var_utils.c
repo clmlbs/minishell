@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 16:56:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 19:12:04 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:19:01 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ void	go_until_end_of_var(t_lexer *lexer, int *i)
 {
 	if (lexer->token[*i] == '?')
 	{
-		printf("Passe la\n");//*****
 		(*i)++;
-		return ; //OK ???
+		return ;
 	}
 	if (is_special_char_or_numeric(lexer->token[*i]) == TRUE)
 		(*i)++;

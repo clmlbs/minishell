@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 19:10:17 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:23:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	replace_var(void)
 					else
 						buf->id = WORD;
 				}
-				i++;
+				else // je viens de rajouter un else 
+					i++;
 			}
 			i = 0;
 		}
@@ -47,7 +48,6 @@ int	update_token(t_lexer *lexer, int *index)
 {
 	t_update_token	t;
 
-	print_t_lexer();//********
 	init_t_updated_token(&t);
 	if (add_until_dollar(&(t.str_begin), &(t.i), *index, lexer) == FAILURE)
 		return (FAILURE);

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 19:10:29 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:24:17 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char *var_is_exit_status(void)
 		perror("Minishell");
 		return (NULL);
 	}
-	printf("new:%s\n", new);//******
 	return (new);
 }
 
