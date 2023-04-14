@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 12:57:55 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:39:04 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,11 @@ int	check_pipes_begin(void)
 	return (SUCCESS);
 }
 
-int	nb_same_char_in_token(int id_target)
+int	nb_redir(int id_target)
 {
 	t_lexer *buf;
 	int		nb;
-	
+
 	nb = 0;
 	buf = g_all.lexer;
 	while (buf)
@@ -150,20 +150,20 @@ int	parse_redir(void)
 	int		nb_redir_in;
 	int		nb_redir_out;
 
-	if (parse_same_id(REDIR_IN) == FAILURE || \
-		parse_same_id(REDIR_OUT) == FAILURE)
-	nb_redir_in = nb_same_char_in_token(REDIR_IN);
-	nb_redir_out = nb_same_char_in_token(REDIR_OUT);
+	if (parse_same_id(REDIR_IN) == 1 || parse_same_id(REDIR_OUT) == FAILURE)
+		return (FAILURE);
+	nb_redir_in = nb_redir(REDIR_IN);
+	nb_redir_out = nb_redir(REDIR_OUT);
 	remove_spaces();
 	if (parse_same_id(REDIR_IN) == 1 || parse_same_id(REDIR_OUT) == FAILURE)
 		return (FAILURE);
-	if (nb_redir_in != nb_same_char_in_token(REDIR_IN))
+	if (nb_redir_in != nb_redir(REDIR_IN))
 	{
 		write_error("Minishell: syntax error near unexpected token ", \
 			"`<'", "\n");
 		return (FAILURE);
 	}
-	if (nb_redir_out != nb_same_char_in_token(REDIR_OUT))
+	if (nb_redir_out != nb_redir(REDIR_OUT))
 	{
 		write_error("Minishell: syntax error near unexpected token ", \
 			"`>'", "\n");
