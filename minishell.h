@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 13:23:14 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:48:30 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@
 
 # define VAR 36
 # define PIPE 124
+
+# define	REDIR 70
 
 # define SIMPLE_REDIR_IN 58
 # define DOUBLE_REDIR_IN 59
@@ -227,7 +229,7 @@ int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
 //=========== ERRORS ============
 //errors.c
 void	write_error(char *begin, char *middle, char *end);
-void	error_token(t_lexer *lst, int len);
+void	error_token(t_lexer *lst, int len, int token_id);
 int		perror_fail(char *str);
 void	perror_void(char *str);
 

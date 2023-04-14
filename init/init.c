@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 16:27:53 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:41:47 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,6 @@ int	update_global(void)
 	new_env = NULL;
 	if (update_env_after_son() == FAILURE) /// OK CAA ???
 		return (ret_upt(new_env, nb_strs, FAILURE)); // OK ca ?? 
-	ft_putstr_fd("Sort de update\n", 2);//******
 	return (ret_upt(new_env, nb_strs, SUCCESS));
 }
 

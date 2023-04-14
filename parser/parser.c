@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 13:39:04 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:46:20 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_pipes(void)
 		{
 			if (ms_strlen(buf->token) != 1)
 			{
-				error_token(buf, ms_strlen(buf->token));
+				error_token(buf, ms_strlen(buf->token), PIPE);
 				return (FAILURE);
 			}
 		}
@@ -49,7 +49,7 @@ int	check_redir(void)
 		{
 			if (ms_strlen(buf->token) < 1 || ms_strlen(buf->token) > 2)
 			{
-				error_token(buf, ms_strlen(buf->token));
+				error_token(buf, ms_strlen(buf->token), REDIR);
 				return (FAILURE);
 			}
 			change_id_redir(buf);
