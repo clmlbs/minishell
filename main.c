@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 15:25:25 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:29:20 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void	minishell(char *input)
 			g_all.status = 258;
 		return ;
 	}
+	//print_t_lexer();//*******
 	if (fill_t_cmd() == FAILURE)
 	{
 		if (g_all.status == 0)

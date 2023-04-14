@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 15:25:33 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:00:27 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,10 +174,30 @@ int	parse_redir(void)
 	return (SUCCESS);
 }
 
+void	suppr_useless_token(void)
+{
+	t_lexer *buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == SUPPR)
+		{
+			remove_token(buf);
+			buf = g_all.lexer;			
+		}
+		else
+			buf = buf->next;
+	}
+}
+
 int	parser(void)
 {
+	//print_t_lexer();//********
 	if (are_quotes_even() == FAILURE)
 		return (FAILURE);
+	suppr_useless_token();
+	//print_t_lexer();//********
 	if (parse_same_id(WORD) == FAILURE)
 		return (FAILURE);
 	if (parse_redir() == FAILURE)

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 15:12:07 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:54:11 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@
 # define VAR 36
 # define PIPE 124
 
-# define	REDIR 70
+# define REDIR 70
+# define SUPPR 80
 
 # define SIMPLE_REDIR_IN 58
 # define DOUBLE_REDIR_IN 59
