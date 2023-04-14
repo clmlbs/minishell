@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 17:20:36 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:41:01 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,7 @@ void	execute_child(t_cmd *cmd)
 	if (dup_fd(cmd) == FAILURE)
 		exit(FAILURE);
 	if (is_builtin(cmd) == TRUE)
-	{
-		printf("builtin\n");//******
 		execute_builtin(cmd);
-	}
 	else
 	{
 		echo_ctl(1);

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 18:44:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:40:35 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,13 @@ int	export_check_args(char **strs, int *i)
 void	execute_export(t_cmd *cmd)
 {
 	int		i;
-	//char	**buf;
 	int		j;
 	char	*var;
 
 	i = 1;
 	j = 0;
+	if (g_all.nb_cmd != 1)
+		exit(SUCCESS);
 	if (!cmd->wd[1])
 		export_without_args();
 	while (cmd->wd[i])
