@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 10:47:51 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 15:24:51 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 21:36:39 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ int	parse_same_id(int id_target)
 		{
 			if (add_next_str_to_current(buf) == FAILURE)
 				return (FAILURE);
+			buf = g_all.lexer;
 		}
-		buf = buf->next;
+		else
+			buf = buf->next;
 	}
 	return (SUCCESS);
 }
