@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 16:19:35 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:20:36 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,10 @@ void	execute_child(t_cmd *cmd)
 	if (dup_fd(cmd) == FAILURE)
 		exit(FAILURE);
 	if (is_builtin(cmd) == TRUE)
+	{
+		printf("builtin\n");//******
 		execute_builtin(cmd);
+	}
 	else
 	{
 		echo_ctl(1);
@@ -146,17 +149,22 @@ void	execute_child(t_cmd *cmd)
 
 void	execute_builtin(t_cmd *cmd)
 {
-	if (ms_strlen(cmd->wd[0]) == 2 && !ft_strncmp(cmd->wd[0], "cd", 2))
+	char	*str;
+	
+	str = put_to_lower(cmd->wd[0]);
+	if (!str)
+		exit(FAILURE);	
+	if (ms_strlen(str) == 2 && !ft_strncmp(str, "cd", 2))
 		execute_cd(cmd);
-	else if (ms_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "pwd", 3))
+	else if (ms_strlen(str) == 3 && !ft_strncmp(str, "pwd", 3))
 		execute_pwd(cmd);
-	else if (ms_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "env", 3))
+	else if (ms_strlen(str) == 3 && !ft_strncmp(str, "env", 3))
 		execute_env(cmd);
-	else if (ms_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "echo", 4))
+	else if (ms_strlen(str) == 4 && !ft_strncmp(str, "echo", 4))
 		execute_echo(cmd);
-	else if (ms_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
+	else if (ms_strlen(str) == 5 && !ft_strncmp(str, "unset", 5))
 		execute_unset(cmd);
-	else if (ms_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
+	else if (ms_strlen(str) == 6 && !ft_strncmp(str, "export", 6))
 		execute_export(cmd);
 	else
 		exit(FAILURE);

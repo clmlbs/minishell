@@ -6,30 +6,55 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:18:19 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+char	*put_to_lower(char *str)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = ft_strdup(str);
+	if (!new)
+		return (NULL);
+	while (new[i])
+	{
+		new[i] = ft_tolower(new[i]);
+		i++;
+	}
+	return (new);
+}
+
+
 int	is_builtin(t_cmd *cmd)
 {
-	if (ms_strlen(cmd->wd[0]) == 2 && !ft_strncmp(cmd->wd[0], "cd", 2))
-		return (TRUE);
-	else if (ms_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "pwd", 3))
-		return (TRUE);
-	else if (ms_strlen(cmd->wd[0]) == 3 && !ft_strncmp(cmd->wd[0], "env", 3))
-		return (TRUE);
-	else if (ms_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "echo", 4))
-		return (TRUE);
-	else if (ms_strlen(cmd->wd[0]) == 4 && !ft_strncmp(cmd->wd[0], "exit", 4))
-		return (TRUE);
-	else if (ms_strlen(cmd->wd[0]) == 5 && !ft_strncmp(cmd->wd[0], "unset", 5))
-		return (TRUE);
-	else if (ms_strlen(cmd->wd[0]) == 6 && !ft_strncmp(cmd->wd[0], "export", 6))
-		return (TRUE);
-	else
+	char	*str;
+	int		result;
+
+	result = FALSE;
+	str = put_to_lower(cmd->wd[0]);
+	if (!str)
 		return (FALSE);
+	if (ms_strlen(str) == 2 && !ft_strncmp(str, "cd", 2))
+		result = TRUE;
+	else if (ms_strlen(str) == 3 && !ft_strncmp(str, "pwd", 3))
+		result = TRUE;
+	else if (ms_strlen(str) == 3 && !ft_strncmp(str, "env", 3))
+		result = TRUE;
+	else if (ms_strlen(str) == 4 && !ft_strncmp(str, "echo", 4))
+		result = TRUE;
+	else if (ms_strlen(str) == 4 && !ft_strncmp(str, "exit", 4))
+		result = TRUE;
+	else if (ms_strlen(str) == 5 && !ft_strncmp(str, "unset", 5))
+		result = TRUE;
+	else if (ms_strlen(str) == 6 && !ft_strncmp(str, "export", 6))
+		result = TRUE;
+	free(str);
+	return (result);
 }
 
 void	execute_env(t_cmd *cmd)

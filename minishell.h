@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 16:54:11 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:36:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ t_all	g_all;
 
 //=========== BUILTIN ============
 //builtin_1.c
+char	*put_to_lower(char *str);
 int		is_builtin(t_cmd *cmd);
 void	execute_env(t_cmd *cmd);
 void	execute_pwd(t_cmd *cmd);
@@ -310,6 +311,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t		ms_strlen(const char *s);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
+int			ft_tolower(int c);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strzero(char *s, size_t n);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
