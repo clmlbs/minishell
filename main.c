@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 11:35:47 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 13:58:59 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,6 @@ void	ft_waitpid(void)
 		}
 		i++;
 	}
-}
-
-int	update_env_after_son(void)
-{
-	char	*pwd;
-	int		i;
-
-	i = 0;
-	if (g_all.is_first_turn == NO && is_var_exist("PWD", &i) == SUCCESS)
-	{
-		pwd = create_var_value("PWD");
-		if (!pwd)
-			return (FAILURE);
-	}
-	save_all_path(g_all.env);
-	return (SUCCESS);
 }
 
 int	replace_dollar_question_mark(char **strs)
@@ -201,12 +185,13 @@ int	main(int ac, char **av, char **env)
 	printf("1er pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
+		//system("leaks minishell");
 		echo_ctl(0);
 		signal(SIGINT, signal_handle);
 		signal(SIGQUIT, signal_handle);
-		if (g_all.is_first_turn == NO && update_global() == FAILURE) // rajout
+		if (g_all.is_first_turn == NO && isatty(STDIN_FILENO) \
+			&& update_global() == FAILURE) // rajout mais pb avec system leak;
 			return (FAILURE); 
-		//system("leaks minishell");
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);
 		if (line_ok == FAILURE)

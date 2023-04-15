@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 13:03:11 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 13:58:40 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	init_global(int ac, char **av, char **env)
 	g_all.cmd = cmd_lstnew();
 	if (!g_all.cmd)
 		exit(FAILURE);
-	if (save_all_path(env) == FAILURE)
+	if (save_all_path(copy_strs_plus_one(env)) == FAILURE)
 		exit(FAILURE);
 	g_all.env = copy_strs_plus_one(env);
 	if (!g_all.env)
@@ -119,21 +119,21 @@ int	save_all_path(char **envp)
 	if (g_all.all_path)
 		free_tab_strs(g_all.all_path);
 	g_all.all_path = NULL;
-	if (envp)
+	if (!envp)
+		return (FAILURE);
+	while (envp[i])
 	{
-		while (envp[i])
+		if (!ft_strncmp(envp[i], "PATH=", 5))
 		{
-			if (!ft_strncmp(envp[i], "PATH=", 5))
-			{
-				g_all.all_path = ms_split(envp[i] + 5, ':');
-				if (!g_all.all_path)
-					return (FAILURE);
-				return (SUCCESS);
-			}
-			i++;
+			g_all.all_path = ms_split(envp[i] + 5, ':');
+			free_tab_strs(envp);
+			if (!g_all.all_path)
+				return (FAILURE);
+			return (SUCCESS);
 		}
+		i++;
 	}
-	//printf_strs(g_all.all_path, WITH_INDEX, STDOUT_FILENO);//********
+	free_tab_strs(envp);
 	return (SUCCESS);
 }
 
@@ -224,7 +224,7 @@ int	update_global(void)
 	free_tab_strs(g_all.env);
 	g_all.env = new_env;
 	new_env = NULL;
-	if (update_env_after_son() == FAILURE) 
+	if (save_all_path(copy_strs_plus_one(g_all.env)) == FAILURE)
 		return (ret_upt(new_env, nb_strs, FAILURE)); 
 	return (ret_upt(new_env, nb_strs, SUCCESS));
 }
