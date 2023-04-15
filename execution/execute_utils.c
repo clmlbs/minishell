@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:19:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/11 11:43:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 10:02:31 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	find_good_path(t_cmd *cmd)
 			return (FAILURE);
 		}
 	}
-	while (g_all.all_path[i])
+	while (g_all.all_path && g_all.all_path[i])
 	{
 		cmd->good_path = ms_strjoin(g_all.all_path[i], cmd->wd[0]);
 		if (!cmd->good_path)

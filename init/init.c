@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 09:06:18 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 10:01:46 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,25 @@ void	init_global(int ac, char **av, char **env)
 int	save_all_path(char **envp)
 {
 	int	i;
-	int	line;
 
 	i = 0;
-	while (envp[i])
+	if (g_all.all_path)
+		free_tab_strs(g_all.all_path);
+	g_all.all_path = NULL;
+	if (envp)
 	{
-		if (!ft_strncmp(envp[i], "PATH=", 5))
+		while (envp[i])
 		{
-			line = i;
-			break ;
+			if (!ft_strncmp(envp[i], "PATH=", 5))
+			{
+				g_all.all_path = ms_split(envp[i] + 5, ':');
+				if (!g_all.all_path)
+					return (FAILURE);
+				return (SUCCESS);
+			}
+			i++;
 		}
-		i++;
 	}
-	g_all.all_path = ms_split(envp[i] + 5, ':');
-	if (!g_all.all_path)
-		return (FAILURE);
 	//printf_strs(g_all.all_path, WITH_INDEX, STDOUT_FILENO);//********
 	return (SUCCESS);
 }

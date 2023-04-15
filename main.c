@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 09:45:23 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 09:52:02 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	update_env_after_son(void)
 		}
 		free(pwd);
 	}
+	save_all_path(g_all.env);// ok ici ?
 	return (SUCCESS);
 }
 
