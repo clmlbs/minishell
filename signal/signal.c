@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 13:49:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 09:02:00 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,16 @@ void	signal_handle(int signal)
 		signal_sigint();
 	if (signal == SIGQUIT)
 		signal_sigquit();
+}
+
+void	echo_ctl(int n)
+{
+	struct termios	term;
+
+	tcgetattr(0, &term);
+	if (n)
+		term.c_lflag |= ECHOCTL;
+	else
+		term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &term);
 }

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 18:54:50 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 09:06:18 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	init_global(int ac, char **av, char **env)
 	g_all.cmd = cmd_lstnew();
 	if (!g_all.cmd)
 		exit(FAILURE);
-	if (init_env(env) == FAILURE)
+	if (save_all_path(env) == FAILURE)
 		exit(FAILURE);
 	g_all.env = copy_strs_plus_one(env);
 	if (!g_all.env)
@@ -84,7 +84,7 @@ void	init_global(int ac, char **av, char **env)
 	// PENSER A FERMER LES FD !!!
 }
 
-int	init_env(char **envp)
+int	save_all_path(char **envp)
 {
 	int	i;
 	int	line;

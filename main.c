@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 18:54:26 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 09:45:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	execute_line(void)
 	buf = g_all.cmd;
 	while (buf)
 	{
-		if (g_all.is_first_turn == NO &&  isatty(STDIN_FILENO) \
+		if (g_all.is_first_turn == NO && isatty(STDIN_FILENO) \
 			&& update_global() == FAILURE)
 			return (FAILURE);
 		else
@@ -196,18 +196,6 @@ void	free_everything(void)
 	// autres trucs a free ?
 }
 
-void	echo_ctl(int n)
-{
-	struct termios	term;
-	tcgetattr(0, &term);
-	if (n)
-		term.c_lflag |= ECHOCTL;
-	else
-		term.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &term);
-}
-
-
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
@@ -222,6 +210,8 @@ int	main(int ac, char **av, char **env)
 		echo_ctl(0);
 		signal(SIGINT, signal_handle);
 		signal(SIGQUIT, signal_handle);
+		if (g_all.is_first_turn == NO && update_global() == FAILURE) // rajout
+			return (FAILURE); 
 		//system("leaks minishell");
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);

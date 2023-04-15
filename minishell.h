@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 08:58:23 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 09:06:18 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ void	free_all_lexer_and_cmd(void);
 
 //=========== INIT ============
 void	init_global(int ac, char **av, char **env);
-int		init_env(char **envp);
+int		save_all_path(char **envp);
 int		update_global(void);
 int		ret_upt(char **new_env, int *nb_strs, int return_value);
 void	init_t_updated_token(t_update_token *t);
@@ -386,13 +386,13 @@ void	change_id_redir(t_lexer *lst);
 void	signal_sigint(void);
 void	signal_sigquit(void);
 void	signal_handle(int signal);
+void	echo_ctl(int n);
 
 //=========== MAIN =============
 
 int		check_line(char *input);
 void	ft_waitpid(void);
 void	minishell(char *input);
-void	echo_ctl(int n);
 int		main(int arc, char **arv, char **env);
 int		update_env_after_son(void);
 #endif
