@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 14:38:32 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:55:48 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,35 +193,27 @@ int	update_global(void)
 	int		i;
 	size_t	len;
 
-	printf("Dans update POULE\n");//*******
 	new_env = NULL;
 	nb_strs = (int *)malloc(sizeof(int));
 	if (!nb_strs)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
 	if (close(g_all.herit[1]) < 0)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: close()")));
-	printf("g_all.herit[0]:%d\n", g_all.herit[0]);//**********
-	printf("g_all.herit[1]:%d\n", g_all.herit[1]);//**********
-	exit(777);//***************
+		
 	ssize = read(g_all.herit[0], nb_strs, sizeof(int));
 	if (ssize == -1)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
-	if (*nb_strs <= 0)
-	{
-		printf("s'arrete la\n");//*******
+	if (*nb_strs <= 0 || *nb_strs > 1000) // car quand on n'a pas rempli le pipe system leaks lit des grand nb pos et sas rien ils sont neg
 		return (ret_upt(new_env, nb_strs, EMPTY));
-	}
 	new_env = (char **)malloc(sizeof(char *) * ((*nb_strs) + 1));
 	if (!new_env)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
 	i = 0;
-	printf("nb_strs:%d\n", *nb_strs);//***********
 	while (i < *nb_strs)
 	{
 		len = 0;
 		if (read(g_all.herit[0], &len, sizeof(size_t)) == -1)
 			return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
-		//printf("Arrive dans update globale\n");//*********
 		new_env[i] = (char *)malloc(len);
 		if (!new_env[i])
 			return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));

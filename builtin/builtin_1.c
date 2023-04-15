@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 13:15:14 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:18:35 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,7 @@ int	send_env_to_father(char **env, int *fd)
 			return (perror_fail("Minishell: write()"));
 		i++;
 	}
+	if (close(fd[1]) < 0) // pas de bug ?? 
+		return (perror_fail("Minishell: close()")); // sur ok de ca pas de bug ???
 	return (SUCCESS);
 }
