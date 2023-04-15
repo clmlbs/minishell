@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 12:55:28 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 13:23:54 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,20 @@ void	print_env_in_alphabetic(char **strs)
 	while (i < tab_strlen(strs))
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		while (strs[i][j] != '=')
+		while (strs[i][j] && strs[i][j] != '=')
 		{
 			ft_putchar_fd(strs[i][j], STDOUT_FILENO);
 			j++;
 		}
-		ft_putchar_fd(strs[i][j], STDOUT_FILENO);
-		ft_putchar_fd('\"', STDOUT_FILENO);
-		while (strs[i][++j])
+		if (strs[i][j])
+		{
 			ft_putchar_fd(strs[i][j], STDOUT_FILENO);
-		ft_putstr_fd("\"\n", STDOUT_FILENO);
+			ft_putchar_fd('\"', STDOUT_FILENO);
+			while (strs[i][++j])
+				ft_putchar_fd(strs[i][j], STDOUT_FILENO);
+			ft_putstr_fd("\"", STDOUT_FILENO);
+		}
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		j = 0;
 		i++;
 	}
@@ -67,11 +71,6 @@ void	export_var(char *str)
 
 int	export_check_args(char **strs, int *i)
 {
-	// int	j;
-	// int equal_present;
-
-	// j = 0;
-	// equal_present = FAILURE;
 	if (strs[*i] && strs[*i][0] == '-')
 	{
 		write_error("Minishell: ", "options for export are not ", \
@@ -86,13 +85,6 @@ int	export_check_args(char **strs, int *i)
 		return (FAILURE);
 	}
 	return (SUCCESS);
-	// while (strs[*i][j])
-	// {
-	// 	if (strs[*i][j] == '=')
-	// 		equal_present = SUCCESS;
-	// 	j++;
-	// }
-	// return (equal_present);
 }
 
 void	execute_export(t_cmd *cmd)

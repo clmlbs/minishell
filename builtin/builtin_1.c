@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 08:59:22 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 13:15:14 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ int	is_builtin(t_cmd *cmd)
 
 void	execute_env(t_cmd *cmd)
 {
+	int	i;
+
+	i = 0;
 	if (cmd->wd[1])
 	{
 		write_error("Minishell: ", "error: env should be executed ",\
@@ -66,8 +69,15 @@ void	execute_env(t_cmd *cmd)
 	}
 	else
 	{
-		printf_strs(g_all.env, WITHOUT_INDEX, cmd->fd_outfile);
-		// mettre le bon status
+		while (g_all.env[i])
+		{
+			if (ft_strchr(g_all.env[i], '=') != NULL)
+			{
+				ft_putstr_fd(g_all.env[i], cmd->fd_outfile);
+				ft_putstr_fd("\n", cmd->fd_outfile);
+			}
+			i++;
+		}
 		exit(SUCCESS);
 	}
 }
