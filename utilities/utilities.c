@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:05:21 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/12 16:46:06 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:31:04 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	is_special_char_or_numeric(char c)
 
 int	is_special_char(char c)
 {
+	if (c == '_')
+		return (FALSE);
 	if (c == '!' || c == '#' || c == '%' || c == '&')
 		return (TRUE);
 	if (c >= '(' && c <= '/')

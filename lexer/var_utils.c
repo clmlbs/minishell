@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 16:56:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 19:19:01 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:34:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	end_of_token(char **new, t_lexer *lexer, int *index)
 
 int	end_of_token_in_quotes(char **new, t_lexer *lexer, int *index, int *i)
 {	
-	(*new) = ft_add_char_to_str(ft_strdup(*new), '$');
+	(*new) = ft_add_char_to_str(ft_strdup(*new), '$'); // leaks la non ? 
 	if (!(*new))
 		return (FAILURE);
-	(*new) = ft_add_char_to_str(ft_strdup(*new), lexer->token[*i]);
+	(*new) = ft_add_char_to_str(ft_strdup(*new), lexer->token[*i]); // leaks aussi ?
 	if (!(*new))
 		return (FAILURE);
 	free(lexer->token);
@@ -69,7 +69,8 @@ void	go_until_end_of_var(t_lexer *lexer, int *i)
 		(*i)++;
 		return ;
 	}
-	if (is_special_char_or_numeric(lexer->token[*i]) == TRUE)
+	if (is_special_char_or_numeric(lexer->token[*i]) == TRUE && \
+		lexer->token[*i] != '_')
 		(*i)++;
 	else
 	{

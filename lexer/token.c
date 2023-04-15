@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:33 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 14:37:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:33:31 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	init_id(char c)
 		result = assign_id_to_char(c, SIMPLE_QUOTE);
 	else if (c == '\"')
 		result = assign_id_to_char(c, DOUBLE_QUOTE);
-	else if (is_special_char(c) == TRUE)
+	else if (is_special_char(c) == TRUE && c != '_')
 		result = assign_id_to_char(c, CHAR_SPE);
-	else if (ft_isalnum(c) == TRUE)
+	else if (ft_isalnum(c) == TRUE || c == '_')
 		result = assign_id_to_char(c, WORD);
 	else
 		return (FAILURE);

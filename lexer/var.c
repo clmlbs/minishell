@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 19:23:57 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:35:02 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	replace_var(void)
 					else
 						buf->id = WORD;
 				}
-				else // je viens de rajouter un else 
+				else
 					i++;
 			}
 			i = 0;
