@@ -96,7 +96,9 @@ int	replace_path(t_cmd *cmd)
 void	execute_cd(t_cmd *cmd)
 {
 	int	result;
+	int	i;
 
+	i = 0;
 	result = replace_path(cmd);
 	if (result != SUCCESS)
 		exit (result);//verif les codes 
@@ -109,7 +111,7 @@ void	execute_cd(t_cmd *cmd)
 		perror("Minishell");
 		exit(FAILURE);
 	}
-	if (add_newpwd(cmd) == FAILURE)
+	if (is_var_exist("PWD", &i) == SUCCESS && add_newpwd(cmd) == FAILURE) // rajout d'une condition si pwd pas la 
 		exit(FAILURE);
 	if (send_env_to_father(g_all.env, g_all.herit) == FAILURE)
 		exit(FAILURE);

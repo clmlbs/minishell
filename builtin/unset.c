@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 18:41:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 15:34:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:04:17 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target)
 		free_tab_strs(g_all.env);
 		g_all.env = (*new);
 		(*new) = NULL;
+		printf("pwd est retire\n");//*******
 	}
 	(*index) = 0;
 	return (SUCCESS);

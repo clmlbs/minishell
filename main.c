@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 09:52:02 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:01:35 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	ft_waitpid(void)
 					ft_putstr_fd("Terminated: 15\n", STDERR_FILENO);	
 				else if (WTERMSIG(status) == SIGKILL)
 					ft_putstr_fd("Killed: 9\n", STDERR_FILENO);	
-				
 			}
 		}
 		if (pid <= 0)
@@ -73,8 +72,10 @@ void	ft_waitpid(void)
 int	update_env_after_son(void)
 {
 	char	*pwd;
+	int		i;
 
-	if (g_all.is_first_turn == NO)
+	i = 0;
+	if (g_all.is_first_turn == NO && is_var_exist("PWD", &i) == SUCCESS)
 	{
 		pwd = create_var_value("PWD");
 		if (!pwd)

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 10:01:46 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:01:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	update_global(void)
 	size_t	ssize;
 	int		i;
 	size_t	len;
-	
+
 	new_env = NULL;
 	nb_strs = (int *)malloc(sizeof(int));
 	if (!nb_strs)
@@ -181,7 +181,6 @@ int	update_global(void)
 	if (!new_env)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
 	i = 0;
-
 	while (i < *nb_strs)
 	{
 		len = 0;
