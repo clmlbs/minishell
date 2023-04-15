@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 13:58:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:39:06 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,19 +179,19 @@ int	main(int ac, char **av, char **env)
 	char		*input;
 	int			line_ok;
 
+	system("leaks minishell"); //********
 	init_global(ac, av, env);
 	if (pipe(g_all.herit) < 0)
 		return (perror_fail("Minishell: pipe()"));
 	printf("1er pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
-		//system("leaks minishell");
 		echo_ctl(0);
 		signal(SIGINT, signal_handle);
 		signal(SIGQUIT, signal_handle);
 		if (g_all.is_first_turn == NO && isatty(STDIN_FILENO) \
 			&& update_global() == FAILURE) // rajout mais pb avec system leak;
-			return (FAILURE); 
+			return (FAILURE);
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);
 		if (line_ok == FAILURE)

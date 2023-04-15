@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 08:58:44 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:46:41 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,13 @@ void	execute_child(t_cmd *cmd)
 			exit(127);
 		}
 	}
+}
+
+void	exit_son(int return_value)
+{
+	close(g_all.herit[0]);
+	close(g_all.herit[1]);
+	exit(return_value);
 }
 
 void	execute_builtin(t_cmd *cmd)

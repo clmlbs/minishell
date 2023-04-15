@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 13:59:03 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:47:05 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ void	perror_void(char *str);
 int		ft_fork(t_cmd *cmd);
 int		execute(t_cmd *cmd_in_global);
 void	execute_child(t_cmd *cmd);
+void	exit_son(int return_value);
 void	execute_builtin(t_cmd *cmd);
 
 //execute_utils.c
