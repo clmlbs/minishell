@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 09:02:00 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:52:32 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	signal_sigquit(void)
 	{
 		printf("Quit: 3\n");
 		rl_replace_line("", 0);
-		rl_on_new_line();	
+		rl_on_new_line();
 		g_all.status = 131;
 	}
 	if (g_all.where == HERE_DOC)

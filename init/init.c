@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 11:32:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 13:03:11 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,31 @@ int	update_shlvl(void)
 	return (SUCCESS);
 }
 
+int	remove_var_without_egal(void)
+{
+	int		i;
+	char	**new;
+
+	i = 0;
+	while (g_all.env[i])
+	{
+		if (ft_strchr(g_all.env[i], '=') == NULL)
+		{
+			new = copy_strs_plus_one(g_all.env);
+			if (!new)
+				return (FAILURE);
+			new = remove_var(new, i, 0);
+			if (!new)
+				return (FAILURE); // besoin de passer par un buf comme unset var ?
+			free_tab_strs(g_all.env);
+			g_all.env = new;
+			new = NULL;		
+		}
+		else
+			i++;
+	}
+	return (SUCCESS);
+}
 
 void	init_global(int ac, char **av, char **env)
 {
@@ -67,6 +92,8 @@ void	init_global(int ac, char **av, char **env)
 		exit(FAILURE);
 	g_all.tilde = create_var_value("HOME");
 	if (!g_all.tilde)
+		exit(FAILURE);
+	if (remove_var_without_egal() == FAILURE)
 		exit(FAILURE);
 	g_all.nb_cmd = 0;
 	g_all.pid = NULL;

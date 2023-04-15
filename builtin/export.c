@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 11:31:31 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:55:28 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	export_var(char *str)
 
 int	export_check_args(char **strs, int *i)
 {
-	int	j;
-	int equal_present;
+	// int	j;
+	// int equal_present;
 
-	j = 0;
-	equal_present = FAILURE;
+	// j = 0;
+	// equal_present = FAILURE;
 	if (strs[*i] && strs[*i][0] == '-')
 	{
 		write_error("Minishell: ", "options for export are not ", \
@@ -85,13 +85,14 @@ int	export_check_args(char **strs, int *i)
 		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		return (FAILURE);
 	}
-	while (strs[*i][j])
-	{
-		if (strs[*i][j] == '=')
-			equal_present = SUCCESS;
-		j++;
-	}
-	return (equal_present);
+	return (SUCCESS);
+	// while (strs[*i][j])
+	// {
+	// 	if (strs[*i][j] == '=')
+	// 		equal_present = SUCCESS;
+	// 	j++;
+	// }
+	// return (equal_present);
 }
 
 void	execute_export(t_cmd *cmd)
