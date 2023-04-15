@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 18:54:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 08:58:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ char	*put_to_lower(char *str);
 int		is_builtin(t_cmd *cmd);
 void	execute_env(t_cmd *cmd);
 void	execute_pwd(t_cmd *cmd);
-void	execute_echo(t_cmd *cmd);
+void	execute_echo(t_cmd *cmd, int i);
 int		send_env_to_father(char **env, int *fd);
 
 //builtin_utils.c

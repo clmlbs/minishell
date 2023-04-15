@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 20:29:13 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 08:58:44 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void	execute_builtin(t_cmd *cmd)
 	else if (ms_strlen(str) == 3 && !ft_strncmp(str, "env", 3))
 		execute_env(cmd);
 	else if (ms_strlen(str) == 4 && !ft_strncmp(str, "echo", 4))
-		execute_echo(cmd);
+		execute_echo(cmd, 1);
 	else if (ms_strlen(str) == 5 && !ft_strncmp(str, "unset", 5))
 		execute_unset(cmd);
 	else if (ms_strlen(str) == 6 && !ft_strncmp(str, "export", 6))

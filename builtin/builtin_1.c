@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 17:38:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 08:59:22 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	execute_env(t_cmd *cmd)
 	{
 		write_error("Minishell: ", "error: env should be executed ",\
 		"without option nor argument\n");
-		exit(FAILURE);
+		exit(2);
 	}
 	else
 	{
@@ -80,7 +80,7 @@ void	execute_pwd(t_cmd *cmd)
 	{
 		write_error("Minishell: ", "error: pwd should be executed ",\
 		"without option\n");
-		exit(FAILURE);
+		exit(2);
 	}
 	if (!getcwd(cwd, 1024))
 	{
@@ -92,30 +92,29 @@ void	execute_pwd(t_cmd *cmd)
 	exit(SUCCESS);
 }
 
-void	execute_echo(t_cmd *cmd)
+void	execute_echo(t_cmd *cmd, int i)
 {
-	int	i;
-
 	if (cmd->wd[1] == NULL)
 	{
 		ft_putstr_fd("\n", cmd->fd_outfile);
 		exit(SUCCESS);
 	}
-	else if (ms_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2))
+	if (ms_strlen(cmd->wd[1]) >= 2 && !ft_strncmp("-n", cmd->wd[1], 2))
 	{
-		if (cmd->wd[2] == NULL)
-			exit(SUCCESS) ;
-		i = 1;
+		i++;
+		if (!cmd->wd[2])
+				exit(SUCCESS) ;
+		while (cmd->wd[i] && ms_strlen(cmd->wd[i]) >= 2 && !ft_strncmp("-n", cmd->wd[i], 2))
+			i++;
 	}
-	else
-		i = 0;
-	while (cmd->wd[++i + 1])
+	while (cmd->wd[i + 1])
 	{
 		ft_putstr_fd(cmd->wd[i], cmd->fd_outfile);
 		ft_putstr_fd(" ", cmd->fd_outfile);
+		i++;
 	}
 	ft_putstr_fd(cmd->wd[i], cmd->fd_outfile);
-	if (!(ms_strlen(cmd->wd[1]) == 2 && !ft_strncmp("-n", cmd->wd[1], 2)))
+	if (!(ms_strlen(cmd->wd[1]) >= 2 && !ft_strncmp("-n", cmd->wd[1], 2)))
 		ft_putstr_fd("\n", cmd->fd_outfile);
 	exit(SUCCESS);
 }
