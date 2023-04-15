@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 11:01:35 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:35:47 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,8 @@ int	update_env_after_son(void)
 		pwd = create_var_value("PWD");
 		if (!pwd)
 			return (FAILURE);
-		if (chdir(pwd) == -1)
-		{
-			perror("Minishell");
-			free(pwd);
-			return (FAILURE);
-		}
-		free(pwd);
 	}
-	save_all_path(g_all.env);// ok ici ?
+	save_all_path(g_all.env);
 	return (SUCCESS);
 }
 
@@ -166,7 +159,6 @@ void	minishell(char *input)
 			g_all.status = 258;
 		return ;
 	}
-	//print_t_lexer();//*******
 	if (fill_t_cmd() == FAILURE)
 	{
 		if (g_all.status == 0)
