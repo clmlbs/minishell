@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/16 18:22:39 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/16 18:58:19 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,10 @@ SRCS		=	main.c \
 				commands/here_doc_utils.c \
 				commands/add_cmds.c \
 				errors/errors.c \
-				execution/execution.c \
+				execution/check_execute.c \
 				execution/execute_utils.c \
+				execution/execution.c \
+				execution/fork_execute.c \
 				free/free.c \
 				init/init.c \
 				lexer/lexer.c \

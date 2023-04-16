@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 18:46:19 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 19:23:59 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,6 @@ void	here_doc_son(char *keyword, t_doc *doc, int end_1, int end_0);
 char	*readline_here_doc(char *keyword, t_doc *doc);
 char	*finish_doc_line(t_doc *doc);
 
-
 //=========== ERRORS ============
 //errors.c
 void	write_error(char *begin, char *middle, char *end);
@@ -241,20 +240,31 @@ void	error_token(t_lexer *lst, int len, int token_id);
 int		perror_fail(char *str);
 
 //=========== EXECUTE ============
-//execution.c 
-int		execute_line(void);
-int		ft_fork(t_cmd *cmd);
-int		execute(t_cmd *cmd_in_global);
-void	execute_child(t_cmd *cmd);
-void	exit_son(int return_value);
-void	execute_builtin(t_cmd *cmd);
+//check_execute.c
+int		check_if_openable(t_cmd *cmd);
+int		check_if_writable(t_cmd *cmd);
+void	check_points(t_cmd *cmd);
+int		find_good_path(t_cmd *cmd);
+int		path_contain_slash(t_cmd *cmd);
 
 //execute_utils.c
 int		replace_dollar_question_mark(char **strs);
-int		find_good_path(t_cmd *cmd);
-int		check_if_openable(t_cmd *cmd);
-int		check_if_writable(t_cmd *cmd);
+int		create_executable_name(t_cmd *cmd);
+void	exit_son(int return_value);
+void	cmd_null(t_cmd *cmd);
+
+//execution.c 
+int		execute_line(void);
+int		line_is_executed(void);
+void	execute_builtin(t_cmd *cmd);
+int		execute(t_cmd *cmd_in_global);
+void	execute_child(t_cmd *cmd);
+
+//fork_execute.c
 int		dup_fd(t_cmd *cmd);
+int		ft_fork(t_cmd *cmd);
+void	execute_son(t_cmd *cmd);
+void	execute_father(t_cmd *cmd);
 
 //=========== FREE ============
 //free.c
