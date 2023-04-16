@@ -6,32 +6,32 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:12:12 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 10:42:00 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:24:26 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	sigint_execution(void)
+{
+	g_all.status = 130;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+}
 
 void	signal_sigint(void)
 {
 	if (g_all.where == PROCESS)
 	{
 		g_all.status = 1;
-		//printf("\e[2K");
-		//rl_on_new_line();
-		//rl_redisplay();
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
 	else if (g_all.where == EXECUTION)
-	{
-		g_all.status = 130;
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-	}
+		sigint_execution();
 	else if (g_all.where == HERE_DOC)
 	{
 		(void)signal;

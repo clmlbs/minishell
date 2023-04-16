@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 22:06:44 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:26:13 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,9 +353,18 @@ int		save_all_path(char **envp);
 
 //update_env_after_son.c
 int		read_env_of_son(char ***new_env, int **nb_strs);
+int		determine_size_of_new_env(char ***new_env, int **nb_strs);
 int		update_global(void);
 int		cd_new_pwd(void);
 int		ret_upt(char **new_env, int *nb_strs, int return_value);
+
+//=========== SIGNAL ===========
+//signal.c
+void	sigint_execution(void);
+void	signal_sigint(void);
+void	signal_sigquit(void);
+void	signal_handle(int signal);
+void	echo_ctl(int n);
 
 //=========== T_CMD ===============
 //t_cmd_1.c
@@ -398,13 +407,6 @@ t_lexer	*add_token(char *token, int id);
 t_lexer	*add_other(char *oth);
 t_lexer	*lst_new_env(char *str);
 t_lexer	*add_var_env(char *token);
-
-//=========== SIGNAL ===========
-//signal.c
-void	signal_sigint(void);
-void	signal_sigquit(void);
-void	signal_handle(int signal);
-void	echo_ctl(int n);
 
 //=========== VAR ===========
 int		is_var_exist(char *var, int *index);
