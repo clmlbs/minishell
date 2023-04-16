@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 17:35:39 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 18:46:19 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,21 +212,27 @@ char	**remove_var(char **env, int index, int i);
 char	**error_strdup(char **env, char **new);
 
 //=========== COMMANDS ============
-//commands.c
-int		add_token_to_cmd(t_lexer *lexer, t_cmd *cmd);
-int		fill_t_cmd(void);
-
-//here_doc.c
-int		add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd);
-char	*here_doc(char *keyword, t_doc *doc);
-char	*here_doc_son(char *keyword, t_doc *doc);
-void	create_here_doc_line(t_doc *doc);
-int		add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd);
-
 //add_cmds.c
 int		add_word(t_lexer *lexer, t_cmd *cmd);
 int		add_infile_name(t_lexer *lexer, t_cmd *cmd);
 int		add_outfile_name(t_lexer *lexer, t_cmd *cmd);
+
+//commands.c
+int		add_token_to_cmd(t_lexer *lexer, t_cmd *cmd);
+int		fill_t_cmd(void);
+
+//here_doc_utils.c
+int		add_here_doc_to_cmd(t_lexer *lexer, t_cmd *cmd);
+int		add_key_word_here_doc(t_lexer *lexer, t_cmd *cmd);
+void	create_here_doc_line(t_doc *doc);
+
+//here_doc.c
+char	*here_doc(char *keyword, t_doc *doc);
+char	*here_doc_father(t_doc *doc, int end_1, int end_0);
+void	here_doc_son(char *keyword, t_doc *doc, int end_1, int end_0);
+char	*readline_here_doc(char *keyword, t_doc *doc);
+char	*finish_doc_line(t_doc *doc);
+
 
 //=========== ERRORS ============
 //errors.c

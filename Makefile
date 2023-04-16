@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/16 17:13:15 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/16 18:22:39 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		=	main.c \
 				builtin/pwd.c \
 				commands/commands.c \
 				commands/here_doc.c \
+				commands/here_doc_utils.c \
 				commands/add_cmds.c \
 				errors/errors.c \
 				execution/execution.c \
