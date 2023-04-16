@@ -6,24 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 17:00:10 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 19:27:37 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	free_one_lst_lexer(t_lexer *lst)
-{
-	if (!lst)
-		return ;
-	if (lst->token)
-		free(lst->token);
-	if (lst->save)
-		free(lst->save);
-	free(lst);
-	lst = NULL;//mettre ou pas ca ? 
-}
-
 
 void	free_all_lexer(void)
 {
@@ -53,27 +40,7 @@ void	free_everything(void)
 		free(g_all.tilde);
 	if (g_all.pid)
 		free(g_all.pid);
-	// autres trucs a free ?
 }
-
-// void	free_all_lexer(void)
-// {
-// 	t_lexer	*buf;
-// 	t_lexer	*lx;
-
-// 	lx = g_all.lexer;
-// 	if (lx)
-// 	{
-// 		while (lx)
-// 		{
-// 			buf = lx->next;
-// 			if (lx->token)
-// 				free(lx->token);
-// 			free(lx);
-// 			lx = buf;
-// 		}
-// 	}
-// }
 
 void	free_t_cmd(t_cmd *cmd)
 {
@@ -87,7 +54,7 @@ void	free_t_cmd(t_cmd *cmd)
 		free(cmd->outfile_name);
 	if (cmd->good_path)
 		free(cmd->good_path);
-	free(cmd); // ok ca ? 
+	free(cmd);
 }
 
 void	free_all_cmd(void)

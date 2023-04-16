@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 19:23:59 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 19:28:05 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,6 @@ void	execute_father(t_cmd *cmd);
 //=========== FREE ============
 //free.c
 void	free_t_cmd(t_cmd *cmd);
-void	free_one_lst_lexer(t_lexer *lst);
 void	free_all_lexer(void);
 void	free_all_cmd(void);
 void	free_all_lexer_and_cmd(void);
@@ -332,6 +331,7 @@ void	lex_lstadd_back(t_lexer **lst, t_lexer *new);
 t_lexer	*lex_lstlast(t_lexer *lst);
 void	print_t_lexer(void);
 t_lexer	*lex_lstnew(void);
+void	free_one_lst_lexer(t_lexer *lst);
 
 //utilities.c
 int		isnt_specific(char c);
