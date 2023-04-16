@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   id.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 11:45:33 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 12:33:31 by cleblais         ###   ########.fr       */
+/*   Created: 2023/03/31 11:43:04 by cleblais          #+#    #+#             */
+/*   Updated: 2023/04/16 20:03:36 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	init_id(char c)
+int	init_id(char c, int result)
 {
-	int	result;
-
-	result = SUCCESS;
 	if (c == ' ' || c == 9 || c == 11)
 		result = assign_id_to_char(c, WHITESPACE);
 	else if (c == '\n')
@@ -45,7 +42,7 @@ int	init_id(char c)
 int	assign_id_to_char(char c, int id)
 {
 	t_lexer	*new;
-	
+
 	new = lex_lstnew();
 	if (!new)
 		return (FAILURE);
@@ -61,61 +58,43 @@ int	assign_id_to_char(char c, int id)
 	return (SUCCESS);
 }
 
-int	tokenize_words(int id_target, int id_compare)
+char	*ft_add_char_to_str(char *str, char c)
 {
-	t_lexer *buf;
+	char	unique_char[2];
+	char	*new;
 
-	buf = g_all.lexer;
-	while (buf)
-	{
-		if (buf->id == id_target)
-		{
-			if (buf->token == NULL)
-			{
-				if (add_char_to_str(buf, buf) == FAILURE)
-					return (FAILURE);
-			}
-			while (buf->next && (buf->next->id == id_compare))
-			{
-				if (buf->next->token)
-				{
-					if (add_next_str_to_current(buf) == FAILURE)
-						return (FAILURE);
-				}
-				else if (add_next_char_to_current(buf) == FAILURE)
-					return (FAILURE);
-			}
-		}
-		buf = buf->next;
-	}
-	return (SUCCESS);
+	unique_char[0] = c;
+	unique_char[1] = '\0';
+	new = ms_strjoin(str, unique_char);
+	if (str)
+		free(str);
+	if (!new)
+		return (NULL);
+	return (new);
 }
 
-int	tokenize_quotes(int even, int id)
+void	update_id_spe_char(void)
 {
 	t_lexer	*buf;
 
 	buf = g_all.lexer;
 	while (buf)
 	{
-		if (buf->id == SIMPLE_QUOTE || buf->id == DOUBLE_QUOTE)
-		{
-			id = buf->id;
-			if (buf->token == NULL)
-			{
-				if (add_char_to_str(buf, buf) == FAILURE)
-					return (FAILURE);
-			}
-			while (even == NO && buf->next)
-			{
-				if (buf->next->id == id)
-					even = YES;
-				if (add_next_char_to_current(buf) == FAILURE)
-					return (FAILURE);
-			}
-			even = NO;
-		}
+		if (buf->id == CHAR_SPE)
+			buf->id = WORD;
 		buf = buf->next;
 	}
-	return (SUCCESS);
+}
+
+void	update_id_var(void)
+{
+	t_lexer	*buf;
+
+	buf = g_all.lexer;
+	while (buf)
+	{
+		if (buf->id == DOUBLE_QUOTE && ft_strchr(buf->token, '$'))
+			buf->id = VAR;
+		buf = buf->next;
+	}
 }

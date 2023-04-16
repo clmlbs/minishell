@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_utils.c                                        :+:      :+:    :+:   */
+/*   var_manip_for_lexer.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 16:56:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 12:29:55 by cleblais         ###   ########.fr       */
+/*   Created: 2023/04/16 19:47:54 by cleblais          #+#    #+#             */
+/*   Updated: 2023/04/16 19:57:10 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	update_id_var(void)
-{
-	t_lexer *buf;
-
-	buf = g_all.lexer;
-	while (buf)
-	{
-		if (buf->id == DOUBLE_QUOTE && ft_strchr(buf->token, '$'))
-			buf->id = VAR;
-		buf = buf->next;
-	}
-}
 
 int	add_until_dollar(char **str, int *i, int index, t_lexer *lexer)
 {

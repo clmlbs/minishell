@@ -1,62 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_lexer_utils.c                                    :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 11:43:04 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 11:09:53 by cleblais         ###   ########.fr       */
+/*   Created: 2023/04/16 19:53:23 by cleblais          #+#    #+#             */
+/*   Updated: 2023/04/16 20:15:30 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	add_next_char_to_current(t_lexer *current)
+void	init_t_updated_token(t_update_token *t)
 {
-	t_lexer	*buf_to_suppr;
-
-	buf_to_suppr = current->next;	
-	if (add_char_to_str(current, current->next) == FAILURE)
-		return (FAILURE);
-	if (current->next->next)
-	{
-		current->next = current->next->next;
-		current->next->prev = current;
-	}
-	else
-		current->next = NULL;
-	free_one_lst_lexer(buf_to_suppr);
-	return (SUCCESS);
+	t->i = 0;
+	t->begin = 0;
+	t->str_begin = NULL;
+	t->var_name = NULL;
+	t->var_value = NULL;
+	t->begin_and_value = NULL;
+	t->token_updated = NULL;
 }
 
-int	add_char_to_str(t_lexer *str_dest, t_lexer *char_src)
+char	*var_is_exit_status(void)
 {
-	char	unique_char[2];
-	char	*str_buf;
-
-	unique_char[0] = char_src->c;
-	unique_char[1] = '\0';
-	str_buf = ms_strjoin(str_dest->token, unique_char);
-	if (!str_buf)
-		return (FAILURE);
-	free(str_dest->token);
-	str_dest->token = str_buf;
-	return (SUCCESS);
-}
-
-char	*ft_add_char_to_str(char *str, char c)
-{
-	char	unique_char[2];
 	char	*new;
 
-	unique_char[0] = c;
-	unique_char[1] = '\0';
-	new = ms_strjoin(str, unique_char);
-	if (str)
-		free(str);
+	new = ft_itoa(g_all.status);
 	if (!new)
+	{
+		perror("Minishell");
 		return (NULL);
+	}
 	return (new);
 }
 

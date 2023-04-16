@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/16 18:58:19 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/16 19:59:05 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,13 @@ SRCS		=	main.c \
 				execution/execution.c \
 				execution/fork_execute.c \
 				free/free.c \
-				init/init.c \
+				set/init.c \
+				lexer/lexer_utils.c \
 				lexer/lexer.c \
-				lexer/t_lexer_utils.c \
-				lexer/token.c \
-				lexer/var_utils.c \
-				lexer/var.c \
+				lexer/id.c \
+				lexer/tokenize.c \
+				lexer/var_manip_for_lexer.c \
+				lexer/tokenize_var.c \
 				libft/ft_itoa.c \
 				libft/ft_perror.c \
 				libft/ft_putnbr_fd.c \
@@ -66,7 +67,8 @@ SRCS		=	main.c \
 				t_cmd/t_cmd_2.c \
 				utilities/utilities.c \
 				utilities/lst_utils.c \
-				utilities/waitpid.c
+				utilities/waitpid.c \
+				utilities/var.c
 				
 
 HEADERS		=		-I/Users/$(USER)/.brew/opt/readline/include -I include

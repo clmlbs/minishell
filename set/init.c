@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 15:04:58 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 19:35:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,54 +165,6 @@ int	save_all_path(char **envp)
 	return (SUCCESS);
 }
 
-// int	update_global(void)
-// {
-// 	char	**new_env;
-// 	int		*nb_strs;
-// 	size_t	ssize;
-// 	int		i;
-// 	size_t	len;
-	
-// 	new_env = NULL;
-// 	nb_strs = (int *)malloc(sizeof(int));
-// 	if (!nb_strs)
-// 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
-// 	if (close(g_all.size[1]) < 0 || close(g_all.herit[1]) < 0)
-// 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: close()")));
-	
-// 	ssize = read(g_all.size[0], nb_strs, sizeof(int));
-	
-// 	if (ssize == -1)
-// 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
-// 	if (*nb_strs <= 0) // ok ? 
-// 		return (ret_upt(new_env, nb_strs, EMPTY));
-// 	new_env = (char **)malloc(sizeof(char *) * ((*nb_strs) + 1));
-// 	if (!new_env)
-// 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
-// 	i = 0;
-
-// 	while (i < *nb_strs)
-// 	{
-// 		len = 0;
-// 		if (read(g_all.herit[0], &len, sizeof(size_t)) == -1)
-// 			return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
-// 		printf("len:%zu\n", len);
-// 		new_env[i] = (char *)malloc(len);
-// 		if (!new_env[i])
-// 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
-// 		if (read(g_all.herit[0], new_env[i], len) == -1)
-// 			return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
-// 		i++;
-// 	}
-// 	printf("ici\n");//*********
-// 	new_env[*nb_strs] = NULL;
-// 	printf_strs(new_env, WITH_INDEX, 2);//*********
-// 	free_tab_strs(g_all.env);
-// 	g_all.env = new_env;
-// 	new_env = NULL;
-// 	return (ret_upt(new_env, nb_strs, SUCCESS));
-// }
-
 int	cd_new_pwd(void)
 {
 	char	*pwd;
@@ -244,7 +196,6 @@ int	cd_new_pwd(void)
 	}
 	return (SUCCESS);
 }
-
 
 int	update_global(void)
 {
@@ -303,15 +254,4 @@ int	ret_upt(char **new_env, int *nb_strs, int return_value)
 	if (pipe(g_all.herit) < 0)
 		perror("Minishell: pipe()");
 	return (return_value);
-}
-
-void init_t_updated_token(t_update_token *t)
-{
-	t->i = 0;
-	t->begin = 0;
-	t->str_begin = NULL;
-	t->var_name = NULL;
-	t->var_value = NULL;
-	t->begin_and_value = NULL;
-	t->token_updated = NULL;
 }
