@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 12:55:19 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 13:42:07 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,12 +193,30 @@ int	cd_new_pwd(void)
 	i = 0;
 	if (g_all.is_first_turn == NO && is_var_exist("PWD", &i) == SUCCESS)
 	{
+		printf("arrive ici\n");//*********
 		pwd = create_var_value("PWD");
 		if (!pwd)
 			return (FAILURE);
+		chdir(pwd);
+		free(pwd);
 	}
-	chdir(pwd);
-	free(pwd);
+	i = 0;
+	if (g_all.is_first_turn == NO && is_var_exist("PWD_TO_SUPPR", &i) == SUCCESS)
+	{
+		char	**new_env;
+		int		index;
+
+		index = 0;
+		pwd = create_var_value("PWD_TO_SUPPR");
+		if (!pwd)
+			return (FAILURE);
+		printf("dest:%s\n", pwd);//*******
+		if (chdir(pwd) == -1)
+			printf("bloup\n");//**********
+		free(pwd);
+		if (unset_var(&new_env, "PWD_TO_SUPPR", &index) == FAILURE)
+			return (FAILURE);
+	}
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 11:17:58 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 13:24:54 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,8 @@ void	exit_negatif(long long code);
 void	execute_exit(t_cmd *cmd);
 
 //unset.c
-int		unset_var(char ***new, t_cmd *cmd, int *index, int *var_target);
+int		unset_var(char ***new, char *var, int *index);
+//int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target);
 int		unset_check_args(char **strs, int *var_target);
 void	execute_unset(t_cmd	*cmd);
 char	**remove_var(char **env, int index, int i);

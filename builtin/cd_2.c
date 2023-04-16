@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 08:27:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 12:38:19 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 13:37:47 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ int	add_newpwd(t_cmd *cmd)
 	char	*value;
 	char	*var;
 	char	cwd[1024];
+	int		i;
 
+	i = 0;
 	if (!getcwd(cwd, 1024))
 	{
 		perror("Minishell: getcwd()");
@@ -93,7 +95,10 @@ int	add_newpwd(t_cmd *cmd)
 	value = ft_strdup(cwd);
 	if (!value)
 		return (FAILURE);
-	var = ms_strjoin("PWD=", value);
+	if (is_var_exist("PWD", &i) == SUCCESS)
+		var = ms_strjoin("PWD=", value);
+	else
+		var = ms_strjoin("PWD_TO_SUPPR=", value);
 	if (!var)
 		return (FAILURE);
 	if (add_or_update_var_in_env(var) == FAILURE)

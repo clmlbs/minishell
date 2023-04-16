@@ -117,7 +117,7 @@ void	execute_cd(t_cmd *cmd)
 	getcwd(cwd, 1024);
 	printf("pwd:%s\n", cwd);//********
 
-	if (is_var_exist("PWD", &i) == SUCCESS && add_newpwd(cmd) == FAILURE) // rajout d'une condition si pwd pas la 
+	if (add_newpwd(cmd) == FAILURE)
 		exit(FAILURE);
 	if (send_env_to_father(g_all.env, g_all.herit) == FAILURE)
 		exit(FAILURE);

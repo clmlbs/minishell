@@ -6,18 +6,18 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 18:41:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 11:21:20 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 13:24:21 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target)
+int	unset_var(char ***new, char *var, int *index)
 {
 	(*new) = copy_strs_plus_one(g_all.env);
 	if (!(*new))
 		return (FAILURE);
-	if (is_var_exist(cmd->wd[*var_target], index) == SUCCESS)
+	if (is_var_exist(var, index) == SUCCESS)
 	{
 		(*new) = remove_var(*new, *index, 0);
 		if (!(*new))
@@ -29,6 +29,25 @@ int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target)
 	(*index) = 0;
 	return (SUCCESS);
 }
+
+// MARCHE
+// int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target)
+// {
+// 	(*new) = copy_strs_plus_one(g_all.env);
+// 	if (!(*new))
+// 		return (FAILURE);
+// 	if (is_var_exist(cmd->wd[*var_target], index) == SUCCESS)
+// 	{
+// 		(*new) = remove_var(*new, *index, 0);
+// 		if (!(*new))
+// 			return (FAILURE);
+// 		free_tab_strs(g_all.env);
+// 		g_all.env = (*new);
+// 		(*new) = NULL;
+// 	}
+// 	(*index) = 0;
+// 	return (SUCCESS);
+// }
 
 int	unset_check_args(char **strs, int *var_target)
 {
@@ -61,7 +80,7 @@ void	execute_unset(t_cmd	*cmd)
 	{
 		if (unset_check_args(cmd->wd, &var_target) == SUCCESS)
 		{
-			if (unset_var(&new, cmd, &index, &var_target) == FAILURE)
+			if (unset_var(&new, cmd->wd[var_target], &index) == FAILURE)
 				exit(FAILURE);
 		}
 		var_target++;
