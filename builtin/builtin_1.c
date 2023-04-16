@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 14:56:17 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:00:10 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ void	execute_pwd(t_cmd *cmd)
 
 void	execute_echo(t_cmd *cmd, int i)
 {
+	int	j;
+	
 	if (cmd->wd[1] == NULL)
 	{
 		ft_putstr_fd("\n", cmd->fd_outfile);
@@ -134,7 +136,15 @@ void	execute_echo(t_cmd *cmd, int i)
 		if (!cmd->wd[2])
 				exit(SUCCESS) ;
 		while (cmd->wd[i] && ms_strlen(cmd->wd[i]) >= 2 && !ft_strncmp("-n", cmd->wd[i], 2))
-			i++;
+		{
+			j = 2;
+			while (cmd->wd[i][j] == 'n')
+				j++;
+			if (ms_strlen(cmd->wd[i]) == j)
+				i++;
+			else
+				break ;
+		}
 	}
 	while (cmd->wd[i + 1])
 	{
