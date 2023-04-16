@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 22:26:13 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:46:26 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,57 +366,52 @@ void	signal_sigquit(void);
 void	signal_handle(int signal);
 void	echo_ctl(int n);
 
-//=========== T_CMD ===============
+//=========== UTILITIES ============
+//lst_utils.c
+void	lex_lstadd_back(t_lexer **lst, t_lexer *new);
+t_lexer	*lex_lstlast(t_lexer *lst);
+t_lexer	*lex_lstnew(void);
+void	free_one_lst_lexer(t_lexer *lst);
+
 //t_cmd_1.c
+t_cmd	*cmd_lstnew(void);
 t_cmd	*cmd_lstlast(t_cmd *lst);
 void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
-t_cmd	*cmd_lstnew(void);
 int		update_strs(char ***strs, char *to_add);
 
 //t_cmd_2.c
 t_cmd	*copy_t_cmd(t_cmd *src);
 int		copy_str_t_cmd(t_cmd *new, t_cmd *src);
+void	print_t_cmd(t_cmd *cmd);
+char	**copy_strs_plus_one(char **old);
 
-//=========== UTILITIES ============
-//lst_utils.c
-void	lex_lstadd_back(t_lexer **lst, t_lexer *new);
-t_lexer	*lex_lstlast(t_lexer *lst);
-void	print_t_lexer(void);
-t_lexer	*lex_lstnew(void);
-void	free_one_lst_lexer(t_lexer *lst);
-
-//utilities.c
+//utilities_1.c
 int		isnt_specific(char c);
-int		is_var(char c);
 int		is_redir_or_pipe(char c);
 int		is_quote(char c);
 int		is_space(char c);
+void	print_t_lexer(void);
+
+//utilities_2.c
 int		is_special_char(char c);
 int		is_special_char_or_numeric(char c);
 int		ft_isalnum(int c);
-
 void	printf_strs(char **strs, int mode, int fd);
-void	print_t_cmd(t_cmd *cmd);
-char	**copy_strs_plus_one(char **old);
 int		tab_strlen(char **tab_of_str);
 
-void	lex_lstadd_back(t_lexer **lst, t_lexer *new);
-
-t_lexer	*add_path_and_name_env(char *path, char *name);
-t_lexer	*add_token(char *token, int id);
-t_lexer	*add_other(char *oth);
-t_lexer	*lst_new_env(char *str);
-t_lexer	*add_var_env(char *token);
-
-//=========== VAR ===========
+//var.c
 int		is_var_exist(char *var, int *index);
 char	*create_var_value(char *var);
 int		create_var_name(t_lexer *lexer, t_update_token *t);
+int		is_var(char c);
+
+//waitpid.c
+void	it_s_a_signal(int status);
+void	ft_waitpid(void);
 
 //=========== MAIN =============
 
 int		check_line(char *input);
-void	ft_waitpid(void);
 void	minishell(char *input);
 int		main(int arc, char **arv, char **env);
 #endif

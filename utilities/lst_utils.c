@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:17:29 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 19:28:11 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:38:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,6 @@ t_lexer	*lex_lstnew(void)
 	lexer->id = WORD;
 	lexer->next = NULL;
 	return (lexer);
-}
-
-void	print_t_lexer(void)
-{
-	t_lexer	*buf;
-
-	buf = g_all.lexer;
-	while (buf)
-	{
-		ft_putstr_fd("id: ", 2);
-		ft_putnbr_fd(buf->id, 2);
-		ft_putstr_fd("		", 2);
-		ft_putchar_fd(buf->c, 2);
-		ft_putstr_fd("	", 2);
-		ft_putstr_fd(buf->token, 2);
-		if (buf->save)
-		{
-			ft_putstr_fd("	", 2);
-			ft_putstr_fd(buf->save, 2);
-		}
-		ft_putstr_fd("\n", 2);
-		buf = buf->next;
-	}
-	ft_putstr_fd("\n", 2);
 }
 
 void	free_one_lst_lexer(t_lexer *lst)

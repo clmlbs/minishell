@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/16 22:03:54 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/16 22:33:34 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,9 +67,10 @@ SRCS		=	main.c \
 				set/set_env.c \
 				set/update_env_after_son.c \
 				signal/signal.c \
-				t_cmd/t_cmd_1.c \
-				t_cmd/t_cmd_2.c \
-				utilities/utilities.c \
+				utilities/t_cmd_1.c \
+				utilities/t_cmd_2.c \
+				utilities/utilities_1.c \
+				utilities/utilities_2.c \
 				utilities/lst_utils.c \
 				utilities/waitpid.c \
 				utilities/var.c

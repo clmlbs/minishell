@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 19:42:44 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 19:46:39 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:38:12 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,11 @@ int	create_var_name(t_lexer *lexer, t_update_token *t)
 		return (FAILURE);
 	}
 	return (SUCCESS);
+}
+
+int	is_var(char c)
+{
+	if (c == '$')
+		return (1);
+	return (0);
 }
