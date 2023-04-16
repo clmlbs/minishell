@@ -6,43 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 15:17:48 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:35:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	print_env_in_alphabetic(char **strs)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < tab_strlen(strs))
-	{
-		if (ft_strncmp("PWD_TO_SUPPR=", strs[i], 13))
-		{
-			ft_putstr_fd("declare -x ", STDOUT_FILENO);
-			while (strs[i][j] && strs[i][j] != '=')
-			{
-				ft_putchar_fd(strs[i][j], STDOUT_FILENO);
-				j++;
-			}
-			if (strs[i][j])
-			{
-				ft_putchar_fd(strs[i][j], STDOUT_FILENO);
-				ft_putchar_fd('\"', STDOUT_FILENO);
-				while (strs[i][++j])
-					ft_putchar_fd(strs[i][j], STDOUT_FILENO);
-				ft_putstr_fd("\"", STDOUT_FILENO);
-			}
-			ft_putstr_fd("\n", STDOUT_FILENO);
-			j = 0;
-		}
-		i++;
-	}
-}
 
 void	export_without_args(void)
 {
@@ -52,7 +20,7 @@ void	export_without_args(void)
 	if (!env_copy)
 		exit(FAILURE);
 	put_in_alphabetic_order(env_copy);
-	print_env_in_alphabetic(env_copy);
+	print_env_in_alphabetic(env_copy, 0, 0);
 	free_tab_strs(env_copy);
 	exit(SUCCESS);
 }
@@ -90,14 +58,10 @@ int	export_check_args(char **strs, int *i)
 	return (SUCCESS);
 }
 
-void	execute_export(t_cmd *cmd)
+void	execute_export(t_cmd *cmd, int i, int j)
 {
-	int		i;
-	int		j;
 	char	*var;
 
-	i = 1;
-	j = 0;
 	if (g_all.nb_cmd != 1)
 		exit(SUCCESS);
 	if (!cmd->wd[1])
@@ -120,4 +84,31 @@ void	execute_export(t_cmd *cmd)
 	if (send_env_to_father(g_all.env, g_all.herit) == FAILURE)
 		exit(FAILURE);
 	exit(SUCCESS);
+}
+
+void	print_env_in_alphabetic(char **strs, int i, int j)
+{
+	while (i < tab_strlen(strs))
+	{
+		if (ft_strncmp("PWD_TO_SUPPR=", strs[i], 13))
+		{
+			ft_putstr_fd("declare -x ", STDOUT_FILENO);
+			while (strs[i][j] && strs[i][j] != '=')
+			{
+				ft_putchar_fd(strs[i][j], STDOUT_FILENO);
+				j++;
+			}
+			if (strs[i][j])
+			{
+				ft_putchar_fd(strs[i][j], STDOUT_FILENO);
+				ft_putchar_fd('\"', STDOUT_FILENO);
+				while (strs[i][++j])
+					ft_putchar_fd(strs[i][j], STDOUT_FILENO);
+				ft_putstr_fd("\"", STDOUT_FILENO);
+			}
+			ft_putstr_fd("\n", STDOUT_FILENO);
+			j = 0;
+		}
+		i++;
+	}
 }

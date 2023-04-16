@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 08:27:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 13:37:47 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:23:07 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	replace_tilde(t_cmd *cmd)
 {
-	
 	cmd->wd[1] = ft_strdup(g_all.tilde);
 	if (!cmd->wd[1])
 	{
@@ -26,7 +25,7 @@ int	replace_tilde(t_cmd *cmd)
 
 int	replace_home(t_cmd *cmd)
 {
-	char 	*var;
+	char	*var;
 
 	var = create_var_value("HOME");
 	if (!var)
@@ -44,7 +43,7 @@ int	replace_home(t_cmd *cmd)
 
 int	replace_oldpwd(t_cmd *cmd)
 {
-	char *var;
+	char	*var;
 
 	var = create_var_value("OLDPWD");
 	if (!var)

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 17:13:05 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:35:39 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,15 +157,15 @@ typedef struct s_all
 t_all	g_all;
 
 //=========== BUILTIN ============
+//builtin_utils.c
+char	*put_to_lower(char *str);
+void	change_var_value(char *str, int *env_index);
+void	put_in_alphabetic_order(char **strs);
+
 //builtin.c
 int		is_builtin(t_cmd *cmd);
 int		send_env_to_father(char **env, int *fd);
-
-//builtin_utils.c
-char	*put_to_lower(char *str);
 size_t	var_name_len(char *str);
-void	change_var_value(char *str, int *env_index);
-void	put_in_alphabetic_order(char **strs);
 
 //cd_1.c
 int		add_var_to_env(char *str);
@@ -182,6 +182,7 @@ int		check_destination(t_cmd *cmd);
 int		add_newpwd(t_cmd *cmd);
 
 //echo.c
+void	echo_contain_n(t_cmd *cmd, int *i);
 void	execute_echo(t_cmd *cmd, int i);
 
 //env.c
@@ -193,6 +194,13 @@ int		check_number(char *str, t_cmd *cmd);
 void	exit_negatif(long long code);
 void	execute_exit(t_cmd *cmd);
 
+//export.c
+void	export_without_args(void);
+void	export_var(char *str);
+int		export_check_args(char **strs, int *i);
+void	execute_export(t_cmd *cmd, int i, int j);
+void	print_env_in_alphabetic(char **strs, int i, int j);
+
 //pwd.c
 void	execute_pwd(t_cmd *cmd);
 
@@ -202,13 +210,6 @@ int		unset_check_args(char **strs, int *var_target);
 void	execute_unset(t_cmd	*cmd);
 char	**remove_var(char **env, int index, int i);
 char	**error_strdup(char **env, char **new);
-
-//export.c
-void	print_env_in_alphabetic(char **strs);
-void	export_without_args(void);
-void	export_var(char *str);
-int		export_check_args(char **strs, int *i);
-void	execute_export(t_cmd *cmd);
 
 //=========== COMMANDS ============
 //commands.c

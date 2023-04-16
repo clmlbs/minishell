@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_1.c                                               :+:      :+:    :+:   */
+/*   cd_1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 14:18:27 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 08:25:29 by cleblais         ###   ########.fr       */
+/*   Created: 2023/04/16 17:17:54 by cleblais          #+#    #+#             */
+/*   Updated: 2023/04/16 17:43:09 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	add_var_to_env(char *str)
 	buf = copy_strs_plus_one(g_all.env);
 	if (!buf)
 		return (perror_fail("Minishell: malloc()"));
-	free(buf[tab_strlen(g_all.env)]);//rajoute pour les leaks
+	free(buf[tab_strlen(g_all.env)]);
 	buf[tab_strlen(g_all.env)] = ft_strdup(str);
 	if (!buf[tab_strlen(g_all.env)])
 		return (perror_fail("Minishell: malloc()"));
@@ -101,10 +101,10 @@ void	execute_cd(t_cmd *cmd)
 	i = 0;
 	result = replace_path(cmd);
 	if (result != SUCCESS)
-		exit (result);//verif les codes 
+		exit (result);
 	if (check_destination(cmd) == FAILURE)
 		exit (FAILURE);
-	if (add_oldpwd(cmd) == FAILURE) 
+	if (add_oldpwd(cmd) == FAILURE)
 		exit(FAILURE);
 	if (chdir(cmd->wd[1]) == -1)
 	{

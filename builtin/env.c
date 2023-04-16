@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 17:11:30 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 17:11:47 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:32:25 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	execute_env(t_cmd *cmd)
 	i = 0;
 	if (cmd->wd[1])
 	{
-		write_error("Minishell: ", "error: env should be executed ",\
+		write_error("Minishell: ", "error: env should be executed ", \
 		"without option nor argument\n");
 		exit(2);
 	}

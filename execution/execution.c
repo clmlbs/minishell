@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 17:01:23 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:35:30 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ void	execute_builtin(t_cmd *cmd)
 	else if (ms_strlen(str) == 5 && !ft_strncmp(str, "unset", 5))
 		execute_unset(cmd);
 	else if (ms_strlen(str) == 6 && !ft_strncmp(str, "export", 6))
-		execute_export(cmd);
+		execute_export(cmd, 1, 0);
 	else
 		exit(FAILURE);
 }

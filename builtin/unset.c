@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 18:41:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 13:24:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:43:33 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,6 @@ int	unset_var(char ***new, char *var, int *index)
 	return (SUCCESS);
 }
 
-// MARCHE
-// int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target)
-// {
-// 	(*new) = copy_strs_plus_one(g_all.env);
-// 	if (!(*new))
-// 		return (FAILURE);
-// 	if (is_var_exist(cmd->wd[*var_target], index) == SUCCESS)
-// 	{
-// 		(*new) = remove_var(*new, *index, 0);
-// 		if (!(*new))
-// 			return (FAILURE);
-// 		free_tab_strs(g_all.env);
-// 		g_all.env = (*new);
-// 		(*new) = NULL;
-// 	}
-// 	(*index) = 0;
-// 	return (SUCCESS);
-// }
-
 int	unset_check_args(char **strs, int *var_target)
 {
 	if (strs[*var_target] && strs[*var_target][0] == '-')
@@ -57,7 +38,8 @@ int	unset_check_args(char **strs, int *var_target)
 			"implemented in this Minishell\n");
 		return (FAILURE);
 	}
-	else if (strs[*var_target] && is_special_char_or_numeric(strs[*var_target][0]) == TRUE)
+	else if (strs[*var_target] && \
+		is_special_char_or_numeric(strs[*var_target][0]) == TRUE)
 	{
 		write_error("Minishell: ", "unset:", " `");
 		ft_putstr_fd(strs[*var_target], STDERR_FILENO);

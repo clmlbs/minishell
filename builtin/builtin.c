@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_1.c                                        :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 17:11:45 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:30:20 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,25 @@ int	send_env_to_father(char **env, int *fd)
 			return (perror_fail("Minishell: write()"));
 		i++;
 	}
-	if (close(fd[1]) < 0) // pas de bug ?? 
-		return (perror_fail("Minishell: close()")); // sur ok de ca pas de bug ???
+	if (close(fd[1]) < 0)
+		return (perror_fail("Minishell: close()"));
 	return (SUCCESS);
+}
+
+size_t	var_name_len(char *str)
+{
+	int		i;
+	char	c;
+
+	c = '=';
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (i);
 }

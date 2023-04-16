@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:56:13 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 17:06:38 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:31:57 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,6 @@ char	*put_to_lower(char *str)
 		i++;
 	}
 	return (new);
-}
-
-size_t	var_name_len(char *str)
-{
-	int		i;
-	char	c;
-
-	c = '=';
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (i);
-		i++;
-	}
-	return (i);
 }
 
 void	change_var_value(char *str, int *env_index)
