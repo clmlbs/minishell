@@ -6,58 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:15:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 21:37:26 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 21:16:42 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	check_pipes(void)
-{
-	t_lexer	*buf;
-
-	buf = g_all.lexer;
-	while (buf)
-	{
-		if (buf->id == PIPE)
-		{
-			if (ms_strlen(buf->token) != 1)
-			{
-				error_token(buf, ms_strlen(buf->token), PIPE);
-				return (FAILURE);
-			}
-		}
-		buf = buf->next;
-	}
-	return (SUCCESS);
-}
-
-int	check_redir(void)
-{
-	t_lexer	*buf;
-
-	buf = g_all.lexer;
-	while (buf)
-	{
-		if ((buf->id == REDIR_IN || buf->id == REDIR_OUT) && !buf->next)
-		{
-			write_error("Minishell: ", "syntax error near", \
-			" unexpected token `newline'\n");
-			return (FAILURE);
-		}
-		if (buf->id == REDIR_IN || buf->id == REDIR_OUT)
-		{
-			if (ms_strlen(buf->token) < 1 || ms_strlen(buf->token) > 2)
-			{
-				error_token(buf, ms_strlen(buf->token), REDIR);
-				return (FAILURE);
-			}
-			change_id_redir(buf);
-		}
-		buf = buf->next;
-	}
-	return (SUCCESS);
-}
 
 int	parse_token_after_redir(void)
 {
@@ -104,47 +57,6 @@ void	key_word_contain_dollar(void)
 	}
 }
 
-int	check_pipes_begin(void)
-{
-	t_lexer *buf;
-
-	buf = g_all.lexer;
-	while (buf)
-	{
-		if (buf->prev == NULL && buf->id == PIPE)
-		{
-			write_error("Minishell: syntax error near unexpected ", \
-			"token `|'", "\n");
-			return (FAILURE);
-		}
-		buf = buf->next;
-	}
-	buf = lex_lstlast(g_all.lexer);
-	if (buf->id == PIPE)
-	{
-		write_error("Minishell: syntax error near unexpected ", \
-			"token `|'", "\n");
-		return (FAILURE);
-	}
-	return (SUCCESS);
-}
-
-int	nb_redir(int id_target)
-{
-	t_lexer *buf;
-	int		nb;
-
-	nb = 0;
-	buf = g_all.lexer;
-	while (buf)
-	{
-		if (buf->id == id_target)
-			nb++;
-		buf = buf->next;
-	}
-	return (nb);
-}
-
 int	parse_redir(void)
 {
 	int		nb_redir_in;
@@ -174,32 +86,13 @@ int	parse_redir(void)
 	return (SUCCESS);
 }
 
-void	suppr_useless_token(void)
-{
-	t_lexer *buf;
-
-	buf = g_all.lexer;
-	while (buf)
-	{
-		if (buf->id == SUPPR)
-		{
-			remove_token(buf);
-			buf = g_all.lexer;			
-		}
-		else
-			buf = buf->next;
-	}
-}
-
 int	parser(void)
 {
 	if (are_quotes_even() == FAILURE)
 		return (FAILURE);
-	suppr_useless_token();
-	//print_t_lexer();//********
+	remove_useless_token();
 	if (parse_same_id(WORD) == FAILURE)
 		return (FAILURE);
-	//print_t_lexer();//********
 	if (parse_redir() == FAILURE)
 		return (FAILURE);
 	if (parse_same_id(PIPE) == FAILURE || check_pipes() == FAILURE)

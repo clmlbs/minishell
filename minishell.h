@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 20:14:05 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 21:16:08 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,34 @@ int		end_of_dollar(char **str, t_lexer *lexer, int *index);
 int		end_of_dollar_in_quotes(char **str, t_lexer *lexer, int *index, int *i);
 void	go_until_end_of_var(t_lexer *lexer, int *i);
 
+//=========== PARSER ============
+//parser_checks.c
+int		check_pipes(void);
+int		check_redir(void);
+int		check_pipes_begin(void);
+
+//parser_utils.c
+int		add_next_str_to_current(t_lexer *current);
+int		parse_same_id(int id_target);
+void	change_id_redir(t_lexer *lst);
+int		nb_redir(int id_target);
+
+// parser.c
+int		parse_token_after_redir(void);
+void	key_word_contain_dollar(void);
+int		parse_redir(void);
+int		parser(void);
+
+//quotes.c
+int		check_quotes_even(t_lexer *lst);
+int		remove_quotes(t_lexer *lst);
+int		are_quotes_even(void);
+
+//remover.c
+void	remove_spaces(void);
+void	remove_token(t_lexer *lst);
+void	remove_useless_token(void);
+
 //=========== T_CMD ===============
 //t_cmd_1.c
 t_cmd	*cmd_lstlast(t_cmd *lst);
@@ -352,28 +380,6 @@ t_lexer	*add_token(char *token, int id);
 t_lexer	*add_other(char *oth);
 t_lexer	*lst_new_env(char *str);
 t_lexer	*add_var_env(char *token);
-
-//=========== PARSER ============
-// parser.c
-int		check_pipes(void);
-int		check_redir(void);
-int		parse_token_after_redir(void);
-int		check_pipes_begin(void);
-int		nb_redir(int id_target);
-int		parse_redir(void);
-int		parser(void);
-
-//quotes.c
-int		check_quotes_even(t_lexer *lst);
-int		remove_quotes(t_lexer *lst);
-int		are_quotes_even(void);
-
-//parser_utils.c
-void	remove_spaces(void);
-void	remove_token(t_lexer *lst);
-int		add_next_str_to_current(t_lexer *current);
-int		parse_same_id(int id_target);
-void	change_id_redir(t_lexer *lst);
 
 //=========== SET ============
 int		update_shlvl(void);

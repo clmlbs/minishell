@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:12:11 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 16:54:16 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 21:16:54 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,10 @@ int	remove_quotes(t_lexer *lst)
 	if (len == 2 && lst->prev && lst->prev->id == WORD \
 		&& lst->next && lst->next->id == WORD)
 		lst->id = SUPPR;
-	else	
+	else
 		lst->id = WORD;
 	return (SUCCESS);
 }
-
 
 int	are_quotes_even(void)
 {

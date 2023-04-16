@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 19:53:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 20:15:30 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 21:09:04 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,4 @@ char	*var_is_exit_status(void)
 		return (NULL);
 	}
 	return (new);
-}
-
-void	remove_token(t_lexer *lst)
-{
-	t_lexer	*buf;
-
-	if (!lst->prev && !lst->next)
-		free_one_lst_lexer(lst);
-	else if (!lst->next)
-	{
-		lst->prev->next = NULL;
-		free_one_lst_lexer(lst);
-	}
-	else if (!lst->prev)
-	{
-		buf = lst->next;
-		buf->prev = NULL;
-		free_one_lst_lexer(lst);
-		g_all.lexer = buf;
-	}
-	else
-	{
-		buf = lst->prev;
-		buf->next = lst->next;
-		buf->next->prev = buf;
-		free_one_lst_lexer(lst);
-	}
 }

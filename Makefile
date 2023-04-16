@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/16 19:59:05 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/16 21:10:48 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,9 +59,11 @@ SRCS		=	main.c \
 				libft/ms_atoi.c \
 				libft/ms_strjoin.c \
 				libft/ms_split.c \
+				parser/parser_checks.c \
 				parser/parser_utils.c \
 				parser/parser.c \
 				parser/quotes.c \
+				parser/remover.c \
 				signal/signal.c \
 				t_cmd/t_cmd_1.c \
 				t_cmd/t_cmd_2.c \
