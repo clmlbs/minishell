@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 15:56:26 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 10:43:46 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	ft_waitpid(void)
 			else if (WIFSIGNALED(status))
 			{
 				g_all.status = 128 + WTERMSIG(status);
-				if (WTERMSIG(status) == SIGSEGV)
+				if (g_all.status == 131)
+					printf("Quit: 3\n");
+				else if (WTERMSIG(status) == SIGSEGV)
 					ft_putstr_fd("Segmentation fault: 11\n", STDERR_FILENO);
 				else if (WTERMSIG(status) == SIGBUS)
 					ft_putstr_fd("Bus error: 10\n", STDERR_FILENO);	
