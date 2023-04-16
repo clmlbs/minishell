@@ -6,29 +6,29 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 22:46:26 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:56:41 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <readline/readline.h> 
-#include <readline/history.h>
-#include <sys/types.h>
-#include <errno.h>
-#include <signal.h>
-#include <sys/wait.h>
-#include <dirent.h>
-#include <limits.h>
-#include <sys/ioctl.h>
-#include <termios.h>
-#include "libft.h"
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <string.h>
+# include <readline/readline.h> 
+# include <readline/history.h>
+# include <sys/types.h>
+# include <errno.h>
+# include <signal.h>
+# include <sys/wait.h>
+# include <dirent.h>
+# include <limits.h>
+# include <sys/ioctl.h>
+# include <termios.h>
+# include "libft.h"
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -130,7 +130,7 @@ typedef struct s_update_token
 	int		begin;
 	char	*str_begin;
 	char	*var_name;
-	char 	*var_value;
+	char	*var_value;
 	char	*begin_and_value;
 	char	*token_updated;
 }	t_update_token;
@@ -143,7 +143,7 @@ typedef struct s_all
 	char	**env;
 	char	*tilde;
 	int		nb_cmd;
-	int		*pid; // utile ??
+	int		*pid;
 	pid_t	my_pid;
 	int		fd_stdin;
 	int		fd_stdout;
@@ -410,8 +410,8 @@ void	it_s_a_signal(int status);
 void	ft_waitpid(void);
 
 //=========== MAIN =============
-
 int		check_line(char *input);
 void	minishell(char *input);
+int		launch_minishell(void);
 int		main(int arc, char **arv, char **env);
 #endif

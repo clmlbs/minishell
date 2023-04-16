@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 16:04:55 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 16:26:34 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:49:15 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_count
 }	t_count;
 
 char		*ft_itoa(int n);
-void 		perror_void(char *str);
+void		perror_void(char *str);
 void		free_tab_strs(char **str);
 void		ft_putchar_fd(char c, int fd);
 void		ft_putnbr_fd(int n, int fd);

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 17:02:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:56:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,37 +59,44 @@ void	minishell(char *input)
 	}
 }
 
-int	main(int ac, char **av, char **env)
+int	launch_minishell(void)
 {
 	char		*input;
 	int			line_ok;
+	
+	//system("leaks minishell"); //********
+	echo_ctl(0);
+	signal(SIGINT, signal_handle);
+	signal(SIGQUIT, signal_handle);
+	if (g_all.is_first_turn == NO && isatty(STDIN_FILENO) \
+		&& update_global() == FAILURE)
+		return (FAILURE);
+	g_all.is_first_turn = YES;
+	input = readline(WATERMELON "Minishell " WHITE);
+	line_ok = check_line(input);
+	if (line_ok == FAILURE)
+		return (FAILURE);
+	if (line_ok != EMPTY)
+	{
+		g_all.nb_cmd = 1;
+		minishell(input);
+		free_all_lexer_and_cmd();
+		g_all.is_first_turn = NO;
+	}
+	free(input);
+	return (SUCCESS);
+}
 
+int	main(int ac, char **av, char **env)
+{
 	init_global(ac, av, env);
 	if (pipe(g_all.herit) < 0)
 		return (perror_fail("Minishell: pipe()"));
 	printf("1er pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
-		//system("leaks minishell"); //********
-		echo_ctl(0);
-		signal(SIGINT, signal_handle);
-		signal(SIGQUIT, signal_handle);
-		if (g_all.is_first_turn == NO && isatty(STDIN_FILENO) \
-			&& update_global() == FAILURE) // rajout mais pb avec system leak;
-			return (FAILURE);
-		g_all.is_first_turn = YES;
-		input = readline(WATERMELON "Minishell " WHITE);
-		line_ok = check_line(input);
-		if (line_ok == FAILURE)
+		if (launch_minishell() == FAILURE) // verif que pas de double free
 			break ;
-		if (line_ok != EMPTY)
-		{
-			g_all.nb_cmd = 1;
-			minishell(input);
-			free_all_lexer_and_cmd();
-			g_all.is_first_turn = NO;
-		}
-		free(input);
 	}
 	free_everything();
 	close(g_all.fd_stdin);
@@ -99,5 +106,3 @@ int	main(int ac, char **av, char **env)
 	// close herit + size
 	return (0);
 }
-
-
