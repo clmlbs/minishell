@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/16 16:38:49 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/16 16:59:28 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,8 @@ SRCS		=	main.c \
 				t_cmd/t_cmd_1.c \
 				t_cmd/t_cmd_2.c \
 				utilities/utilities.c \
-				utilities/utilities_second.c \
-				utilities/lst_utils.c
+				utilities/lst_utils.c \
+				utilities/waitpid.c
 				
 
 HEADERS		=		-I/Users/$(USER)/.brew/opt/readline/include -I include

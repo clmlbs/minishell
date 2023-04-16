@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 16:26:26 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:03:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,6 @@ void	execute_exit(t_cmd *cmd);
 
 //unset.c
 int		unset_var(char ***new, char *var, int *index);
-//int	unset_var(char ***new, t_cmd *cmd, int *index, int *var_target);
 int		unset_check_args(char **strs, int *var_target);
 void	execute_unset(t_cmd	*cmd);
 char	**remove_var(char **env, int index, int i);
@@ -230,6 +229,7 @@ int		perror_fail(char *str);
 
 //=========== EXECUTE ============
 //execution.c 
+int		execute_line(void);
 int		ft_fork(t_cmd *cmd);
 int		execute(t_cmd *cmd_in_global);
 void	execute_child(t_cmd *cmd);
@@ -237,6 +237,7 @@ void	exit_son(int return_value);
 void	execute_builtin(t_cmd *cmd);
 
 //execute_utils.c
+int		replace_dollar_question_mark(char **strs);
 int		find_good_path(t_cmd *cmd);
 int		check_if_openable(t_cmd *cmd);
 int		check_if_writable(t_cmd *cmd);
@@ -249,6 +250,7 @@ void	free_one_lst_lexer(t_lexer *lst);
 void	free_all_lexer(void);
 void	free_all_cmd(void);
 void	free_all_lexer_and_cmd(void);
+void	free_everything(void);
 
 //=========== INIT ============
 void	init_global(int ac, char **av, char **env);

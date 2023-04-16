@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 16:26:07 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:00:10 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,23 @@ void	free_all_lexer(void)
 		free_one_lst_lexer(lx);
 		lx = buf;
 	}
+}
+
+void	free_everything(void)
+{
+	close(g_all.fd_stdin);
+	close(g_all.fd_stdout);
+	close(g_all.herit[0]);
+	close(g_all.herit[1]);
+	if (g_all.all_path)
+		free_tab_strs(g_all.all_path);
+	if (g_all.env)
+		free_tab_strs(g_all.env);
+	if (g_all.tilde)
+		free(g_all.tilde);
+	if (g_all.pid)
+		free(g_all.pid);
+	// autres trucs a free ?
 }
 
 // void	free_all_lexer(void)

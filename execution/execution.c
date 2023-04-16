@@ -6,11 +6,48 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 16:43:00 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:01:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	execute_line(void)
+{
+	t_cmd	*buf;
+
+	g_all.pid = (pid_t *)malloc(sizeof(pid_t) * g_all.nb_cmd);
+	if (!g_all.pid)
+		return (perror_fail("Minishell: malloc()"));
+	buf = g_all.cmd;
+	while (buf)
+	{
+		if (g_all.is_first_turn == NO && isatty(STDIN_FILENO) \
+			&& update_global() == FAILURE)
+			return (FAILURE);
+		else
+		{
+			if (pipe(g_all.end) < 0)
+				return (perror_fail("Minishell: pipe()"));
+			if (replace_dollar_question_mark(buf->wd) == FAILURE \
+				|| execute(buf) == FAILURE)
+				return (FAILURE);
+			g_all.is_first_turn = NO;
+			buf = buf->next;
+		}
+	}
+	ft_waitpid();
+	if (g_all.pid)
+	{
+		free(g_all.pid);
+		g_all.pid = NULL;
+	}
+	g_all.where = PROCESS;
+	return (SUCCESS);
+}
+
+
+
 
 int	ft_fork(t_cmd *cmd)
 {

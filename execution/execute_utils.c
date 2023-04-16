@@ -6,11 +6,38 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:19:19 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 16:39:28 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:02:28 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	replace_dollar_question_mark(char **strs)
+{
+	int		i;
+	char	*status;
+
+	i = 0;
+	status = ft_itoa(g_all.status);
+	if (!status)
+		return (FAILURE);
+	while (strs && strs[i])
+	{
+		if (ms_strlen(strs[i]) == 2 && !ft_strncmp(strs[i], "$?", 2))
+		{
+			free(strs[i]);
+			strs[i] = ft_strdup(status);
+			if (!strs[i])
+			{
+				free(status);
+				return (FAILURE);
+			}
+		}
+		i++;
+	}
+	free(status);
+	return (SUCCESS);
+}
 
 int	create_executable_name(t_cmd *cmd)
 {
