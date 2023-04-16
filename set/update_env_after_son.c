@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 21:23:34 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 22:10:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:19:51 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,31 @@ int	read_env_of_son(char ***new_env, int **nb_strs)
 	return (SUCCESS);
 }
 
+int	determine_size_of_new_env(char ***new_env, int **nb_strs)
+{
+	size_t	ssize;
+
+	*new_env = NULL;
+	*nb_strs = (int *)malloc(sizeof(int));
+	if (!(*nb_strs))
+		return (ret_upt(*new_env, *nb_strs, \
+			perror_fail("Minishell: malloc()")));
+	if (close(g_all.herit[1]) < 0)
+		return (ret_upt(*new_env, *nb_strs, perror_fail("Minishell: close()")));
+	ssize = read(g_all.herit[0], *nb_strs, sizeof(int));
+	if (ssize == -1)
+		return (ret_upt(*new_env, *nb_strs, perror_fail("Minishell: read()")));
+	return (SUCCESS);
+}
+
 int	update_global(void)
 {
 	char	**new_env;
 	int		*nb_strs;
-	size_t	ssize;
-	int		i;
-	size_t	len;
 
-	new_env = NULL;
-	nb_strs = (int *)malloc(sizeof(int));
-	if (!nb_strs)
-		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
-	if (close(g_all.herit[1]) < 0)
-		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: close()")));
-	ssize = read(g_all.herit[0], nb_strs, sizeof(int));
-	if (ssize == -1)
-		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
-	if (*nb_strs <= 0 || *nb_strs > 1000) // car quand on n'a pas rempli le pipe system leaks lit des grand nb pos et sas rien ils sont neg
+	if (determine_size_of_new_env(&new_env, &nb_strs) == FAILURE)
+		return (FAILURE);
+	if (*nb_strs <= 0 || *nb_strs > 1000)
 		return (ret_upt(new_env, nb_strs, EMPTY));
 	new_env = (char **)malloc(sizeof(char *) * ((*nb_strs) + 1));
 	if (!new_env)
@@ -65,7 +72,7 @@ int	update_global(void)
 	g_all.env = new_env;
 	new_env = NULL;
 	if (save_all_path(copy_strs_plus_one(g_all.env)) == FAILURE)
-		return (ret_upt(new_env, nb_strs, FAILURE)); 
+		return (ret_upt(new_env, nb_strs, FAILURE));
 	if (cd_new_pwd() == FAILURE)
 		return (ret_upt(new_env, nb_strs, FAILURE));
 	return (ret_upt(new_env, nb_strs, SUCCESS));
