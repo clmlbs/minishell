@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 21:16:08 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:06:44 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,24 @@ void	remove_spaces(void);
 void	remove_token(t_lexer *lst);
 void	remove_useless_token(void);
 
+//=========== SET ============
+//init_global.c
+void	init_all_int_and_null(char **av);
+void	init_global(int ac, char **av, char **env);
+
+//set_env.c
+int		update_shlvl_part_1(void);
+int		update_shlvl_part_2(char *value_str);
+int		remove_var_without_egal(void);
+int		remove_oldpwd(void);
+int		save_all_path(char **envp);
+
+//update_env_after_son.c
+int		read_env_of_son(char ***new_env, int **nb_strs);
+int		update_global(void);
+int		cd_new_pwd(void);
+int		ret_upt(char **new_env, int *nb_strs, int return_value);
+
 //=========== T_CMD ===============
 //t_cmd_1.c
 t_cmd	*cmd_lstlast(t_cmd *lst);
@@ -380,16 +398,6 @@ t_lexer	*add_token(char *token, int id);
 t_lexer	*add_other(char *oth);
 t_lexer	*lst_new_env(char *str);
 t_lexer	*add_var_env(char *token);
-
-//=========== SET ============
-int		update_shlvl(void);
-int		remove_var_without_egal(void);
-int		remove_oldpwd(void);
-void	init_global(int ac, char **av, char **env);
-int		save_all_path(char **envp);
-int		cd_new_pwd(void);
-int		update_global(void);
-int		ret_upt(char **new_env, int *nb_strs, int return_value);
 
 //=========== SIGNAL ===========
 //signal.c

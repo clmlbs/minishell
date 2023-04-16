@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/16 21:10:48 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/16 22:03:54 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRCS		=	main.c \
 				execution/execution.c \
 				execution/fork_execute.c \
 				free/free.c \
-				set/init.c \
 				lexer/lexer_utils.c \
 				lexer/lexer.c \
 				lexer/id.c \
@@ -64,6 +63,9 @@ SRCS		=	main.c \
 				parser/parser.c \
 				parser/quotes.c \
 				parser/remover.c \
+				set/init_global.c \
+				set/set_env.c \
+				set/update_env_after_son.c \
 				signal/signal.c \
 				t_cmd/t_cmd_1.c \
 				t_cmd/t_cmd_2.c \
@@ -81,7 +83,7 @@ OBJS		= 		$(SRCS:.c=.o)
 
 CC			=		gcc
 
-CFLAGS		=		-Wall -Wextra -Werror -g -lreadline #-fsanitize=address
+CFLAGS		=		-Wall -Wextra -Werror -g -lreadline -fsanitize=address
 
 RM			= 		rm -f
 
