@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:56:13 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/07 18:44:15 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 15:17:21 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	var_name_len(char *str)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (i);
 }
 
 void	change_var_value(char *str, int *env_index)

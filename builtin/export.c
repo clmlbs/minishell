@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 14:45:23 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 15:17:48 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ void	execute_export(t_cmd *cmd)
 		{
 			var = ft_substr(cmd->wd[i], 0, var_name_len(cmd->wd[i]));
 			if (var && is_var_exist(var, &j) == SUCCESS)
+			{
 				change_var_value(cmd->wd[i], &j);
+			}
 			else if (var)
 				export_var(cmd->wd[i]);
 			j = 0;
