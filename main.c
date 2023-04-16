@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 12:28:49 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 12:48:18 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	execute_line(void)
 			if (replace_dollar_question_mark(buf->wd) == FAILURE \
 				|| execute(buf) == FAILURE)
 				return (FAILURE);
+			g_all.is_first_turn = NO;
 			buf = buf->next;
 		}
 	}
@@ -187,13 +188,14 @@ int	main(int ac, char **av, char **env)
 	printf("1er pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
-		system("leaks minishell"); //********
+		//system("leaks minishell"); //********
 		echo_ctl(0);
 		signal(SIGINT, signal_handle);
 		signal(SIGQUIT, signal_handle);
 		if (g_all.is_first_turn == NO && isatty(STDIN_FILENO) \
 			&& update_global() == FAILURE) // rajout mais pb avec system leak;
 			return (FAILURE);
+		g_all.is_first_turn = YES;
 		input = readline(WATERMELON "Minishell " WHITE);
 		line_ok = check_line(input);
 		if (line_ok == FAILURE)
@@ -203,14 +205,14 @@ int	main(int ac, char **av, char **env)
 			g_all.nb_cmd = 1;
 			minishell(input);
 			free_all_lexer_and_cmd();
+			g_all.is_first_turn = NO;
 		}
 		free(input);
-		g_all.is_first_turn = NO;
 	}
 	free_everything();
 	close(g_all.fd_stdin);
 	close(g_all.fd_stdout);
-	system("leaks minishell"); //********
+	//system("leaks minishell"); //********
 	//free les trucs de la globale 
 	// close herit + size
 	return (0);

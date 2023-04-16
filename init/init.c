@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:32:31 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 15:55:48 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 12:55:19 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,24 @@ int	save_all_path(char **envp)
 // 	return (ret_upt(new_env, nb_strs, SUCCESS));
 // }
 
+int	cd_new_pwd(void)
+{
+	char	*pwd;
+	int		i;
+
+	i = 0;
+	if (g_all.is_first_turn == NO && is_var_exist("PWD", &i) == SUCCESS)
+	{
+		pwd = create_var_value("PWD");
+		if (!pwd)
+			return (FAILURE);
+	}
+	chdir(pwd);
+	free(pwd);
+	return (SUCCESS);
+}
+
+
 int	update_global(void)
 {
 	char	**new_env;
@@ -199,7 +217,6 @@ int	update_global(void)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: malloc()")));
 	if (close(g_all.herit[1]) < 0)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: close()")));
-		
 	ssize = read(g_all.herit[0], nb_strs, sizeof(int));
 	if (ssize == -1)
 		return (ret_upt(new_env, nb_strs, perror_fail("Minishell: read()")));
@@ -227,6 +244,8 @@ int	update_global(void)
 	new_env = NULL;
 	if (save_all_path(copy_strs_plus_one(g_all.env)) == FAILURE)
 		return (ret_upt(new_env, nb_strs, FAILURE)); 
+	if (cd_new_pwd() == FAILURE)
+		return (ret_upt(new_env, nb_strs, FAILURE));
 	return (ret_upt(new_env, nb_strs, SUCCESS));
 }
 

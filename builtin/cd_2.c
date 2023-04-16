@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 08:27:50 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 11:08:16 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 12:38:19 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	replace_oldpwd(t_cmd *cmd)
 int	check_destination(t_cmd *cmd)
 {
 	DIR	*dir;
-	
+
 	dir = opendir(cmd->wd[1]);
 	if (dir == NULL)
 	{
