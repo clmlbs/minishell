@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 12:48:18 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 15:01:08 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_waitpid(void)
 		if (pid <= 0)
 		{
 			perror_void("Minishell: waitpid()");
-			exit(FAILURE); // code d'erreur ok ? 
+			exit(FAILURE); 
 		}
 		i++;
 	}
@@ -122,7 +122,7 @@ int	execute_line(void)
 			buf = buf->next;
 		}
 	}
-	ft_waitpid(); // ok ici le waitpid ?
+	ft_waitpid();
 	if (g_all.pid)
 	{
 		free(g_all.pid);
