@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 15:18:35 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 14:56:17 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,11 @@ void	execute_env(t_cmd *cmd)
 		{
 			if (ft_strchr(g_all.env[i], '=') != NULL)
 			{
-				ft_putstr_fd(g_all.env[i], cmd->fd_outfile);
-				ft_putstr_fd("\n", cmd->fd_outfile);
+				if (ft_strncmp("PWD_TO_SUPPR=", g_all.env[i], 13))
+				{
+					ft_putstr_fd(g_all.env[i], cmd->fd_outfile);
+					ft_putstr_fd("\n", cmd->fd_outfile);
+				}
 			}
 			i++;
 		}
@@ -85,17 +88,33 @@ void	execute_env(t_cmd *cmd)
 void	execute_pwd(t_cmd *cmd)
 {
 	char	cwd[1024];
+	char	*str;
 
+	str = NULL;
 	if (cmd->wd[1] && cmd->wd[1][0] == '-')
 	{
 		write_error("Minishell: ", "error: pwd should be executed ",\
 		"without option\n");
 		exit(2);
 	}
-	if (!getcwd(cwd, 1024))
+	getcwd(cwd, 1024);
+	if (!cwd[0])
 	{
-		perror("Minishell: getcwd()");
-		exit(FAILURE);
+		str = create_var_value("PWD");
+		if (!str)
+		{
+			str = create_var_value("PWD_TO_SUPPR");
+			if (!str)
+			{
+				perror("Minishell");
+				exit(FAILURE);
+			}
+		}
+		ft_putstr_fd(str, cmd->fd_outfile);
+		ft_putstr_fd("\n",cmd->fd_outfile);
+		if (str)
+			free(str);
+		exit(SUCCESS);
 	}
 	ft_putstr_fd(cwd, cmd->fd_outfile);
 	ft_putstr_fd("\n",cmd->fd_outfile);

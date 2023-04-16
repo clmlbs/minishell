@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:09:58 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 13:23:54 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 14:45:23 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,25 @@ void	print_env_in_alphabetic(char **strs)
 	j = 0;
 	while (i < tab_strlen(strs))
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		while (strs[i][j] && strs[i][j] != '=')
+		if (ft_strncmp("PWD_TO_SUPPR=", strs[i], 13))
 		{
-			ft_putchar_fd(strs[i][j], STDOUT_FILENO);
-			j++;
-		}
-		if (strs[i][j])
-		{
-			ft_putchar_fd(strs[i][j], STDOUT_FILENO);
-			ft_putchar_fd('\"', STDOUT_FILENO);
-			while (strs[i][++j])
+			ft_putstr_fd("declare -x ", STDOUT_FILENO);
+			while (strs[i][j] && strs[i][j] != '=')
+			{
 				ft_putchar_fd(strs[i][j], STDOUT_FILENO);
-			ft_putstr_fd("\"", STDOUT_FILENO);
+				j++;
+			}
+			if (strs[i][j])
+			{
+				ft_putchar_fd(strs[i][j], STDOUT_FILENO);
+				ft_putchar_fd('\"', STDOUT_FILENO);
+				while (strs[i][++j])
+					ft_putchar_fd(strs[i][j], STDOUT_FILENO);
+				ft_putstr_fd("\"", STDOUT_FILENO);
+			}
+			ft_putstr_fd("\n", STDOUT_FILENO);
+			j = 0;
 		}
-		ft_putstr_fd("\n", STDOUT_FILENO);
-		j = 0;
 		i++;
 	}
 }

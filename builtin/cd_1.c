@@ -99,7 +99,6 @@ void	execute_cd(t_cmd *cmd)
 	int	i;
 
 	i = 0;
-	print_t_cmd(cmd);//*********
 	result = replace_path(cmd);
 	if (result != SUCCESS)
 		exit (result);//verif les codes 
@@ -112,11 +111,6 @@ void	execute_cd(t_cmd *cmd)
 		perror("Minishell");
 		exit(FAILURE);
 	}
-	//======= RETIRER ==========
-	char	cwd[1024];
-	getcwd(cwd, 1024);
-	printf("pwd:%s\n", cwd);//********
-
 	if (add_newpwd(cmd) == FAILURE)
 		exit(FAILURE);
 	if (send_env_to_father(g_all.env, g_all.herit) == FAILURE)
