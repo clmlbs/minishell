@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 16:56:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 11:19:32 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 12:29:55 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	end_of_dollar(char **str, t_lexer *lexer, int *index)
 {
 	char	*new;
 
-	printf("Dans end of dollar in quotes\n");//*****
 	new = ft_add_char_to_str(ft_strdup(*str), '$');
 	if (*str)
 		free(*str);
@@ -64,7 +63,6 @@ int	end_of_dollar_in_quotes(char **str, t_lexer *lexer, int *index, int *i)
 {	
 	char	*new;
 
-	printf("Dans end of dollar in quotes\n");//*****
 	new = ft_add_char_to_str(ft_strdup(*str), '$');
 	if (*str)
 		free(*str);

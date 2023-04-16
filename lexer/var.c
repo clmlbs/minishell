@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:28:46 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 11:52:03 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 12:28:33 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int	update_token(t_lexer *lexer, int *index)
 	go_until_end_of_var(lexer, &(t.i));
 	if (create_token_updated(lexer, &t, index) == FAILURE)
 		return (FAILURE);
-	lexer->save = lexer->token;
+	if (lexer->save == NULL)
+		lexer->save = lexer->token;
+	else if (lexer->token)
+		free(lexer->token);
 	lexer->token = t.token_updated;
 	t.token_updated = NULL;
 	return (SUCCESS);
@@ -98,10 +101,12 @@ int	create_token_updated(t_lexer *lexer, t_update_token *t, int *index)
 
 	if (create_var_name(lexer, t) == FAILURE)
 		return (free_update_token(t, FAILURE));
+	//printf("====== NEW =======:%p\n", t->var_name);//******
 	t->var_value = create_var_value(t->var_name);
 	if (!(t->var_value))
 		return (free_update_token(t, FAILURE));
 	t->begin_and_value = ms_strjoin(t->str_begin, t->var_value);
+	// ca leak avant ca 
 	if (!(t->begin_and_value))
 		return (free_update_token(t, FAILURE));
 	(*index) = ms_strlen(t->begin_and_value);
