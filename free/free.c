@@ -6,28 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:25:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 14:45:40 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:26:07 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	free_tab_strs(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (str)
-	{
-		while (str[i])
-		{
-			free(str[i]);
-			i++;
-		}
-		free(str[i]);
-		free(str);
-	}
-}
 
 void	free_one_lst_lexer(t_lexer *lst)
 {

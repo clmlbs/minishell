@@ -6,11 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:13:01 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/09 11:56:39 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:06:42 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../libft.h"
 
 static void	ft_bzero(void *s, size_t n)
 {

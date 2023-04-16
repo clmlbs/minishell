@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:06:23 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 14:11:45 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:23:29 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,4 @@ int	perror_fail(char *str)
 {
 	perror(str);
 	return (FAILURE);
-}
-
-void perror_void(char *str)
-{
-	perror(str);
 }

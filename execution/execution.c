@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:55:00 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 14:46:41 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:43:00 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void	execute_child(t_cmd *cmd)
 	else
 	{
 		echo_ctl(1);
-		if (!cmd->wd)
+		if (!cmd->wd || !cmd->wd[0])
 			exit(0);
 		if (!cmd->wd[0][0])
 			cmd_null(cmd);
