@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:16:52 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 16:20:00 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:47:12 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,3 @@ char	**ms_split(char *s, char c)
 	free(n);
 	return (strs);
 }
-
