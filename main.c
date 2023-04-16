@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 10:43:46 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 11:44:48 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int	main(int ac, char **av, char **env)
 	printf("1er pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
-		system("leaks minishell"); //********
+		//system("leaks minishell"); //********
 		echo_ctl(0);
 		signal(SIGINT, signal_handle);
 		signal(SIGQUIT, signal_handle);

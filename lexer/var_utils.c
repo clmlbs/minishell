@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 16:56:45 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 12:34:53 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 11:19:32 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,60 @@ void	update_id_var(void)
 	}
 }
 
-int	add_until_dollar(char **new, int *i, int index, t_lexer *lexer)
+int	add_until_dollar(char **str, int *i, int index, t_lexer *lexer)
 {
+	char	*new;
+
 	while ((*i) < index)
 	{
-		(*new) = ft_add_char_to_str(ft_strdup(*new), lexer->token[*i]);
-		if (!(*new))
+		new = ft_add_char_to_str(ft_strdup(*str), lexer->token[*i]);
+		if (*str)
+			free(*str);
+		if (!new)
 			return (FAILURE);
+		*str = new;
+		new = NULL;
 		(*i)++;
 	}
 	return (SUCCESS);
 }
 
-int	end_of_token(char **new, t_lexer *lexer, int *index)
+int	end_of_dollar(char **str, t_lexer *lexer, int *index)
 {
-	(*new) = ft_add_char_to_str(ft_strdup(*new), '$');
-	if (!(*new))
-		return (FAILURE);
+	char	*new;
+
+	printf("Dans end of dollar in quotes\n");//*****
+	new = ft_add_char_to_str(ft_strdup(*str), '$');
+	if (*str)
+		free(*str);
 	free(lexer->token);
-	lexer->token = (*new);
+	if (!new)
+		return (FAILURE);
+	lexer->token = new;
+	new = NULL;
 	(*index)++;
 	return (SUCCESS);
 }
 
-int	end_of_token_in_quotes(char **new, t_lexer *lexer, int *index, int *i)
+int	end_of_dollar_in_quotes(char **str, t_lexer *lexer, int *index, int *i)
 {	
-	(*new) = ft_add_char_to_str(ft_strdup(*new), '$'); // leaks la non ? 
-	if (!(*new))
+	char	*new;
+
+	printf("Dans end of dollar in quotes\n");//*****
+	new = ft_add_char_to_str(ft_strdup(*str), '$');
+	if (*str)
+		free(*str);
+	if (!new)
 		return (FAILURE);
-	(*new) = ft_add_char_to_str(ft_strdup(*new), lexer->token[*i]); // leaks aussi ?
-	if (!(*new))
-		return (FAILURE);
+	*str = new;
+	new = NULL;
+	new = ft_add_char_to_str(ft_strdup(*str), lexer->token[*i]);
+	free(*str);
 	free(lexer->token);
-	lexer->token = (*new);
+	if (!new)
+		return (FAILURE);
+	lexer->token = new;
+	new = NULL;
 	(*index)++;
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/15 14:47:05 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 11:17:58 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,9 +287,9 @@ void	remove_spaces(void);
 
 //var_utils.c
 void	update_id_var(void);
-int		add_until_dollar(char **new, int *i, int index, t_lexer *lexer);
-int		end_of_token(char **new, t_lexer *lexer, int *index);
-int		end_of_token_in_quotes(char **new, t_lexer *lexer, int *index, int *i);
+int		add_until_dollar(char **str, int *i, int index, t_lexer *lexer);
+int		end_of_dollar(char **str, t_lexer *lexer, int *index);
+int		end_of_dollar_in_quotes(char **str, t_lexer *lexer, int *index, int *i);
 void	go_until_end_of_var(t_lexer *lexer, int *i);
 
 //var.c

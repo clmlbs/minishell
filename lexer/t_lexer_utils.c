@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:43:04 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/14 15:24:22 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 11:09:53 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ char	*ft_add_char_to_str(char *str, char c)
 	unique_char[0] = c;
 	unique_char[1] = '\0';
 	new = ms_strjoin(str, unique_char);
+	if (str)
+		free(str);
 	if (!new)
 		return (NULL);
-	free(str);
 	return (new);
 }
 
