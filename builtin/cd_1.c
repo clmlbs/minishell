@@ -46,13 +46,13 @@ int	add_or_update_var_in_env(char *var_str)
 		{
 			if (add_var_to_env(var_str) == FAILURE)
 			{
-				free(var); // leaks
+				free(var);
 				return (FAILURE);
 			}
 		}
 		j = 0;
 	}
-	free(var);//leaks
+	free(var);
 	return (SUCCESS);
 }
 

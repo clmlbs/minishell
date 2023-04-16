@@ -6,28 +6,11 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:44:20 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 16:00:10 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:11:45 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*put_to_lower(char *str)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	new = ft_strdup(str);
-	if (!new)
-		return (NULL);
-	while (new[i])
-	{
-		new[i] = ft_tolower(new[i]);
-		i++;
-	}
-	return (new);
-}
 
 int	is_builtin(t_cmd *cmd)
 {
@@ -54,108 +37,6 @@ int	is_builtin(t_cmd *cmd)
 		result = TRUE;
 	free(str);
 	return (result);
-}
-
-void	execute_env(t_cmd *cmd)
-{
-	int	i;
-
-	i = 0;
-	if (cmd->wd[1])
-	{
-		write_error("Minishell: ", "error: env should be executed ",\
-		"without option nor argument\n");
-		exit(2);
-	}
-	else
-	{
-		while (g_all.env[i])
-		{
-			if (ft_strchr(g_all.env[i], '=') != NULL)
-			{
-				if (ft_strncmp("PWD_TO_SUPPR=", g_all.env[i], 13))
-				{
-					ft_putstr_fd(g_all.env[i], cmd->fd_outfile);
-					ft_putstr_fd("\n", cmd->fd_outfile);
-				}
-			}
-			i++;
-		}
-		exit(SUCCESS);
-	}
-}
-
-void	execute_pwd(t_cmd *cmd)
-{
-	char	cwd[1024];
-	char	*str;
-
-	str = NULL;
-	if (cmd->wd[1] && cmd->wd[1][0] == '-')
-	{
-		write_error("Minishell: ", "error: pwd should be executed ",\
-		"without option\n");
-		exit(2);
-	}
-	getcwd(cwd, 1024);
-	if (!cwd[0])
-	{
-		str = create_var_value("PWD");
-		if (!str)
-		{
-			str = create_var_value("PWD_TO_SUPPR");
-			if (!str)
-			{
-				perror("Minishell");
-				exit(FAILURE);
-			}
-		}
-		ft_putstr_fd(str, cmd->fd_outfile);
-		ft_putstr_fd("\n",cmd->fd_outfile);
-		if (str)
-			free(str);
-		exit(SUCCESS);
-	}
-	ft_putstr_fd(cwd, cmd->fd_outfile);
-	ft_putstr_fd("\n",cmd->fd_outfile);
-	exit(SUCCESS);
-}
-
-void	execute_echo(t_cmd *cmd, int i)
-{
-	int	j;
-	
-	if (cmd->wd[1] == NULL)
-	{
-		ft_putstr_fd("\n", cmd->fd_outfile);
-		exit(SUCCESS);
-	}
-	if (ms_strlen(cmd->wd[1]) >= 2 && !ft_strncmp("-n", cmd->wd[1], 2))
-	{
-		i++;
-		if (!cmd->wd[2])
-				exit(SUCCESS) ;
-		while (cmd->wd[i] && ms_strlen(cmd->wd[i]) >= 2 && !ft_strncmp("-n", cmd->wd[i], 2))
-		{
-			j = 2;
-			while (cmd->wd[i][j] == 'n')
-				j++;
-			if (ms_strlen(cmd->wd[i]) == j)
-				i++;
-			else
-				break ;
-		}
-	}
-	while (cmd->wd[i + 1])
-	{
-		ft_putstr_fd(cmd->wd[i], cmd->fd_outfile);
-		ft_putstr_fd(" ", cmd->fd_outfile);
-		i++;
-	}
-	ft_putstr_fd(cmd->wd[i], cmd->fd_outfile);
-	if (!(ms_strlen(cmd->wd[1]) >= 2 && !ft_strncmp("-n", cmd->wd[1], 2)))
-		ft_putstr_fd("\n", cmd->fd_outfile);
-	exit(SUCCESS);
 }
 
 int	send_env_to_father(char **env, int *fd)

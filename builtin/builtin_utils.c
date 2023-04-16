@@ -6,11 +6,28 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:56:13 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 15:17:21 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:06:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*put_to_lower(char *str)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = ft_strdup(str);
+	if (!new)
+		return (NULL);
+	while (new[i])
+	{
+		new[i] = ft_tolower(new[i]);
+		i++;
+	}
+	return (new);
+}
 
 size_t	var_name_len(char *str)
 {
