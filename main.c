@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:24:37 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/17 11:14:24 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/17 12:58:35 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	prompt(void)
 	char		*input;
 	int			line_ok;
 
-	//system("leaks minishell"); //********
 	echo_ctl(0);
 	signal(SIGINT, signal_handle);
 	signal(SIGQUIT, signal_handle);
@@ -92,17 +91,13 @@ int	main(int ac, char **av, char **env)
 	init_global(ac, av, env);
 	if (pipe(g_all.herit) < 0)
 		return (perror_fail("Minishell: pipe()"));
-	printf("1er pid:%d\n", getpid());//****** A SUPPRIMER
 	while (1)
 	{
-		if (prompt() == FAILURE) // verif que pas de double free
+		if (prompt() == FAILURE)
 			break ;
 	}
 	free_everything();
 	close(g_all.fd_stdin);
 	close(g_all.fd_stdout);
-	//system("leaks minishell"); //********
-	//free les trucs de la globale 
-	// close herit + size
 	return (0);
 }

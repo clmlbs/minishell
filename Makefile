@@ -6,7 +6,7 @@
 #    By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 08:01:18 by cleblais          #+#    #+#              #
-#    Updated: 2023/04/17 11:14:10 by cleblais         ###   ########.fr        #
+#    Updated: 2023/04/17 11:20:04 by cleblais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ OBJS		= 		$(SRCS:.c=.o)
 
 CC			=		gcc
 
-CFLAGS		=		-Wall -Wextra -Werror -g -lreadline -fsanitize=address
+CFLAGS		=		-Wall -Wextra -Werror -g -lreadline #-fsanitize=address
 
 RM			= 		rm -f
 
