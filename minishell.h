@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:29:41 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 22:56:41 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/16 22:58:38 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,6 +412,6 @@ void	ft_waitpid(void);
 //=========== MAIN =============
 int		check_line(char *input);
 void	minishell(char *input);
-int		launch_minishell(void);
+int		prompt(void);
 int		main(int arc, char **arv, char **env);
 #endif

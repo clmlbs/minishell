@@ -6,7 +6,7 @@
 /*   By: cleblais <cleblais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 21:08:01 by cleblais          #+#    #+#             */
-/*   Updated: 2023/04/16 21:17:10 by cleblais         ###   ########.fr       */
+/*   Updated: 2023/04/17 11:17:50 by cleblais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	remove_spaces(void)
 	buf = g_all.lexer;
 	while (buf)
 	{
-		if (buf->id == WHITESPACE || buf->id == BACKSLASH_N)
+		if (!(buf->prev == NULL && buf->next == NULL) \
+			&& (buf->id == WHITESPACE || buf->id == BACKSLASH_N))
 		{
 			remove_token(buf);
 			buf = g_all.lexer;
